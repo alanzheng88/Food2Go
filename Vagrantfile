@@ -1,6 +1,33 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+
+$rootScript = <<SCRIPT
+  function checkCommand {
+    $command = $1
+    echo 
+  }
+  # Install Java
+  if ! command -v java >/dev/null 2>&1; then
+    apt-get install -y software-properties-common python-software-properties
+    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+    add-apt-repository ppa:webupd8team/java -y
+    apt-get update
+    apt-get install oracle-java8-installer
+    echo "Setting environment variables for Java 8.."
+    apt-get install -y oracle-java8-set-default
+  fi
+
+  if ! command -v play >/dev/null 2>&1; then
+    apt-get install unzip
+    wget -q https://downloads.typesafe.com/play/1.4.3/play-1.4.3.zip
+    unzip play-1.4.3.zip -d /opt/
+    echo 'export PATH=$PATH:/opt/play-1.4.3/' >> /home/ubuntu/.bashrc
+    rm -rf play-*.zip
+  fi
+SCRIPT
+
+
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -57,4 +84,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "baseconfig"
   end
 
+  config.vm.provision "shell", inline: $rootScript
 end
