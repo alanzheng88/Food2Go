@@ -3,10 +3,7 @@
 
 
 $rootScript = <<SCRIPT
-  function checkCommand {
-    $command = $1
-    echo 
-  }
+
   # Install Java
   if ! command -v java >/dev/null 2>&1; then
     apt-get install -y software-properties-common python-software-properties
@@ -18,13 +15,6 @@ $rootScript = <<SCRIPT
     apt-get install -y oracle-java8-set-default
   fi
 
-  if ! command -v play >/dev/null 2>&1; then
-    apt-get install unzip
-    wget -q https://downloads.typesafe.com/play/1.4.3/play-1.4.3.zip
-    unzip play-1.4.3.zip -d /opt/
-    echo 'export PATH=$PATH:/opt/play-1.4.3/' >> /home/ubuntu/.bashrc
-    rm -rf play-*.zip
-  fi
 SCRIPT
 
 
@@ -51,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If you need to more than double the defaults for this course, you have
   # done something wrong.
   cpus = "1"
-  memory = "512" # MB
+  memory = "2048" # MB
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", cpus, "--memory", memory]
     vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"] # speed up boot https://bugs.launchpad.net/cloud-images/+bug/1627844
@@ -76,6 +66,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     cloudstack.security_group_names = ['CMPT 470 firewall']
   end
 
+  config.vm.provision "shell", inline: $rootScript
+
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
@@ -84,5 +76,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "baseconfig"
   end
 
-  config.vm.provision "shell", inline: $rootScript
 end
