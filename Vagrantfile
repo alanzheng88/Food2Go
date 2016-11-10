@@ -37,13 +37,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 10000, host: 10000
+
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./", "/home/ubuntu/project"
+  
+  # config.vm.synced_folder "./", "/home/ubuntu/project"
+  config.vm.synced_folder ".", "/home/ubuntu/project", type: "rsync", rsync__auto: true, rsync__exclude: ".git/"
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
@@ -51,7 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If you need to more than double the defaults for this course, you have
   # done something wrong.
   cpus = "1"
-  memory = "512" # MB
+  memory = "1024" # MB
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", cpus, "--memory", memory]
     vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"] # speed up boot https://bugs.launchpad.net/cloud-images/+bug/1627844
@@ -84,5 +87,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "baseconfig"
   end
 
+
   config.vm.provision "shell", inline: $rootScript
+  config.vm.provision "shell", inline: "cd project/frontend/;screen -d -m npm run dev", run: "always", privileged: false
 end
