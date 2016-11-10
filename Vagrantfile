@@ -29,12 +29,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 9000, host: 9000
+  config.vm.network "forwarded_port", guest: 10000, host: 10000
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./", "/home/ubuntu/project"
+  
+  # config.vm.synced_folder "./", "/home/ubuntu/project"
+  config.vm.synced_folder ".", "/home/ubuntu/project", type: "rsync", rsync__auto: true, rsync__exclude: ".git/"
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
@@ -77,4 +80,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "baseconfig"
   end
 
+  config.vm.provision "shell", inline: $rootScript
+  config.vm.provision "shell", inline: "cd project/frontend/;screen -d -m npm run dev", run: "always", privileged: false
 end
