@@ -19,4 +19,4 @@ fi
 # set PATH so it includes user's private bin directories
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
-PATH="/home/downloads/activator-dist-1.3.12/bin:$PATH"
+PATH="/home/downloads/play-1.4.3:$PATH"

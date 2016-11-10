@@ -21,17 +21,13 @@ package "unzip"
 directory "/home/downloads" do
   action :create
 end
-cookbook_file "activator-dist-1.3.12.zip" do
-  path "/home/downloads/activator-dist-1.3.12.zip"
+cookbook_file "play-1.4.3.zip" do
+  path "/home/downloads/play-1.4.3.zip"
 end
-execute "play2-unzip" do
+execute "play1-unzip" do
   cwd "/home/downloads"
-  command "unzip activator-dist-1.3.12.zip"
-  not_if { ::File.directory?("/home/downloads/activator-dist-1.3.12") }
-end
-execute "chown-activator" do
-  command "chown -R ubuntu:ubuntu /home/downloads/activator-dist-1.3.12"
-  user "root"
+  command "unzip play-1.4.3.zip"
+  not_if { ::File.directory?("/home/downloads/play-1.4.3") }
 end
 
 # environment paths
