@@ -38,6 +38,21 @@ execute "play1-unzip" do
   not_if { ::File.directory?("/home/downloads/play-1.4.3") }
 end
 
+# Frontend webserver setup
+package "nginx"
+cookbook_file "nginx-default" do
+  path "/etc/nginx/sites-available/default"
+end
+execute "nginx_reload" do
+  command "nginx -s reload"
+end
+
+# Database setup
+package "postgresql"
+execute "postgresql_setup" do
+  command 'echo "CREATE DATABASE foodexpress; CREATE USER ubuntu WITH PASSWORD \'password\'; GRANT ALL PRIVILEGES ON DATABASE foodexpress TO ubuntu; " | sudo -u postgres psql'
+end
+
 # environment paths
 cookbook_file ".profile" do
   path "/home/ubuntu/.profile"
