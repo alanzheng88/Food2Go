@@ -6,11 +6,11 @@ execute 'apt_update' do
   command 'apt-get update'
 end
 
-execute 'apt_get npm' do
+execute 'apt_get_npm' do
   command 'apt-get install -y npm'
 end
 
-execute 'link nodejs to node binary' do
+execute 'link_nodejs_to_node_binary' do
   command 'ln -sf /usr/bin/nodejs /usr/bin/node'
 end
 
@@ -53,10 +53,22 @@ execute "postgresql_setup" do
   command 'echo "CREATE DATABASE foodexpress; CREATE USER ubuntu WITH PASSWORD \'password\'; GRANT ALL PRIVILEGES ON DATABASE foodexpress TO ubuntu; " | sudo -u postgres psql'
 end
 
-# environment paths
-cookbook_file ".profile" do
-  path "/home/ubuntu/.profile"
+ruby_block "set_play_path" do
+  block do
+    file = Chef::Util::FileEdit.new('/home/ubuntu/.profile')
+    match = "play-1.4.3"
+    line = 'PATH="/home/downloads/#{match}:$PATH"'
+    file.insert_line_if_no_match(match, line)
+    file.write_file
+  end
 end
-cookbook_file ".bashrc" do
-  path "/home/ubuntu/.bashrc"
+
+ruby_block "set_default_login_dir" do
+  block do
+    file = Chef::Util::FileEdit.new('/home/ubuntu/.bashrc')
+    match = "/home/ubuntu/project"
+    line = "cd #{match}"
+    file.insert_line_if_no_match(match, line)
+    file.write_file
+  end
 end
