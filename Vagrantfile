@@ -3,10 +3,7 @@
 
 
 $rootScript = <<SCRIPT
-  function checkCommand {
-    $command = $1
-    echo 
-  }
+
   # Install Java
   if ! command -v java >/dev/null 2>&1; then
     apt-get install -y software-properties-common python-software-properties
@@ -15,16 +12,9 @@ $rootScript = <<SCRIPT
     apt-get update
     apt-get install oracle-java8-installer
     echo "Setting environment variables for Java 8.."
-    apt-get install -y oracle-java8-set-default
+    apt-get install -y oracle-java8-set-default --allow-unauthenticated
   fi
 
-  if ! command -v play >/dev/null 2>&1; then
-    apt-get install unzip
-    wget -q https://downloads.typesafe.com/play/1.4.3/play-1.4.3.zip
-    unzip play-1.4.3.zip -d /opt/
-    echo 'export PATH=$PATH:/opt/play-1.4.3/' >> /home/ubuntu/.bashrc
-    rm -rf play-*.zip
-  fi
 SCRIPT
 
 
@@ -36,9 +26,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # accessing "localhost:11000" will access port 80 on the guest machine.
+  config.vm.network "forwarded_port", guest: 80, host: 11000
+  config.vm.network "forwarded_port", guest: 9000, host: 9000
   config.vm.network "forwarded_port", guest: 10000, host: 10000
-  config.vm.network "forwarded_port", guest: 80, host: 8080
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -54,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If you need to more than double the defaults for this course, you have
   # done something wrong.
   cpus = "1"
-  memory = "512" # MB
+  memory = "1024" # MB
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", cpus, "--memory", memory]
     vb.customize ["modifyvm", :id, "--uartmode1", "disconnected"] # speed up boot https://bugs.launchpad.net/cloud-images/+bug/1627844
@@ -79,6 +70,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     cloudstack.security_group_names = ['CMPT 470 firewall']
   end
 
+  config.vm.provision "shell", inline: $rootScript
+
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
@@ -87,7 +80,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "baseconfig"
   end
 
-
   config.vm.provision "shell", inline: $rootScript
   config.vm.provision "shell", inline: "cd project/frontend/;screen -d -m npm run dev", run: "always", privileged: false
+  config.vm.provision "shell", inline: "cd project/api/;screen -d -m play run", run: "always", privileged: false
 end
