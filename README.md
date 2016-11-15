@@ -1,8 +1,8 @@
-# SFU FoodExpress
+# SFU Food2Go
 
 Usage Instructions:
 1. Call "vagrant up"
-2. Go to localhost:8000
+2. Go to localhost:11000
 
 # Procedure for instantly viewing your reactjs code changes from localhost:10000
 1. fork the newest version of alan's final project to your repo
