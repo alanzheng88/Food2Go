@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-vagrant up
+vagrant up --provision
 echo "Starting rsync"
 vagrant rsync-auto
