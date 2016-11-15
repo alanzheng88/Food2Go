@@ -6,7 +6,8 @@ Usage Instructions:
 
 # Setting up development environment (MAC-OS)
 1. Run the script "dev-environment-startup.sh" found in the root of the repository
-2. Nginx will be accessible at localhost:11000
+2. Nginx is accessible at localhost:11000
+3. Backend server is accessible at localhost:9000
 
 # Procedure for instantly viewing your ReactJs code changes from localhost:10000
 1. fork the newest version of alan's final project to your repo
