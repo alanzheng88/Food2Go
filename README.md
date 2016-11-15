@@ -4,7 +4,7 @@ Usage Instructions:
 1. Call "vagrant up"
 2. Go to localhost:11000
 
-# Procedure for instantly viewing your reactjs code changes from localhost:10000
+# Procedure for instantly viewing your ReactJs code changes from localhost:10000
 1. fork the newest version of alan's final project to your repo
 2. go to the parent folder and do vagrant up
 3. wait for it to install
