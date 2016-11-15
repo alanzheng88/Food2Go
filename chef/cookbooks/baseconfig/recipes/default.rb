@@ -50,15 +50,14 @@ end
 # Database setup
 package "postgresql"
 execute "postgresql_setup" do
-  command 'echo "CREATE DATABASE foodexpress; CREATE USER ubuntu WITH PASSWORD \'password\'; GRANT ALL PRIVILEGES ON DATABASE foodexpress TO ubuntu; " | sudo -u postgres psql'
+  command 'echo "CREATE DATABASE food2go; CREATE USER ubuntu WITH PASSWORD \'password\'; GRANT ALL PRIVILEGES ON DATABASE food2go TO ubuntu; " | sudo -u postgres psql'
 end
 
 ruby_block "set_play_path" do
   block do
     file = Chef::Util::FileEdit.new('/home/ubuntu/.profile')
-    match = "play-1.4.3"
-    line = 'PATH="/home/downloads/#{match}:$PATH"'
-    file.insert_line_if_no_match(match, line)
+    line = 'PATH="/home/downloads/play-1.4.3:$PATH"'
+    file.insert_line_if_no_match("play-1.4.3", line)
     file.write_file
   end
 end
@@ -66,9 +65,8 @@ end
 ruby_block "set_default_login_dir" do
   block do
     file = Chef::Util::FileEdit.new('/home/ubuntu/.bashrc')
-    match = "/home/ubuntu/project"
-    line = "cd #{match}"
-    file.insert_line_if_no_match(match, line)
+    line = "cd /home/ubuntu/project"
+    file.insert_line_if_no_match("/home/ubuntu/project", line)
     file.write_file
   end
 end

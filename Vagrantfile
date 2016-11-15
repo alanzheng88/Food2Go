@@ -12,7 +12,7 @@ $rootScript = <<SCRIPT
     apt-get update
     apt-get install oracle-java8-installer
     echo "Setting environment variables for Java 8.."
-    apt-get install -y oracle-java8-set-default
+    apt-get install -y oracle-java8-set-default --allow-unauthenticated
   fi
 
 SCRIPT
