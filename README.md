@@ -18,3 +18,4 @@ Usage Instructions:
 - Backend: Play 1 Framework
 - FrontEnd: ReactJs
 - Webserver: Nginx
+- CI: TeamCity
