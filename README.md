@@ -4,6 +4,9 @@ Usage Instructions:
 1. Call "vagrant up"
 2. Go to localhost:11000
 
+# Setting up development environment (MAC-OS)
+1. Run the script dev-environment-startup.sh found in the root of the repository
+
 # Procedure for instantly viewing your ReactJs code changes from localhost:10000
 1. fork the newest version of alan's final project to your repo
 2. go to the parent folder and do vagrant up
