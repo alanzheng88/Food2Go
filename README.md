@@ -14,7 +14,7 @@ Usage Instructions:
 2. Go to the parent folder and do vagrant up
 3. wait for it to install
 4. Run "vagrant rsync-auto" to let vagrant watch your file changes
-5. Make any changes to your ReactJs code
+5. Make changes to your ReactJs code
 6. localhost:10000 should refresh in a second
 
 # Technical Details
