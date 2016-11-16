@@ -10,8 +10,8 @@ Usage Instructions:
 3. Backend server is accessible at localhost:9000
 
 # Procedure for instantly viewing your ReactJs code changes from localhost:10000
-1. fork the newest version of alan's final project to your repo
-2. go to the parent folder and do vagrant up
+1. Fork the newest version of alan's final project to your repo
+2. Go to the parent folder and do vagrant up
 3. wait for it to install
 4. Run "vagrant rsync-auto" to let vagrant watch your file changes
 5. Make any changes to your ReactJs code
