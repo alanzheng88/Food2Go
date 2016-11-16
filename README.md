@@ -4,11 +4,6 @@ Usage Instructions:
 1. Call "vagrant up"
 2. Go to localhost:11000
 
-# Setting up development environment (MAC-OS)
-1. Run the script "dev-environment-startup.sh" found in the root of the repository
-2. Frontend url routed through Nginx is accessible at localhost:11000
-3. Backend server is accessible at localhost:9000
-
 # Procedure for instantly viewing your ReactJs code changes from localhost:10000
 1. Fork the newest version of alan's final project to your repo
 2. Go to the parent folder and do vagrant up
