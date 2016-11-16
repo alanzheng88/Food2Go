@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import $ from "jquery";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
+import Validation from 'react-validation';
+import "./components/extend";
 
 import Layout from "./pages/Layout";
 import Food2Go from "./pages/Food2Go";
