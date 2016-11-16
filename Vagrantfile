@@ -81,6 +81,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", inline: $rootScript
-  config.vm.provision "shell", inline: "cd project/frontend/;screen -d -m npm run dev", run: "always", privileged: false
+  config.vm.provision "shell", inline: "cd project/frontend/;npm install;screen -d -m npm run dev", run: "always", privileged: false
   config.vm.provision "shell", inline: "cd project/api/;screen -d -m play run", run: "always", privileged: false
 end
