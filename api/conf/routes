@@ -6,8 +6,8 @@
 GET     /                                       Application.index
 
 # Users
-GET     api/users                               UserController.getUsers
-POST    api/register                            UserController.createUser
+GET     /api/users                               UserController.getUsers
+POST    /api/register                            UserController.createUser
 
 
 # Ignore favicon requests
