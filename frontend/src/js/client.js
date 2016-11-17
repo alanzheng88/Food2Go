@@ -5,13 +5,13 @@ import { Router, Route, IndexRoute, hashHistory } from "react-router";
 import Validation from 'react-validation';
 import "./components/extend";
 
-import Layout from "./pages/Layout";
-import Food2Go from "./pages/Food2Go";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import UserInfo from "./pages/UserInfo";
-import Restaurants from "./pages/Restaurants";
-import ShoppingCart from "./pages/ShoppingCart";
+import Layout from "./pages/layout";
+import Food2Go from "./pages/food2Go";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import UserInfo from "./pages/userInfo";
+import Restaurants from "./pages/restaurants";
+import ShoppingCart from "./pages/shoppingCart";
 
 
 
