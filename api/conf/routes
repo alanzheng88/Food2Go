@@ -5,6 +5,11 @@
 # Home page
 GET     /                                       Application.index
 
+# Users
+GET     /users                                  UserController.getUsers
+POST    /register                               UserController.createUser
+
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
