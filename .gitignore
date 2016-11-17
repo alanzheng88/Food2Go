@@ -9,3 +9,5 @@ log/*
 .bundle
 frontend/node_modules/*
 **/.DS_Store
+
+api/tmp/*

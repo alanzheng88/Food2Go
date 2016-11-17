@@ -17,6 +17,13 @@ $rootScript = <<SCRIPT
 
 SCRIPT
 
+$playScript = <<SCRIPT
+
+  echo "current environment: $1"
+  cd project/api/
+  screen -d -m play run --%$1
+
+SCRIPT
 
 VAGRANTFILE_API_VERSION = "2"
 
@@ -81,5 +88,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "shell", inline: $rootScript
   config.vm.provision "shell", inline: "cd project/frontend/;npm install;screen -d -m npm run dev", run: "always", privileged: false
-  config.vm.provision "shell", inline: "cd project/api/;screen -d -m play run", run: "always", privileged: false
+  config.vm.provision "shell", inline: $playScript, args: "#{ENV['APP_ENV']}", run: "always", privileged: false
 end
