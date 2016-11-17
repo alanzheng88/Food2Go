@@ -7,11 +7,9 @@ import models.*;
 public class ApplicationTest extends FunctionalTest {
 
     @Test
-    public void testThatIndexPageWorks() {
+    public void testActiveApiPage() {
         Response response = GET("/");
         assertIsOk(response);
-        assertContentType("text/html", response);
-        assertCharset(play.Play.defaultWebEncoding, response);
     }
     
 }
