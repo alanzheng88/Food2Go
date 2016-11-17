@@ -8,13 +8,13 @@ export default class Register extends React.Component {
 		  this.onSubmit = this.onSubmit.bind(this);
 	}    
 	onSubmit(e){
-		  alert('Account Created!');
+		  //alert('Account Created!');
 		  e.preventDefault();
 		  console.log(this.refs);
 
 		  var data = {
-		    firstname: this.refs.firstname.state.value.trim(),
-		    lastname: this.refs.lastname.state.value.trim(),
+		    firstName: this.refs.firstName.state.value.trim(),
+		    lastName: this.refs.lastName.state.value.trim(),
 		    email: this.refs.email.state.value.trim(),
 		    password: this.refs.password.state.value.trim(),
 		    role: this.refs.role.state.value
@@ -40,13 +40,13 @@ export default class Register extends React.Component {
             <div>
 	            <label>
 	                First Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' ref='firstname' name='firstname' validations={['required', 'alpha']}/>
+	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' ref='firstName' name='firstName' validations={['required', 'alpha']}/>
 	            </label>
             </div>
             <div>
 	            <label>
 	                Last Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' ref='lastname' name='lastname' validations={['required', 'alpha']}/>
+	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' ref='lastName' name='lastName' validations={['required', 'alpha']}/>
 	            </label>
 			</div>
             <div>
