@@ -1,32 +1,33 @@
 import React from 'react';
 import Validation from 'react-validation';
+import $ from "jquery";
 
 export default class Register extends React.Component {
-	onSubmit = function (e){
+	constructor(props) {
+		  super(props);
+		  this.onSubmit = this.onSubmit.bind(this);
+	}    
+	onSubmit(e){
 		  alert('Account Created!');
-		  var self
-
-		  e.preventDefault()
-		  self = this
-
-		  console.log(this.state);
+		  e.preventDefault();
+		  console.log(this.refs);
 
 		  var data = {
-		    firstname: this.state.firstname,
-		    lastname: this.state.lastname,
-		    email: this.state.email,
-		    password: this.state.password,
-		    role: this.state.role
+		    firstname: this.refs.firstname.state.value.trim(),
+		    lastname: this.refs.lastname.state.value.trim(),
+		    email: this.refs.email.state.value.trim(),
+		    password: this.refs.password.state.value.trim(),
+		    role: this.refs.role.state.value
 		  }
 
 		  // Submit form via jQuery/AJAX
 		  $.ajax({
 		    type: 'POST',
 		    url: '/api/register',
-		    data: data
+		    data: JSON.stringify(data)
 		  })
 		  .done(function(data) {
-		    self.clearForm()
+		    this.clearForm()
 		  })
 		  .fail(function(jqXhr) {
 		    console.log('failed to register');
@@ -34,30 +35,30 @@ export default class Register extends React.Component {
 
 		}
 	render() {
-		return <Validation.components.Form onSubmit={this.onSubmit}>
+		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
             <h3>Registration</h3>
             <div>
 	            <label>
 	                First Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' name='firstname' validations={['required', 'alpha']}/>
+	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' ref='firstname' name='firstname' validations={['required', 'alpha']}/>
 	            </label>
             </div>
             <div>
 	            <label>
 	                Last Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' name='lastname' validations={['required', 'alpha']}/>
+	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value='' ref='lastname' name='lastname' validations={['required', 'alpha']}/>
 	            </label>
 			</div>
             <div>
                 <label>
                     Email*
-                    <Validation.components.Input value='email@email.com' name='email' validations={['required', 'email']}/>
+                    <Validation.components.Input value='email@email.com' ref='email' name='email' validations={['required', 'email']}/>
                 </label>
             </div>
             <div>
                 <label>
                     Password*
-                    <Validation.components.Input type='password' value='' name='password' validations={['required']}/>
+                    <Validation.components.Input type='password' value='' ref='password' name='password' validations={['required']}/>
                 </label>
             </div>
             <div>
@@ -69,7 +70,7 @@ export default class Register extends React.Component {
             <div>
 	            <label>
 	                Role*
-	                <Validation.components.Select errorClassName='is-invalid-input' name='role' value='' validations={['required']}>
+	                <Validation.components.Select errorClassName='is-invalid-input' ref='role' name='role' value='' validations={['required']}>
 	                    <option value=''>Choose Your Account Type</option>
 	                    <option value='customer'>Customer</option>
 	                    <option value='restaurant_owner'>Restaurant Owner</option>
