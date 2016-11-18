@@ -17,24 +17,26 @@ import Points from "./pages/points";
 import Coupons from "./pages/coupons";
 import Invite from "./pages/invite";
 import Settings from "./pages/settings";
+import NoMatch from "./pages/noMatch";
 
 
 const app = document.getElementById('app');
 
-ReactDOM.render(
+ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={Layout}>
       <IndexRoute component={Food2Go}></IndexRoute>
-      <Route path="restaurants" name="restaurants" component={Restaurants}></Route>
-      <Route path="account" name="account" component={Account}></Route>
-      <Route path="login" name="login" component={Login}></Route>
-      <Route path="register" name="register" component={Register}></Route>
-      <Route path="shoppingCart" name="shoppingCart" component={ShoppingCart}></Route>
-	  <Route path="orders" name="orders" component={Orders}></Route>
-	  <Route path="points" name="points" component={Points}></Route>
-	  <Route path="coupons" name="coupons" component={Coupons}></Route>
-	  <Route path="invite" name="invite" component={Invite}></Route>
-	  <Route path="settings" name="settings" component={Settings}></Route>
+      <Route path="restaurants" component={Restaurants}/>
+      <Route path="account" component={Account}/>
+      <Route path="login" component={Login}/>
+      <Route path="register" component={Register}/>
+      <Route path="shoppingCart" component={ShoppingCart}/>
+	  <Route path="orders" component={Orders}/>
+	  <Route path="points" component={Points}/>
+	  <Route path="coupons" component={Coupons}/>
+	  <Route path="invite" component={Invite}/>
+	  <Route path="settings" component={Settings}/>
+	  <Route path="/*" component={NoMatch}/>
     </Route> 
-  </Router>,
-app);
+  </Router>
+  ), app)
