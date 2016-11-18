@@ -13,19 +13,19 @@ public class Application extends Controller {
         render();
     }
 	
-	public static void getRestaurants(){
-	    List<Restaurant> restaurantList = Restaurant.find("order by name").fetch();
+    public static void getRestaurants(){
+        List<Restaurant> restaurantList = Restaurant.find("order by name").fetch();
         renderJSON(restaurantList);
-	}
+    }
 	
-	public static void createRestaurant(@Required String name, @Required String owner, @Required String phoneNumber, String address){
+    public static void createRestaurant(@Required String name, @Required String owner, @Required String phoneNumber, String address){
         if (validation.hasErrors()) {
-    	    flash.error("All fields with * are required!");
+            flash.error("All fields with * are required!");
         }
         addRestaurant(name, owner, phoneNumber, address);
     }
 	
-	public static void editRestaurant(Long restaurantId, @Required String name, 
+    public static void editRestaurant(Long restaurantId, @Required String name, 
         @Required String owner, @Required String phoneNumber, String address){
         Restaurant restaurant = Restaurant.findById(restaurantId);
         if (validation.hasErrors()) {
@@ -41,5 +41,5 @@ public class Application extends Controller {
         Restaurant newRestaurant = new Restaurant(name, owner, phoneNumber, address).save();
         flash.success("New Restaurant Added!");
         getRestaurants();
-	}
+    }
 }
