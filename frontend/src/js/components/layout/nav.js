@@ -58,7 +58,7 @@ export default class Nav extends React.Component {
                 <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
               </li>
               <NavDropdown  activeClassName="active" title="User">
-                <MenuItem href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
+                <MenuItem href="#Account" onClick={this.toggleCollapse.bind(this)}>Account Info </MenuItem>
                 <MenuItem href="#Login" onClick={this.toggleCollapse.bind(this)}>Login </MenuItem>
                 <MenuItem href="#Register" onClick={this.toggleCollapse.bind(this)}>Register </MenuItem>
               </NavDropdown>
