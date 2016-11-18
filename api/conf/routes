@@ -8,8 +8,8 @@ GET		/restaurants							Application.showRestaurants
 GET		/restaurant/{id}						Application.showRestaurant
 
 # Users
-GET     /api/users                               UserController.getUsers
-POST    /api/register                            UserController.createUser
+GET     /api/users                              UserController.getUsers
+POST    /api/users/register                     UserController.createUser
 
 
 # Ignore favicon requests
