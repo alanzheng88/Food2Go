@@ -1,20 +1,21 @@
 package controllers;
 
 import play.*;
+
 import play.mvc.*;
 
 import java.util.*;
 
 import models.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
 
 public class RestaurantController extends AppController {
-
-    public static void index() {
-        render();
-    }
 	
     public static void getRestaurants(){
         List<Restaurant> restaurantList = Restaurant.find("order by name").fetch();
+		String restaurantJson = gson.toJson(restaurantList);
         renderJSON(restaurantList);
     }
 	
@@ -38,7 +39,7 @@ public class RestaurantController extends AppController {
             flash.error("All fields with * are required!");
             renderJSON(restaurant);
         }
-        Restaurant.updateRestaurant(name, owner, phoneNumber, address);
+        //Restaurant.updateRestaurant(name, owner, phoneNumber, address);
         flash.success("Restaurant has been updated!");
         renderJSON(restaurant);
     }

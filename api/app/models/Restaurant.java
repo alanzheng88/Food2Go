@@ -7,6 +7,7 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
+@Table(name = "AppRestaurant")
 public class Restaurant extends Model {
  
     @Required
@@ -14,8 +15,7 @@ public class Restaurant extends Model {
     @Required
     public String owner;
     @Required
-    public String phoneNumber;
-	
+    public String phoneNumber;	
     @Lob
     public String address;
     

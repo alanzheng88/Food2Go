@@ -1,0 +1,13 @@
+# Test Data
+
+Restaurant(Koto):
+    name:           Koto
+    owner:          Hideyo Konima
+    phoneNumber:    604-123-1234
+    address:        7467 Granville Street, Vancouver BC
+
+Restaurant(Al Porto):
+    name:           Al Porto
+    owner:          Mariam Dante
+    phoneNumber:    604-987-9876
+    address:        300 Main Street, Vancouver BC
