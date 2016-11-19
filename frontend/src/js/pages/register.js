@@ -23,7 +23,7 @@ export default class Register extends React.Component {
 		  // Submit form via jQuery/AJAX
 		  $.ajax({
 		    type: 'POST',
-		    url: 'http://localhost:9000/api/register',
+		    url: 'http://localhost:9000/api/users/register',
 		    data: JSON.stringify(data)
 		  })
 		  .done(function(data) {

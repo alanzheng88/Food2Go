@@ -1,5 +1,6 @@
 .vagrant
 
+frontend/.project
 *.pyc
 *.sqlite3
 
