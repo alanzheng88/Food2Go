@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
 
-public class AuthenticationController extends AppController {
+public class Authentication extends AppController {
 
     public static void createSession() {
         
