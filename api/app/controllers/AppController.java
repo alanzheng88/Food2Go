@@ -13,8 +13,11 @@ import com.google.gson.JsonSerializer;
 
 public class AppController extends Controller {
 
+    protected static Gson gson = new Gson();
+    
     @Before
     public static void setDefaultHeaders() {
-        response.accessControl("*");
+        response.accessControl("http://localhost:11000", "GET,POST,PUT,DELETE", true);
     }
+
 }

@@ -11,11 +11,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
 
-public class UserController extends Controller {
+public class UserController extends AppController {
 
     public static void getUsers() {
         List<User> userList = User.find("order by firstname asc").fetch();
-        Gson gson = new Gson();
         String userJson = gson.toJson(userList);
         renderJSON(userJson);
     }
@@ -25,7 +24,6 @@ public class UserController extends Controller {
         // params.get("body") => String
 
         String body = params.get("body");
-        Gson gson = new Gson();
         User newUser = gson.fromJson(body, User.class);
         System.out.println(newUser);
         newUser.save();
