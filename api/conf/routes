@@ -3,14 +3,21 @@
 # ~~~~
 
 # Home page
-GET       /api/restaurants                  Application.getRestaurants
-GET       /api/restaurant/{id}              Application.getRestaurant
-POST      /api/restaurants/register         Application.createRestaurant
+GET     /                                       Application.index
+
+# Authentication
+POST    /api/authenticate                       Authentication.createSession                       
+DELETE  /api/authenticate                       Authentication.deleteSession
 
 # Users
-GET     /api/users                               UserController.getUsers
-POST    /api/register                            UserController.createUser
+GET     /api/users                              UserController.getUsers
+GET     /api/user/{id}                          UserController.getUser
+POST    /api/user                               UserController.createUser
 
+#Restaurants
+GET     /api/restaurants                        Application.getRestaurants
+GET     /api/restaurant/{id}                    Application.getRestaurant
+POST    /api/restaurants/register               Application.createRestaurant
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
