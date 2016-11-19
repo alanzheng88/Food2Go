@@ -11,7 +11,7 @@ DELETE  /api/authenticate                       Authentication.deleteSession
 
 # Users
 GET     /api/users                              UserController.getUsers
-GET     /api/user/#{id}                         UserController.getUser
+GET     /api/user/{id}                          UserController.getUser
 POST    /api/user                               UserController.createUser
 
 
