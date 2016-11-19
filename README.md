@@ -23,6 +23,14 @@ Usage Instructions:
 1. click on a few links
 2. press the back button (notice that the url does not change)
 
+### login
+1. Click on User dropdown button
+2. Click on Login button
+3. Enter user name and password
+4. Click Submit button
+5. A post request is send with username, password and sessionid (check network)
+6. Server response to be implemented
+
 # Technical Details
 
 - Database: Postgresql
