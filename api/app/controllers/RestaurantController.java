@@ -7,7 +7,7 @@ import java.util.*;
 
 import models.*;
 
-public class Application extends Controller {
+public class RestaurantController extends AppController {
 
     public static void index() {
         render();
@@ -36,11 +36,11 @@ public class Application extends Controller {
         Restaurant restaurant = Restaurant.findById(restaurantId);
         if (validation.hasErrors()) {
             flash.error("All fields with * are required!");
-            renderJSON("Application/edit.html", restaurant);
+            renderJSON(restaurant);
         }
-        Restaurant.updateRestaurant(String name, String owner, String phoneNumber, String address);
+        Restaurant.updateRestaurant(name, owner, phoneNumber, address);
         flash.success("Restaurant has been updated!");
-        show(restaurant.id);
+        renderJSON(restaurant);
     }
 
 }
