@@ -20,4 +20,8 @@ public class AppController extends Controller {
         response.accessControl("http://localhost:11000", "GET,POST,PUT,DELETE", true);
     }
 
+    public static void getRequestBody() {
+        return params.get("body");
+    }
+
 }

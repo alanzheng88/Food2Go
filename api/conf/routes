@@ -5,9 +5,14 @@
 # Home page
 GET     /                                       Application.index
 
+# Authentication
+POST    /api/authenticate                       Authentication.createSession                       
+DELETE  /api/authenticate                       Authentication.deleteSession
+
 # Users
 GET     /api/users                              UserController.getUsers
-POST    /api/users/register                     UserController.createUser
+GET     /api/user/#{id}                         UserController.getUser
+POST    /api/user                               UserController.createUser
 
 
 # Ignore favicon requests

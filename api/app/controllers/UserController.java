@@ -23,7 +23,7 @@ public class UserController extends AppController {
         // request.body => InputStream
         // params.get("body") => String
 
-        String body = params.get("body");
+        String body = getRequestBody();
         User newUser = gson.fromJson(body, User.class);
         System.out.println(newUser);
         newUser.save();
