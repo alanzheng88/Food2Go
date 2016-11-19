@@ -14,7 +14,6 @@ export default class Register extends React.Component {
 		  console.log(this.refs);
 
 		  var data = {
-			username: this.refs.username.state.value.trim(),
 		    firstName: this.refs.firstName.state.value.trim(),
 		    lastName: this.refs.lastName.state.value.trim(),
 		    email: this.refs.email.state.value.trim(),
@@ -51,12 +50,6 @@ export default class Register extends React.Component {
 	render() {
 		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
             <h1>Registration</h1>
-			<div>
-                <label>
-                    Username*
-                    <Validation.components.Input value='' ref='username' name='username' placeholder='Ex. Food2Go' validations={['required']}/>
-                </label>
-            </div>
             <div>
 	            <label>
 	                First Name*
