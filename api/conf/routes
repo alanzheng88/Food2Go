@@ -4,8 +4,6 @@
 
 # Home page
 GET     /                                       Application.index
-GET		/restaurants							Application.showRestaurants
-GET		/restaurant/{id}						Application.showRestaurant
 
 # Users
 GET     /api/users                              UserController.getUsers
