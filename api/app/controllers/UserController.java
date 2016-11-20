@@ -6,10 +6,13 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import play.db.jpa.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
+
+import play.data.validation.*;
 
 public class UserController extends AppController {
 
@@ -22,12 +25,9 @@ public class UserController extends AppController {
     public static void createUser() {
         // request.body => InputStream
         // params.get("body") => String
-
-        String body = getRequestBody();
-        User newUser = gson.fromJson(body, User.class);
-        System.out.println(newUser);
-        newUser.save();
-        response.status = 201;
+        User newUser = getObjectFromRequestBody(User.class);
+        save(newUser);
+        newUser.encryptPassword();
     }
 
 }
