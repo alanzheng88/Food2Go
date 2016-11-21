@@ -27,8 +27,8 @@ public class UserController extends AppController {
         // params.get("body") => String
         User newUser = getObjectFromRequestBody(User.class);
         try {
-            save(newUser);
             newUser.encryptPassword();
+            save(newUser);
         } catch (javax.persistence.PersistenceException e) {
             // creation or update breaks a unique constraint
             response.status = 409;

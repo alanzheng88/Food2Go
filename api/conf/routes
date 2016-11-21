@@ -6,8 +6,9 @@
 GET     /                                       Application.index
 
 # Authentication
-POST    /api/authenticate                       Authentication.createSession                       
-DELETE  /api/authenticate                       Authentication.deleteSession
+GET     /api/authenticate                       AuthenticationController.checkAuthenticatedStatus
+POST     /api/authenticate                      AuthenticationController.authenticate
+DELETE  /api/authenticate                       AuthenticationController.deleteSession
 
 # Users
 GET     /api/users                              UserController.getUsers
