@@ -2,15 +2,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Import Secure routes
-*      /                                        module:secure
-
 # Home page
 GET     /                                       Application.index
 
 # Authentication
-GET     /api/authenticate                       AuthenticationController.authenticate
-GET     /api/authenticate/status                AuthenticationController.checkAuthenticated
+GET     /api/authenticate                       AuthenticationController.checkAuthenticatedStatus
+POST     /api/authenticate                      AuthenticationController.authenticate
 DELETE  /api/authenticate                       AuthenticationController.deleteSession
 
 # Users

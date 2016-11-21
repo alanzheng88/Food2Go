@@ -7,15 +7,10 @@ import java.util.*;
 
 import models.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSerializer;
-
-public class Application extends Controller {
+public class Application extends AppController {
 
     public static void index() {
         render();
-        
     }
     
 }

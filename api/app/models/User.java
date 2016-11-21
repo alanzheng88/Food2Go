@@ -51,9 +51,17 @@ public class User extends Model {
         password = passwordAesEncrypted;
     }
 
-    public String decryptPassword() {
-        if (password == null) return "";
-        return Crypto.decryptAES(password);
+    public static boolean authenticate(@Required String email, @Required String password) {
+        if (Validation.hasErrors()) return false;
+
+        List<User> userList = User.find("email", email).fetch();
+        if (userList.size() != 0) {
+            User user = userList.get(0);
+            String hashedInputPassword = Crypto.passwordHash(password);
+            String hashedActualPassword = Crypto.decryptAES(user.password);
+            return hashedInputPassword.equals(hashedActualPassword);
+        }
+        return false;
     }
 
     @Override
