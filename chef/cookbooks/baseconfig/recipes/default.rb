@@ -1,5 +1,6 @@
 projectDir = "/home/ubuntu/project"
 apiDir = "#{projectDir}/api"
+apiTestResultsDir = "#{apiDir}/test-result"
 playScript = "/home/downloads/play-1.4.3/play"
 
 # Make sure the Apt package lists are up to date, so we're downloading versions that exist.
@@ -78,12 +79,13 @@ end
 execute "run_serverside_tests" do
   cwd "#{apiDir}"
   command "#{playScript} auto-test"
+  notifies :create, "ruby_block[check_serverside_tests_results]", :immediately
 end
 
-#ruby_block "check_serverside_tests_results" do 
-#  block do
-#     
-#  end
-#  action :run 
-#end
+ruby_block "check_serverside_tests_results" do
+  block do
+    raise "Server side tests failed. Check tests results."
+  end
+  not_if { ::File.file?("#{apiTestResultsDir}/result.passed") }
+end
 
