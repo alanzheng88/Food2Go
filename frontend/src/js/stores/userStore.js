@@ -9,6 +9,7 @@ class UserStore extends EventEmitter {
       userName: '',
       password: '',
       sessionID: this.guid(),
+      loginStatus: false,
     };
   }
 
@@ -30,12 +31,16 @@ class UserStore extends EventEmitter {
     return this.user.sessionID;
   }
 
+  getLoginStatus() {
+    return this.user.loginStatus;
+  }
   handleActions(action) {
     switch(action.type) {
       case "LOGIN": {
         // this.createTodo(action.text);
-        console.lgo("userStore: ", action.text);
-        this.emit("change");
+        console.log("Received LOGIN action print out data: ", action.userInfo.restaurants.length);
+        this.user.loginStatus = true;
+        this.emit("loginStatusChange", action.userInfo.restaurants.length);
         break;
       }
       case "LOGOUT": {
