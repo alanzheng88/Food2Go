@@ -17,8 +17,7 @@ public class AuthenticationController extends AppController {
 
     // @Before(unless={"login", "authenticate"})
     public static void checkAuthenticatedStatus() {
-        
-        String sessionid = request.params.get("sessionid");
+        String sessionid = getSessionId();
         System.out.println("sessionid is: " + sessionid);
         
         boolean authorized = false;
@@ -47,25 +46,26 @@ public class AuthenticationController extends AppController {
             String password = map.get("password");
             User user;
             if ((user = User.authenticate(email, password)) != null) {
-                Cache.set(sessionid, user, "5mn");
+                Cache.set(sessionid, user, "10mn");
                 response.status = 200;
                 return;
+            } else {
+                response.status = 401;
+                return;
             }
-        }
-        
-        // String verifiedUser = getVerifiedID();
-        String verifiedUser = null;
-        if (verifiedUser == null) {
-            // user is not logged in and sessionid is invalid
-            response.status = 401;
+        } else {
+            response.status = 400;
             return;
         }
-        // session.put("sessionid", verifiedUser.id);
-        // successful logged in
-        response.status = 200;
+       
     }
 
     public static void deleteSession() {
-        
+        String sessionid = getSessionId();
+        Cache.delete(sessionid);
+    }
+
+    private static String getSessionId() {
+        return request.params.get("sessionid");
     }
 }
