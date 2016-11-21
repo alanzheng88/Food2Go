@@ -66,16 +66,16 @@ public class UserTest extends UnitTest {
     }
 
     @Test
-    public void testEncryptDecryptPassword() {
+    public void testEncryptPassword() {
         User user = new User("John", "Doe", "johndoe@email.com",
                                 "password1", "customer");
         String oldPassword = user.password;
         user.encryptPassword();
-        assertThat("Password must be encrypted", oldPassword, 
-                   is(not(user.password)));
-        String decryptedPassword = user.decryptPassword();
-        assertThat("Decrypted password must be hashed", oldPassword, 
-                   is(not(decryptedPassword)));
+        user.save();
+        List<User> userList = User.find("email", user.email).fetch();
+        User dbUser = userList.get(0);
+        assertThat("Password must be encrypted in the db", oldPassword, 
+                   is(not(dbUser.password)));
     }
 
     @Test
