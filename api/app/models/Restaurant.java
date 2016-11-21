@@ -7,29 +7,41 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-@Table(name = "AppRestaurant")
+@Table(name = "Restaurant")
 public class Restaurant extends Model {
  
     @Required
     public String name;
+    
     @Required
-    public String owner;
+    public String phoneNumber;
+    
     @Required
-    public String phoneNumber;	
+	@Email
+	public String email;
+    
+    @Required
     @Lob
     public String address;
     
-    public Restaurant(String name, String owner, String phoneNumber, String address) {
+    @Required
+    @Lob
+    public String description;
+	
+    
+    public Restaurant(String name, String email, String phoneNumber, String address, String description) {
         this.name = name;
-        this.owner = owner;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.description = description;
     }
-    public void updateRestaurant(String name, String owner, String phoneNumber, String address){
+    public void updateRestaurant(String name, String phoneNumber, String email, String address, String description){
         this.name = name;
-        this.owner = owner;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.description = description;
         this.save();
     } 
 }

@@ -2,12 +2,14 @@
 
 Restaurant(Koto):
     name:           Koto
-    owner:          Hideyo Konima
+    email:          hello@koto.ca
     phoneNumber:    604-123-1234
     address:        7467 Granville Street, Vancouver BC
+    description:    Japanese sushi
 
 Restaurant(Al Porto):
     name:           Al Porto
-    owner:          Mariam Dante
+    email:          hello@alporto.ca
     phoneNumber:    604-987-9876
     address:        300 Main Street, Vancouver BC
+    description:    Italian Pasta
