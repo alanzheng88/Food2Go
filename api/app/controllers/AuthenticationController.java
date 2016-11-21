@@ -15,13 +15,13 @@ import play.cache.Cache;
 
 public class AuthenticationController extends AppController {
 
-    // @Before(unless={"login", "authenticate"})
     public static void checkAuthenticatedStatus() {
         String sessionid = getSessionId();
         System.out.println("sessionid is: " + sessionid);
         
-        boolean authorized = false;
-        if (Cache.get(sessionid) != null) {
+        boolean authorized = true; // hardcoding for now -- fix later
+        User user = (User)Cache.get(sessionid);
+        if (user != null) {
             // successful logged in
             response.status = 200;
         } else if (!authorized) {
@@ -62,7 +62,16 @@ public class AuthenticationController extends AppController {
 
     public static void deleteSession() {
         String sessionid = getSessionId();
-        Cache.delete(sessionid);
+        boolean isSuccessfulDeletion = Cache.safeDelete(sessionid);
+        if (isSuccessfulDeletion) {
+            // successfully deleted session
+            response.status = 200;
+            return;
+        } else {
+            // there is no session to delete
+            response.status = 204;
+            return;
+        }
     }
 
     private static String getSessionId() {
