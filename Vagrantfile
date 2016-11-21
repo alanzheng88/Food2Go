@@ -21,6 +21,7 @@ $playScript = <<SCRIPT
 
   echo "current environment: $1"
   cd project/api/
+  play dependencies
   screen -d -m play run --%$1
 
 SCRIPT
