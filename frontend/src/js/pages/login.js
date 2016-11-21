@@ -1,37 +1,29 @@
 import React from "react";
 
 import * as LoginActions from "../actions/loginActions";
-import LoginStore from "../stores/loginStore";
+import userStore from "../stores/userStore";
 
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user : userStore.getUser(),
       userName: '',
       password: '',
-      ID: this.guid(),
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
+  
   componentWillMount() {
-    LoginStore.on("change", this.updateUser);
+    userStore.on("change", this.updateUser);
   }
 
   componentWillUnmount() {
-    LoginStore.removeListener("change", this.updateUser);
+    userStore.removeListener("change", this.updateUser);
   }
 
   updateUser(){
@@ -51,9 +43,10 @@ export default class Login extends React.Component {
     const data = {
       userName:this.state.userName,
       password:this.state.password,
-      ID:this.state.ID,
+      sessionID:userStore.getGuid(),
     }
     LoginActions.loginUser(JSON.stringify(data));
+    //LoginActions.logoutUser(userStore.getGuid());
   }
 
   render() {
