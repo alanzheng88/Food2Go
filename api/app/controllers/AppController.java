@@ -28,7 +28,7 @@ public class AppController extends Controller {
         return params.get("body");
     }
 
-    private static <T extends Model> boolean hasValidationErrors(@Valid T t) {
+    public static <T extends Model> boolean hasValidationErrors(@Valid T t) {
         final Validation.ValidationResult validationResult = validation.valid(t);
         return !validationResult.ok;
     }
