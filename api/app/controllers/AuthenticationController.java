@@ -11,21 +11,28 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
 
+import play.cache.Cache;
 
 public class AuthenticationController extends AppController {
 
-    @Before(unless={"login", "authenticate"})
+    // @Before(unless={"login", "authenticate"})
     public static void checkAuthenticatedStatus() {
-        boolean authorized = true;      // @TODO: hardcoding authorization for now - fix later
-        if (!session.contains("sessionid")) {
+        
+        String sessionid = request.params.get("sessionid");
+        System.out.println("sessionid is: " + sessionid);
+        
+        boolean authorized = false;
+        if (Cache.get(sessionid) != null) {
             // successful logged in
             response.status = 200;
         } else if (!authorized) {
             // user is logged in but not authorized to access resource
             response.status = 403;
+            return;
         } else {
             // user is not logged in and sessionid is invalid
             response.status = 401;
+            return;
         }
     }
 
@@ -38,7 +45,9 @@ public class AuthenticationController extends AppController {
             String sessionid = map.get("sessionid");
             String email = map.get("email");
             String password = map.get("password");
-            if (User.authenticate(email, password)) {
+            User user;
+            if ((user = User.authenticate(email, password)) != null) {
+                Cache.set(sessionid, user, "5mn");
                 response.status = 200;
                 return;
             }
