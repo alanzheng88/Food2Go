@@ -20,6 +20,8 @@ GET     /api/restaurants                        RestaurantController.getRestaura
 GET     /api/restaurant/{id}                    RestaurantController.getRestaurant
 POST    /api/restaurants/register               RestaurantController.createRestaurant
 
+OPTIONS  /{controller}/{action}                  Application.options
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
