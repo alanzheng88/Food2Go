@@ -13,6 +13,9 @@ public class Bootstrap extends Job {
             Fixtures.delete();
             Fixtures.load("initial-data.yml");
         }
-    }
+        if(Restaurant.count() == 0) {
+            Fixtures.load("initialRestaurantData.yml");
+        }
  
+}
 }
