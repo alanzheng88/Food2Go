@@ -15,6 +15,8 @@ import com.google.gson.reflect.TypeToken;
 
 import play.data.validation.*;
 
+import play.cache.Cache;
+
 public class AppController extends Controller {
 
     protected static final Gson gson = new Gson();
@@ -22,7 +24,7 @@ public class AppController extends Controller {
     
     @Before
     protected static void setDefaultHeaders() {
-        response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE", true);
+        response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
     }
 
     protected static String getRequestBody() {
@@ -61,4 +63,17 @@ public class AppController extends Controller {
         }
     }
 
+    protected static String getSessionId() {
+        return getRequestParams("sessionid");
+    }
+
+    protected static String getRequestParams(String key) {
+        return request.params.get(key);
+    }
+
+    protected static User getUserFromSessionId() {
+         String sessionid = getSessionId();
+         User user = (User)Cache.get(sessionid);
+         return user;
+    }
 }

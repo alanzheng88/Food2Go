@@ -4,12 +4,47 @@ User(bob):
     firstName:      Alan
     lastName:       Zheng
     email:          alanz@sfu.ca
-    password:       password1
+    password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           customer
 
 User(alex):
     firstName:      Bobby
     lastName:       Lesley
     email:          blesley@ubc.ca
-    password:       password2
+    password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           customer
+
+User(alan):
+    firstName:      Alan
+    lastName:       Zip
+    email:          azip@sfu.ca
+    password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
+    role:           restaurantOwner
+
+User(bill):
+    firstName:      Bill
+    lastName:       He
+    email:          billhe@sfu.ca
+    password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
+    role:           restaurantOwner
+
+
+Restaurant(Koto):
+    name:           Koto
+    email:          hello@koto.ca
+    phoneNumber:    604-123-1234
+    address:        7467 Granville Street, Vancouver BC
+    description:    Japanese sushi
+    restaurantOwner:
+                    - alan
+
+Restaurant(Al Porto):
+    name:           Al Porto
+    email:          hello@alporto.ca
+    phoneNumber:    604-987-9876
+    address:        300 Main Street, Vancouver BC
+    description:    Italian Pasta
+    restaurantOwner:
+                    - alan
+
+

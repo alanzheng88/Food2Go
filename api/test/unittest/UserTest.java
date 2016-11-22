@@ -67,10 +67,9 @@ public class UserTest extends UnitTest {
 
     @Test
     public void testEncryptPassword() {
+        String oldPassword = "password1";
         User user = new User("John", "Doe", "johndoe@email.com",
-                                "password1", "customer");
-        String oldPassword = user.password;
-        user.encryptPassword();
+                               oldPassword, "customer");
         user.save();
         List<User> userList = User.find("email", user.email).fetch();
         User dbUser = userList.get(0);

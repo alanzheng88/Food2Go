@@ -42,6 +42,7 @@ public class User extends Model {
         this.email = email;
         this.password = password;
         this.role = role;
+        encryptPassword();
     }
 
     public void encryptPassword() {

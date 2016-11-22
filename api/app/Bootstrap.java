@@ -13,6 +13,6 @@ public class Bootstrap extends Job {
             Fixtures.delete();
             Fixtures.load("initial-data.yml");
         }
-    }
  
+    }
 }
