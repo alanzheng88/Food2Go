@@ -13,8 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
 
-import play.data.validation.*;
-
 public class RestaurantController extends AppController {
 	
     public static void getRestaurants(){
@@ -30,24 +28,14 @@ public class RestaurantController extends AppController {
 	
     public static void createRestaurant() {
         Restaurant newRestaurant = getObjectFromRequestBody(Restaurant.class);
-        save(newRestaurant);		
-            //if (validation.hasErrors()) {
-            //    response.status = 400;
-            //    return;
-            //}
-        response.status = 201;
+        save(newRestaurant);
     }
 	
     public static void editRestaurant(Long restaurantId, String name, String phoneNumber, 
-    String email, String address, String description){
+            String email, String address, String description){
         Restaurant restaurant = Restaurant.findById(restaurantId);
-        //if (validation.hasErrors()) {
-        //    response.status = 409;
-        //    return;
-        //}
-        //Restaurant.updateRestaurant(name, phoneNumber, email, address, description);
+        restaurant.update(name, phoneNumber, email, address, description);
         response.status = 200;
-        renderJSON(restaurant);
     }
 
 }
