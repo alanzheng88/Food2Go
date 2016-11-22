@@ -22,7 +22,7 @@ public class AppController extends Controller {
     
     @Before
     protected static void setDefaultHeaders() {
-        response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE", true);
+        response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
     }
 
     protected static String getRequestBody() {
