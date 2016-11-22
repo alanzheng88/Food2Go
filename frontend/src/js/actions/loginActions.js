@@ -1,9 +1,11 @@
 import dispatcher from "../dispatcher";
 import axios from "axios";
+import {host, port} from "../constants/backend.js"
 
-export function authenticaUser(text) {
+export function authenticateUser(text) {
   console.log("Sending the data!", text);
-  axios.post('http://localhost:9000/api/authenticate', text)
+  console.log("Print constant!", host);
+  axios.post(`http://${host}:${port}/api/authenticate`, text)
   .then((response) => {
   	console.log(response.data);
     console.log(response.status);
@@ -25,7 +27,7 @@ export function authenticaUser(text) {
 }
 
 export function loginUser(sessionID) {
-	axios.get('http://localhost:9000/api/authenticate?sessionID='+sessionID).then((response) => {
+	axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionID}`).then((response) => {
 		console.log(response.data);
 	    console.log(response.status);
 	    console.log(response.statusText);
@@ -37,7 +39,12 @@ export function loginUser(sessionID) {
 }
 
 export function logoutUser(sessionID) {
-	axios.delete('http://localhost:9000/api/authenticate?sessionID='+sessionID).then((response) => {
+	axios({
+    method: 'DELETE',
+    url: `http://${host}:${port}/api/authenticate?sessionid=${sessionID}`,
+    headers: {'Content-Type': 'application/json'}
+  }
+  ).then((response) => {
 	dispatcher.dispatch({type: "LOGOUT"});
 	console.log("got the response!", response);
   })

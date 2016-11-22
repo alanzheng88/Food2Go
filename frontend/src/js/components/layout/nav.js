@@ -2,6 +2,7 @@ import React from "react";
 import { IndexLink, Link } from "react-router";
 import { Button, NavDropdown, MenuItem, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import userStore from "../../stores/userStore";
+import * as LoginActions from "../../actions/loginActions";
 
 
 export default class Nav extends React.Component {
@@ -12,7 +13,7 @@ export default class Nav extends React.Component {
       loginStatus: userStore.getLoginStatus(),
     };
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
-
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   toggleCollapse() {
@@ -28,13 +29,18 @@ export default class Nav extends React.Component {
     userStore.removeListener("loginStatusChange", this.updateLoginStatus);
   }
 
+  handleLogout(event) {
+    LoginActions.logoutUser(userStore.getGuid());
+    
+  }
+
   updateLoginStatus(loginStatus) {
     this.setState({loginStatus: loginStatus});
-    // console.log("restaurantNumber" + restaurantNumber + "popup: " + this.state.popup);
+    console.log("Nav::updateLoginStatus");
   }
 
   render() {
-    const { location} = this.props;
+    const { location } = this.props;
     const { collapsed, loginStatus } = this.state;
     // const featuredClass = location.pathname === "/" ? "active" : "";
     // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
@@ -79,7 +85,7 @@ export default class Nav extends React.Component {
               {loginStatus &&
                 <NavDropdown  activeClassName="active" title="User">
                   <MenuItem href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                  <MenuItem href="/" onClick={this.updateLoginStatus}>Logout </MenuItem>
+                  <MenuItem onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
@@ -87,7 +93,6 @@ export default class Nav extends React.Component {
                   <Link to="Login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
                 </li>
               }
-              
             </ul>
           </div>
         </div>

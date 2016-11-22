@@ -22,7 +22,7 @@ export default class Login extends React.Component {
   
   componentWillMount() {
     userStore.on("failToAuthenticate", this.handleAuthenticationFailure);
-  }
+  } 
 
   componentWillUnmount() {
     userStore.removeListener("failToAuthenticate", this.handleAuthenticationFailure);
@@ -51,7 +51,7 @@ export default class Login extends React.Component {
       sessionid:userStore.getGuid(),
       role:'customer'
     }
-    LoginActions.authenticaUser(JSON.stringify(data));
+    LoginActions.authenticateUser(JSON.stringify(data));
     //LoginActions.loginUser(userStore.getGuid());
     //LoginActions.logoutUser(userStore.getGuid());
   }
