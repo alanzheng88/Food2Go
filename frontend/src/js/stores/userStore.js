@@ -6,10 +6,15 @@ class UserStore extends EventEmitter {
   constructor() {
     super()
     this.user = {
-      userName: '',
-      password: '',
       sessionID: this.guid(),
       loginStatus: false,
+    };
+    this.userInfo = {
+          firstName: "hello",
+          lastName: "world",
+          email: "helloworld@123.com",
+          role: "Owner",
+          restaurants: [],
     };
   }
 
@@ -36,16 +41,34 @@ class UserStore extends EventEmitter {
   }
   handleActions(action) {
     switch(action.type) {
+      case "AUTH_SUCCESS": {
+        console.log("Received Autentication action print out data: ", action.response.status);
+        if (action.response.status == 200) {
+          this.user.loginStatus = true;  
+          this.emit("loginStatusChange", this.user.loginStatus);
+          console.log("emitting loginStatusChange");
+        } else {
+          this.emit("failToAuthenticate");
+          console.log("Status code in response is not 200. Status code :"+action.response.status);
+        }
+        break;        
+      }
+      case "AUTH_FAILURE": {
+        this.emit("failToAuthenticate");
+        console.log("emitting failToAuthenticate");
+        break;
+      }
       case "LOGIN": {
-        // this.createTodo(action.text);
-        console.log("Received LOGIN action print out data: ", action.userInfo.restaurants.length);
-        this.user.loginStatus = true;
-        this.emit("loginStatusChange", action.userInfo.restaurants.length);
+        //console.log("Received login action print out data: ", action.userInfo.restaurants.length);
         break;
       }
       case "LOGOUT": {
         // this.createTodo(action.text);
-        this.emit("change");
+        this.user = {
+          sessionID: this.guid(),
+          loginStatus: false,
+        };
+        this.emit("loginStatusChange");
         break;
       }
     }

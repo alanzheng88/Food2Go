@@ -10,7 +10,6 @@ export default class Nav extends React.Component {
     this.state = {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
-      popup: false,
     };
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
 
@@ -29,9 +28,8 @@ export default class Nav extends React.Component {
     userStore.removeListener("loginStatusChange", this.updateLoginStatus);
   }
 
-  updateLoginStatus(restaurantNumber) {
-    this.setState({loginStatus: userStore.getLoginStatus()});
-    this.setState({popup: restaurantNumber == 0});
+  updateLoginStatus(loginStatus) {
+    this.setState({loginStatus: loginStatus});
     // console.log("restaurantNumber" + restaurantNumber + "popup: " + this.state.popup);
   }
 
@@ -42,90 +40,58 @@ export default class Nav extends React.Component {
     // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
     // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
-    if (loginStatus) {
-      return (
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-            <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li activeClassName="active" onlyActiveOnIndex={true}>
-                  <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Food2Go</IndexLink>
-                </li>
-                <li activeClassName="active">
-                  <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
-                </li>
-                <li activeClassName="active">
-                  <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
-                </li>
-                <Navbar.Form pullLeft>
-                  <FormGroup>
-                    <FormControl type="text" placeholder="Search" />
-                  </FormGroup>
-                  {' '}
-                  <Button type="submit">Submit</Button>
-                </Navbar.Form>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
+    return (
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li activeClassName="active" onlyActiveOnIndex={true}>
+                <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Food2Go</IndexLink>
+              </li>
+              <li activeClassName="active">
+                <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
+              </li>
+              <li activeClassName="active">
+                <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
+              </li>
+              <Navbar.Form pullLeft>
+                <FormGroup>
+                  <FormControl type="text" placeholder="Search" />
+                </FormGroup>
+                {' '}
+                <Button type="submit">Submit</Button>
+              </Navbar.Form>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {loginStatus &&
                 <li activeClassName="active">
                   <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
                 </li>
-                  <NavDropdown  activeClassName="active" title="User">
-                    <MenuItem href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                    <MenuItem href="#Logout" onClick={this.toggleCollapse.bind(this)}>Logout </MenuItem>
-                  </NavDropdown>
-              </ul>
-            </div>
+              }
+              {loginStatus &&
+                <NavDropdown  activeClassName="active" title="User">
+                  <MenuItem href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
+                  <MenuItem href="/" onClick={this.updateLoginStatus}>Logout </MenuItem>
+                </NavDropdown>
+              }
+              {!loginStatus &&
+                <li activeClassName="active">
+                  <Link to="Login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
+                </li>
+              }
+              
+            </ul>
           </div>
-        </nav>
-      );
-    } else {
-        return (
-          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                  <li activeClassName="active" onlyActiveOnIndex={true}>
-                    <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Food2Go</IndexLink>
-                  </li>
-                  <li activeClassName="active">
-                    <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
-                  </li>
-                  <li activeClassName="active">
-                    <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
-                  </li>
-                  <Navbar.Form pullLeft>
-                    <FormGroup>
-                      <FormControl type="text" placeholder="Search" />
-                    </FormGroup>
-                    {' '}
-                    <Button type="submit">Submit</Button>
-                  </Navbar.Form>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li activeClassName="active">
-                   <Link to="Login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        );
-      }
+        </div>
+      </nav>
+    );
   }
 }

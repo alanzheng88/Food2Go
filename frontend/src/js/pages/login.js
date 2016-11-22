@@ -11,21 +11,26 @@ export default class Login extends React.Component {
       user : userStore.getUser(),
       userName: '',
       password: '',
+      authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleAuthenticationFailure = this.handleAuthenticationFailure.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
   componentWillMount() {
-    userStore.on("change", this.updateUser);
+    userStore.on("failToAuthenticate", this.handleAuthenticationFailure);
   }
 
   componentWillUnmount() {
-    userStore.removeListener("change", this.updateUser);
+    userStore.removeListener("failToAuthenticate", this.handleAuthenticationFailure);
   }
 
+  handleAuthenticationFailure () {
+      this.setState({authFailed:true});
+  }
   updateUser(){
 
   }
@@ -41,11 +46,13 @@ export default class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = {
-      userName:this.state.userName,
+      email:this.state.userName,
       password:this.state.password,
-      sessionID:userStore.getGuid(),
+      sessionid:userStore.getGuid(),
+      role:'customer'
     }
-    LoginActions.loginUser(JSON.stringify(data));
+    LoginActions.authenticaUser(JSON.stringify(data));
+    //LoginActions.loginUser(userStore.getGuid());
     //LoginActions.logoutUser(userStore.getGuid());
   }
 
@@ -54,9 +61,14 @@ export default class Login extends React.Component {
     return (
       <div className="col-md-4">
       <h4>Login Page</h4>
+      {this.state.authFailed &&
+        <p style={{color:'red'}}>
+          Username and password combination doesn't exist.
+        </p>
+      }
       <form onSubmit={this.handleSubmit}>
         <label><b>UserName:</b></label>
-        <input type="text" value={this.state.userName} onChange={this.handleUserNameChange} required />
+        <input type="text" placeholder="Email address" value={this.state.userName} onChange={this.handleUserNameChange} required />
         <br/>
         <label><b>Password:</b></label>
         <input type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
