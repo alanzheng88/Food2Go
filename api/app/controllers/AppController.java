@@ -11,6 +11,7 @@ import play.db.jpa.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 import play.data.validation.*;
 
@@ -21,7 +22,7 @@ public class AppController extends Controller {
     
     @Before
     protected static void setDefaultHeaders() {
-        response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE", true);
+        response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
     }
 
     protected static String getRequestBody() {
@@ -35,6 +36,13 @@ public class AppController extends Controller {
 
     protected static <C extends Model> C getObjectFromRequestBody(Class<C> c) {
         return gson.fromJson(getRequestBody(), c);
+    }
+
+    protected static Map<String, String> getHashMapFromRequestBody() {
+        Map<String, String> map = gson.fromJson(getRequestBody(), 
+                new TypeToken<Map<String, String>>(){}.getType());
+        map.forEach((x, y) -> System.out.println("key: " + x + " , value: " + y));
+        return map;
     }
 
     /**
