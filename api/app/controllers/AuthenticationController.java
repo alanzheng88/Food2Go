@@ -74,7 +74,4 @@ public class AuthenticationController extends AppController {
         }
     }
 
-    private static String getSessionId() {
-        return request.params.get("sessionid");
-    }
 }

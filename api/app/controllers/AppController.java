@@ -15,6 +15,8 @@ import com.google.gson.reflect.TypeToken;
 
 import play.data.validation.*;
 
+import play.cache.Cache;
+
 public class AppController extends Controller {
 
     protected static final Gson gson = new Gson();
@@ -61,4 +63,17 @@ public class AppController extends Controller {
         }
     }
 
+    protected static String getSessionId() {
+        return getRequestParams("sessionid");
+    }
+
+    protected static String getRequestParams(String key) {
+        return request.params.get(key);
+    }
+
+    protected static User getUserFromSessionId() {
+         String sessionid = getSessionId();
+         User user = (User)Cache.get(sessionid);
+         return user;
+    }
 }

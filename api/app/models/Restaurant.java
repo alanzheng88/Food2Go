@@ -27,6 +27,9 @@ public class Restaurant extends Model {
     @Required
     @Lob
     public String description;
+
+    @ManyToOne
+    public User restaurantOwner;
 	
     
     public Restaurant(String name, String email, String phoneNumber, String address, String description) {
@@ -43,6 +46,5 @@ public class Restaurant extends Model {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.description = description;
-        this.save();
     } 
 }

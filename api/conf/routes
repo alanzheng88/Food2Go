@@ -12,7 +12,7 @@ DELETE  /api/authenticate                       AuthenticationController.deleteS
 
 # Users
 GET     /api/users                              UserController.getUsers
-GET     /api/user/{id}                          UserController.getUser
+GET     /api/user                               UserController.getUser
 POST    /api/user                               UserController.createUser
 
 #Restaurants

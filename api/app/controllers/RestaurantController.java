@@ -35,6 +35,7 @@ public class RestaurantController extends AppController {
             String email, String address, String description){
         Restaurant restaurant = Restaurant.findById(restaurantId);
         restaurant.update(name, phoneNumber, email, address, description);
+        restaurant.save();
         response.status = 200;
     }
 
