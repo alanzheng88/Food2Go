@@ -19,7 +19,7 @@ POST    /api/user                               UserController.createUser
 GET     /api/restaurants                        RestaurantController.getRestaurants
 GET     /api/restaurant/{restaurantId}          RestaurantController.getRestaurant
 POST    /api/restaurants/register               RestaurantController.createRestaurant
-PUT     /api/restaurant/{restaurantID}/edit     RestaurantController.updateRestaurant
+PUT     /api/restaurant/{restaurantID}    RestaurantController.updateRestaurant
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
