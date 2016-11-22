@@ -36,7 +36,7 @@ public class Restaurant extends Model {
         this.address = address;
         this.description = description;
     }
-    public void updateRestaurant(String name, String phoneNumber, String email, String address, String description){
+    public void editRestaurant(String name, String phoneNumber, String email, String address, String description){
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

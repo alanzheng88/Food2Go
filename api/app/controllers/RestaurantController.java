@@ -37,15 +37,11 @@ public class RestaurantController extends AppController {
             //}
         response.status = 201;
     }
-	
-    public static void editRestaurant(Long restaurantId, String name, String phoneNumber, 
+    
+    public static void updateRestaurant(Long restaurantId, String name, String phoneNumber, 
     String email, String address, String description){
         Restaurant restaurant = Restaurant.findById(restaurantId);
-        //if (validation.hasErrors()) {
-        //    response.status = 409;
-        //    return;
-        //}
-        //Restaurant.updateRestaurant(name, phoneNumber, email, address, description);
+        //Restaurant.editRestaurant(name, phoneNumber, email, address, description);
         response.status = 200;
         renderJSON(restaurant);
     }
