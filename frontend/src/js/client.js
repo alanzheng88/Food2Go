@@ -27,6 +27,7 @@ ReactDOM.render(
       <Route path="Login" name="Login" component={Login}></Route>
       <Route path="Register" name="Register" component={Register}></Route>
       <Route path="ShoppingCart" name="ShoppingCart" component={ShoppingCart}></Route>
+      <Route path="ForgetPassword" name="ForgetPassword" component={ForgetPassword}></Route>
     </Route> 
   </Router>,
 app);
