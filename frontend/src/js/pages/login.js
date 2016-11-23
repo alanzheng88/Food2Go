@@ -37,7 +37,8 @@ export default class Login extends React.Component {
   }
 
   redirect() {
-    this.props.history.replace('/');
+    console.log(this.props);
+    this.props.router.push('/');
   }
 
   handleUserNameChange(event) {
