@@ -8,7 +8,6 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user : userStore.getUser(),
       userName: '',
       password: '',
       authFailed: false,

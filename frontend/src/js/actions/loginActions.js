@@ -26,8 +26,8 @@ export function authenticateUser(text) {
   })
 }
 
-export function loginUser(sessionID) {
-	axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionID}`).then((response) => {
+export function loginUser(sessionId) {
+	axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionId}`).then((response) => {
 		console.log(response.data);
 	    console.log(response.status);
 	    console.log(response.statusText);
@@ -36,12 +36,19 @@ export function loginUser(sessionID) {
 		dispatcher.dispatch({type: "LOGIN"});
 		console.log("got the response!", response);
   })
+  .catch((error) => {
+    dispatcher.dispatch({
+        type: "AUTH_FAILURE",
+        error,
+      });
+      console.log("Cannot get the data, fake the login");
+  })
 }
 
-export function logoutUser(sessionID) {
+export function logoutUser(sessionId) {
 	axios({
     method: 'DELETE',
-    url: `http://${host}:${port}/api/authenticate?sessionid=${sessionID}`,
+    url: `http://${host}:${port}/api/authenticate?sessionid=${sessionId}`,
     headers: {'Content-Type': 'application/json'}
   }
   ).then((response) => {

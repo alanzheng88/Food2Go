@@ -1,14 +1,17 @@
 import { EventEmitter } from "events";
 
 import dispatcher from "../dispatcher";
+import cookie from 'react-cookie';
+import axios from "axios";
+import {host, port} from "../constants/backend.js"
 
 class UserStore extends EventEmitter {
   constructor() {
     super()
-    this.user = {
-      sessionID: this.guid(),
-      loginStatus: false,
-    };
+    this.session = {
+      sessionId:this.guid(),
+      loginStatus:false,
+    }
     this.userInfo = {
           firstName: "hello",
           lastName: "world",
@@ -16,8 +19,8 @@ class UserStore extends EventEmitter {
           role: "Owner",
           restaurants: [],
     };
+    this.sessionInit();
   }
-
   guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -28,25 +31,42 @@ class UserStore extends EventEmitter {
       s4() + '-' + s4() + s4() + s4();
   }
 
-  getUser() {
-    return this.user;
+  sessionInit() {
+    const sessionId = cookie.load('sessionId');
+    if (sessionId !== undefined) {
+      console.log("Cached sessionId: " + sessionId);
+      axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionId}`)
+      .then((response) => {
+        if (response.status == 200) {
+          this.session.sessionId = sessionId;
+          this.session.loginStatus = true;  
+          this.emit("sessionStatusChange", this.session.loginStatus);
+        }
+      })
+    }
+  }
+  
+  getSession() {
+    return this.session;
   }
 
   getGuid() {
-    return this.user.sessionID;
+    return this.session.sessionId;
   }
 
   getLoginStatus() {
-    return this.user.loginStatus;
+    return this.session.loginStatus;
   }
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
         console.log("Received Autentication action print out data: ", action.response.status);
         if (action.response.status == 200) {
-          this.user.loginStatus = true;  
-          this.emit("loginStatusChange", this.user.loginStatus);
-          console.log("emitting loginStatusChange");
+          //Save the session id to cookie
+          cookie.save('sessionId', this.session.sessionId, { path: '/' });
+          this.session.loginStatus = true;  
+          this.emit("sessionStatusChange", this.session.loginStatus);
+          console.log("emitting sessionStatusChange");
         } else {
           this.emit("failToAuthenticate");
           console.log("Status code in response is not 200. Status code :"+action.response.status);
@@ -64,8 +84,9 @@ class UserStore extends EventEmitter {
       }
       case "LOGOUT": {
         // this.createTodo(action.text);
-        this.user = {
-          sessionID: this.guid(),
+        cookie.remove('sessionId', { path: '/' });
+        this.session = {
+          sessionId: this.guid(),
           loginStatus: false,
         };
         this.emit("loginStatusChange");
