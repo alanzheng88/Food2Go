@@ -22,11 +22,11 @@ export default class Nav extends React.Component {
   }
 
   componentWillMount() {
-    userStore.on("loginStatusChange", this.updateLoginStatus);
+    userStore.on("sessionStatusChange", this.updateLoginStatus);
   }
 
   componentWillUnmount() {
-    userStore.removeListener("loginStatusChange", this.updateLoginStatus);
+    userStore.removeListener("sessionStatusChange", this.updateLoginStatus);
   }
 
   handleLogout(event) {
@@ -77,15 +77,13 @@ export default class Nav extends React.Component {
               </Navbar.Form>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              {loginStatus &&
                 <li activeClassName="active">
                   <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
                 </li>
-              }
               {loginStatus &&
-                <NavDropdown  activeClassName="active" title="User">
-                  <MenuItem href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                  <MenuItem onClick={this.handleLogout} >Logout </MenuItem>
+                <NavDropdown  id = 'dropdown-size-medium' activeClassName="active" title="User">
+                  <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
+                  <MenuItem eventKey= '2' onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
