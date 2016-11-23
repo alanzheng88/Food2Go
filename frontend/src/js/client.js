@@ -13,9 +13,6 @@ import UserInfo from "./pages/userInfo";
 import Restaurants from "./pages/restaurants";
 import ShoppingCart from "./pages/shoppingCart";
 
-
-
-
 const app = document.getElementById('app');
 
 ReactDOM.render(

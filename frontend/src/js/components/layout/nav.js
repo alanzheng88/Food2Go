@@ -1,10 +1,9 @@
 import React from "react";
-import { IndexLink, Link } from "react-router";
+import { browserHistory, IndexLink, Link } from "react-router";
 import { Button, NavDropdown, MenuItem, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import userStore from "../../stores/userStore";
 import * as LoginActions from "../../actions/loginActions";
-
-
+  
 export default class Nav extends React.Component {
   constructor() {
     super()
@@ -31,12 +30,10 @@ export default class Nav extends React.Component {
 
   handleLogout(event) {
     LoginActions.logoutUser(userStore.getGuid());
-    
   }
 
   updateLoginStatus(loginStatus) {
     this.setState({loginStatus: loginStatus});
-    console.log("Nav::updateLoginStatus");
   }
 
   render() {
@@ -47,16 +44,18 @@ export default class Nav extends React.Component {
     // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
     return (
+      
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
+            <button type="button" class="navbar-toggle collapsed" onClick={this.toggleCollapse.bind(this)} >
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
           </div>
+
           <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li activeClassName="active" onlyActiveOnIndex={true}>
@@ -76,6 +75,7 @@ export default class Nav extends React.Component {
                 <Button type="submit">Submit</Button>
               </Navbar.Form>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li activeClassName="active">
                   <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
@@ -83,7 +83,7 @@ export default class Nav extends React.Component {
               {loginStatus &&
                 <NavDropdown  id = 'dropdown-size-medium' activeClassName="active" title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                  <MenuItem eventKey= '2' onClick={this.handleLogout} >Logout </MenuItem>
+                  <MenuItem eventKey='2' href="/"onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
