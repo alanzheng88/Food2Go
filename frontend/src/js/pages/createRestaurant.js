@@ -68,11 +68,11 @@ export default class CreateRestaurant extends React.Component {
 		  e.preventDefault();
 		  console.log(this.state);
 		  var data = {
-		    restaurantName: this.state.restaurantName.trim(),
-		    restaurantAddress: this.state.restaurantAddress.trim(),
-		    restaurantPhoneNumber: this.state.restaurantPhoneNumber.trim(),
-		    restaurantEmail: this.state.restaurantEmail.trim(),
-		    restaurantDescription: this.state.restaurantDescription.trim()/*,
+		    name: this.state.restaurantName.trim(),
+		    address: this.state.restaurantAddress.trim(),
+		    phoneNumber: this.state.restaurantPhoneNumber.trim(),
+		    email: this.state.restaurantEmail.trim(),
+		    description: this.state.restaurantDescription.trim()/*,
 		    imageFiles: this.state.imageFiles,
 		    menuFile: this.state.menuFiles,*/
 		  }
@@ -104,7 +104,7 @@ export default class CreateRestaurant extends React.Component {
 		}
 	render() {
 		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
-            <h1>Registration</h1>
+            <h1>Create Restaurant</h1>
             <div>
 	            <label>
 	                Restaurant Name*

@@ -1,13 +1,15 @@
 import React from "react";
 import Slider from "react-slick";
 import Collapse from "react-collapse";
+import axios from "axios";
+
 export default class Restaurant extends React.Component {
 	constructor(props) {
 	  super(props);
 	  let restaurantId = this.props.params.restaurantId;
 	  // Default values
 	  this.state ={
-		restaurantid: {restaurantId},
+		restaurantId: {restaurantId},
 		restaurantName: "Restaurant Name",
 		restaurantAddress: "Restaurant Address",
 		restaurantPhoneNumber: "Restaurant Phone Number",
@@ -17,22 +19,22 @@ export default class Restaurant extends React.Component {
         menuFile: [],
         isOpened: false
 	  };
+	  this.getRestaurantInfo(this.props.params.restaurantId);
+	  console.log(this.state);
 	}
 	getRestaurantInfo(id){
 	// Get restaurant info via Axios
 		var th = this;
-		axios({
-		    method: 'GET',
-		    url: 'http://localhost:9000/api/restaurant',
-		    data: JSON.stringify(data)
-		  })
-		  .then(function(data) {
+		console.log("id", id);
+		axios.get('http://localhost:9000/api/restaurant/'+id)
+		  .then(function(response) {
+			  console.log(response);
 			  th.setState({
-					restaurantName: data.restaurantName,
-					restaurantAddress: data.restaurantAddress,
-					restaurantPhoneNumber: data.restaurantPhoneNumber,
-					restaurantEmail: data.restaurantEmail,
-					restaurantDescription: data.restaurantDescription,
+					restaurantName: response.data.name,
+					restaurantAddress: response.data.address,
+					restaurantPhoneNumber: response.data.phoneNumber,
+					restaurantEmail: response.data.email,
+					restaurantDescription: response.data.description,
 			        imageFiles: [],
 			        menuFile: []
 				  });
@@ -51,7 +53,6 @@ export default class Restaurant extends React.Component {
 			}
 		  });	  
 	}
-
 	render() {
 	    console.log("Restaurant");
 	    const settings = {

@@ -35,8 +35,8 @@ ReactDOM.render((
 	  <Route path="points" component={Points}/>
 	  <Route path="coupons" component={Coupons}/>
 	  <Route path="invite" component={Invite}/>
-	  <Route path="restaurant/:restaurantId" component={Restaurant}/>
 	  <Route path="/restaurant/create" component={CreateRestaurant}/>
+	  <Route path="restaurant/:restaurantId" component={Restaurant}/>
 	  <Route path="/*" component={NoMatch}/>
     </Route> 
   </Router>
