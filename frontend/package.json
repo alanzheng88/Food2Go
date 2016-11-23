@@ -23,6 +23,7 @@
     "react": "^0.14.6",
     "react-bootstrap": "^0.30.6",
     "react-collapse": "^2.3.3",
+    "react-cookie": "^0.4.8",
     "react-dom": "^0.14.6",
     "react-dropzone": "^3.7.3",
     "react-height": "^2.1.1",
@@ -35,7 +36,9 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^17.0.3"
+  },
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot --host 0.0.0.0 --port 12345",
   },

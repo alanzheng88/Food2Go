@@ -1,3 +1,8 @@
+projectDir = "/home/ubuntu/project"
+apiDir = "#{projectDir}/api"
+apiTestResultsDir = "#{apiDir}/test-result"
+playScript = "/home/downloads/play-1.4.3/play"
+
 # Make sure the Apt package lists are up to date, so we're downloading versions that exist.
 cookbook_file "apt-sources.list" do
   path "/etc/apt/sources.list"
@@ -65,8 +70,22 @@ end
 ruby_block "set_default_login_dir" do
   block do
     file = Chef::Util::FileEdit.new('/home/ubuntu/.bashrc')
-    line = "cd /home/ubuntu/project"
-    file.insert_line_if_no_match("/home/ubuntu/project", line)
+    line = "cd #{projectDir}"
+    file.insert_line_if_no_match("#{projectDir}", line)
     file.write_file
   end
 end
+
+execute "run_serverside_tests" do
+  cwd "#{apiDir}"
+  command "#{playScript} auto-test"
+  notifies :create, "ruby_block[check_serverside_tests_results]", :immediately
+end
+
+ruby_block "check_serverside_tests_results" do
+  block do
+    raise "Server side tests failed. Check tests results."
+  end
+  not_if { ::File.file?("#{apiTestResultsDir}/result.passed") }
+end
+

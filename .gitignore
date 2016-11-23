@@ -1,13 +1,19 @@
 .vagrant
 
-frontend/.project
 *.pyc
 *.sqlite3
 
 Gemfile.lock
 log/*
 .bundle
-frontend/node_modules/*
 **/.DS_Store
 
+frontend/.project
+frontend/node_modules/*
+frontend/*.log
+
 api/tmp/*
+api/logs/*
+api/test-result/*
+api/*.log
+
