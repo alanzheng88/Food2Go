@@ -1,5 +1,5 @@
 import React from "react";
-import { browserHistory, IndexLink, Link } from "react-router";
+import { IndexLink, Link } from "react-router";
 import { Button, NavDropdown, MenuItem, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import userStore from "../../stores/userStore";
 import * as LoginActions from "../../actions/loginActions";

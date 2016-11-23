@@ -1,5 +1,4 @@
 import React from "react";
-import { Router, browserHistory } from "react-router";
 
 import * as LoginActions from "../actions/loginActions";
 import userStore from "../stores/userStore";
