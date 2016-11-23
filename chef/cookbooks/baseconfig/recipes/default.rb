@@ -1,6 +1,7 @@
 projectDir = "/home/ubuntu/project"
-apiDir = "#{projectDir}/api"
-apiTestResultsDir = "#{apiDir}/test-result"
+serversideTestDir = "#{projectDir}/api"
+serversideTestResultsDir = "#{serversideTestDir}/test-result"
+clientsideTestDir = "#{projectDir}/frontend/test"
 playScript = "/home/downloads/play-1.4.3/play"
 
 # Make sure the Apt package lists are up to date, so we're downloading versions that exist.
@@ -13,6 +14,10 @@ end
 
 execute 'apt_get_npm' do
   command 'apt-get install -y npm'
+end
+
+execute "jasmine-node_install" do
+  command "npm install -g jasmine-node"
 end
 
 execute 'link_nodejs_to_node_binary' do
@@ -77,7 +82,7 @@ ruby_block "set_default_login_dir" do
 end
 
 execute "run_serverside_tests" do
-  cwd "#{apiDir}"
+  cwd "#{serversideTestDir}"
   command "#{playScript} auto-test"
   notifies :create, "ruby_block[check_serverside_tests_results]", :immediately
 end
@@ -86,6 +91,11 @@ ruby_block "check_serverside_tests_results" do
   block do
     raise "Server side tests failed. Check tests results."
   end
-  not_if { ::File.file?("#{apiTestResultsDir}/result.passed") }
+  not_if { ::File.file?("#{serversideTestResultsDir}/result.passed") }
+end
+
+execute "run_api_tests" do
+  cwd "#{clientsideTestDir}"
+  command "/usr/local/bin/jasmine-node spec/api/ --junitreport"
 end
 

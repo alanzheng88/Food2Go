@@ -25,6 +25,7 @@ public class AppController extends Controller {
     @Before
     protected static void setDefaultHeaders() {
         response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
+        response.setContentTypeIfNotSet("application/json");
     }
 
     protected static String getRequestBody() {

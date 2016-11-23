@@ -74,9 +74,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     cloudstack.name = "cmpt470-#{File.basename(Dir.getwd)}-#{Random.new.rand(100)}"
     cloudstack.ssh_user = "ubuntu"
     cloudstack.security_group_names = ['CMPT 470 firewall']
-  end
+  end 
 
   config.vm.provision "shell", inline: $rootScript
+  config.vm.provision "shell", inline: "cd project/frontend/;npm install;screen -d -m npm run dev", run: "always", privileged: false
+  config.vm.provision "shell", inline: $playScript, args: "#{ENV['APP_ENV']}", run: "always", privileged: false
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
@@ -86,7 +88,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "baseconfig"
   end
 
-  config.vm.provision "shell", inline: $rootScript
-  config.vm.provision "shell", inline: "cd project/frontend/;npm install;screen -d -m npm run dev", run: "always", privileged: false
-  config.vm.provision "shell", inline: $playScript, args: "#{ENV['APP_ENV']}", run: "always", privileged: false
 end
