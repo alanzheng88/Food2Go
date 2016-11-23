@@ -1,0 +1,89 @@
+/*NoMatch CSS*/
+h1.noMatch {
+  text-align: center;
+}
+h3.noMatch {
+  text-align: center;
+}
+p.emoji {
+  font-size: 100px;
+  text-align: center;
+}
+
+/*Responsive Images CSS*/
+div.img {
+    border: 1px solid #ccc;
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+.preview * {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 6px;
+    width: 24.99999%;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 700px){
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .responsive {
+        width: 100%;
+    }
+}
+.slick-prev:before,
+.slick-next:before {
+ 	color: #317eac; 
+ }
+/*Search Bar CSS*/
+.search-input {
+  padding: 10px 10px;
+  height: 52px;
+  position: relative;
+}
+
+.search-input::before {
+  content: "\26b2";
+  display: block;
+  position: absolute;
+  width: 15px;
+  z-index: 3;
+  height: 15px;
+  transform: rotate(-45deg);
+  font-size: 20px;
+  top: 11px;
+  left: 13px;
+  line-height: 32px;
+}
+
+.search-input > input {
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  line-height: 22px;
+  padding: 5px 10px 5px 25px;
+  height: 32px;
+  position: relative;
+}
+
+.search-input > input:focus {
+  outline: none;
+}
