@@ -66,7 +66,7 @@ export default class Register extends React.Component {
 		  
 		  // Submit form via jQuery/AJAX
 		  axios({
-		    type: 'POST',
+		    method: 'POST',
 		    url: 'http://localhost:9000/api/user',
 		    data: JSON.stringify(data)
 		  })
@@ -113,7 +113,7 @@ export default class Register extends React.Component {
             <div>
                 <label>
                     Password*
-                    <Validation.components.Input type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required']}/>
+                    <Validation.components.Input type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required', 'passwordLength']}/>
                 </label>
             </div>
             <div>
@@ -128,7 +128,7 @@ export default class Register extends React.Component {
 	                <Validation.components.Select errorClassName='is-invalid-input' onChange={this.onChangeRole} ref='role' name='role' value={this.state.role} validations={['required']}>
 	                    <option value=''>Choose Your Account Type</option>
 	                    <option value='customer'>Customer</option>
-	                    <option value='restaurant_owner'>Restaurant Owner</option>
+	                    <option value='restaurantOwner'>Restaurant Owner</option>
 	                </Validation.components.Select>
 	            </label>
             </div>

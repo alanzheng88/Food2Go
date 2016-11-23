@@ -16,9 +16,9 @@ import Orders from "./pages/orders";
 import Points from "./pages/points";
 import Coupons from "./pages/coupons";
 import Invite from "./pages/invite";
-import Settings from "./pages/settings";
+import CreateRestaurant from "./pages/createRestaurant";
+import Restaurant from "./pages/restaurant";
 import NoMatch from "./pages/noMatch";
-
 
 const app = document.getElementById('app');
 
@@ -35,7 +35,8 @@ ReactDOM.render((
 	  <Route path="points" component={Points}/>
 	  <Route path="coupons" component={Coupons}/>
 	  <Route path="invite" component={Invite}/>
-	  <Route path="settings" component={Settings}/>
+	  <Route path="restaurant/:restaurantId" component={Restaurant}/>
+	  <Route path="/restaurant/create" component={CreateRestaurant}/>
 	  <Route path="/*" component={NoMatch}/>
     </Route> 
   </Router>
