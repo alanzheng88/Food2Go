@@ -87,3 +87,7 @@ div.desc {
 .search-input > input:focus {
   outline: none;
 }
+
+.navbar-fixed-top .navbar-collapse{
+    max-height: 500px;
+}
