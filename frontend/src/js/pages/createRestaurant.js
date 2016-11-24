@@ -2,6 +2,7 @@ import React from 'react';
 import Validation from 'react-validation';
 import axios from "axios";
 import Dropzone from 'react-dropzone';
+import userStore from "../../js/stores/userStore";
 
 export default class CreateRestaurant extends React.Component {
 	constructor(props) {
@@ -25,7 +26,7 @@ export default class CreateRestaurant extends React.Component {
 		  this.onMenuDrop = this.onMenuDrop.bind(this);
 		  this.onSubmit = this.onSubmit.bind(this);
 	}
-	
+
 	// Handling onChange events on inputs
 	onChangeRestaurantName(e) {
 	    this.setState({ restaurantName: e.target.value });
@@ -68,7 +69,8 @@ export default class CreateRestaurant extends React.Component {
 		  e.preventDefault();
 		  console.log(this.state);
 		  var data = {
-		    name: this.state.restaurantName.trim(),
+				userId: userStore.session.sessionId,
+				name: this.state.restaurantName.trim(),
 		    address: this.state.restaurantAddress.trim(),
 		    phoneNumber: this.state.restaurantPhoneNumber.trim(),
 		    email: this.state.restaurantEmail.trim(),
@@ -76,7 +78,7 @@ export default class CreateRestaurant extends React.Component {
 		    imageFiles: this.state.imageFiles,
 		    menuFile: this.state.menuFiles,*/
 		  }
-		  
+
 		  // Submit form via jQuery/AJAX
 		  axios({
 		    method: 'POST',
@@ -90,13 +92,13 @@ export default class CreateRestaurant extends React.Component {
 		  .catch(function(error) {
 			  alert('Failed to create restaurant!');
 			  if (error.response) {
-			  // The request was made, but the server responded with a status code 
-			  // that falls out of the range of 2xx 
+			  // The request was made, but the server responded with a status code
+			  // that falls out of the range of 2xx
 			  console.log(error.response.data);
 			  console.log(error.response.status);
 			  console.log(error.response.headers);
 			} else {
-			  // Something happened in setting up the request that triggered an Error 
+			  // Something happened in setting up the request that triggered an Error
 			  console.log('Error', error.message);
 			}
 		  });
@@ -140,8 +142,8 @@ export default class CreateRestaurant extends React.Component {
 	            <Dropzone onDrop={this.onImageDrop} accept="image/png,image/jpeg" ref={this.state.imageFiles}>
 	              <div>Try dropping some files here, or click to select files to upload. Only .jpg and .png files!</div>
 	            </Dropzone>
-	            {this.state.imageFiles.length > 0 ? <div> 
-	            <div class='preview'>{this.state.imageFiles.map((file) => 
+	            {this.state.imageFiles.length > 0 ? <div>
+	            <div class='preview'>{this.state.imageFiles.map((file) =>
 	            <div class='responsive'>
 		            <div class='img'>
 		            	<img src={file.preview} />

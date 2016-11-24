@@ -31,7 +31,7 @@ export default class Nav extends React.Component {
 
   handleLogout(event) {
     LoginActions.logoutUser(userStore.getGuid());
-    
+
   }
 
   updateLoginStatus(loginStatus) {
