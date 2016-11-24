@@ -1,10 +1,107 @@
 import React from "react";
+import Slider from "react-slick";
+import Collapse from "react-collapse";
+import axios from "axios";
+
+
+import { IndexLink, Link } from "react-router";
 
 export default class Food2Go extends React.Component {
-  render() {
-    console.log("Food2Go");
-    return (
-      <h1>Food2Go</h1>
-    );
+	constructor(props) {
+	  super(props);
+	  let restaurantId = this.props.params.restaurantId;
+	  // Default values
+	  this.state ={
+		restaurantId: {restaurantId},
+		restaurantName: "Restaurant Name",
+		restaurantDescription: "Restaurant description",
+        imageFiles: [],
+        menuFile: [],
+        isOpened: false
+	  };
+	  this.getRestaurantInfo(this.props.params.restaurantId);
+	  console.log(this.state);
+	}
+	toggleCollapse() {
+    	const collapsed = !this.state.collapsed;
+    	this.setState({collapsed});
+  	}
+	getRestaurantInfo(id){
+	// Get restaurant info via Axios
+		var th = this;
+		console.log("id", id);
+		axios.get('http://localhost:9000/api/restaurant/'+id)
+		  .then(function(response) {
+			  console.log(response);
+			  th.setState({
+					restaurantName: response.data.name,
+					estaurantDescription: response.data.description,
+			        imageFiles: [],
+			        menuFile: []
+				  });
+		  })
+		  .catch(function(error) {
+			  console.log('Failed to get restaurant info!');
+			  if (error.response) {
+			  // The request was made, but the server responded with a status code 
+			  // that falls out of the range of 2xx 
+			  console.log(error.response.data);
+			  console.log(error.response.status);
+			  console.log(error.response.headers);
+			} else {
+			  // Something happened in setting up the request that triggered an Error 
+			  console.log('Error', error.message);
+			}
+		  });	  
+	}
+	render() {
+	    console.log("Food2Go");
+	    const settings = {
+		    dots: true,
+		    autoplay: true,
+		    adaptiveHeight: true,
+		    arrows: true,
+		    dotsClass: 'slick-dots slick-thumb',
+		    infinite: true,
+		    speed: 1000,
+		    slidesToShow: 1,
+		    slidesToScroll: 1
+		  };
+	    return (
+	    <div class='mySlick' id="container">
+		    <div class="row">
+		      <h1>{this.state.restaurantName}</h1>
+			    <div class="col-md-6">
+			      <Slider {...settings}>
+				      <div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
+				      	<p>{this.state.restaurantDescription}</p>
+				      </div>
+				      <div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+				      	<p>{this.state.restaurantDescription}</p>
+				      </div>
+				      <div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+				      	<p>{this.state.restaurantDescription}</p>
+				      </div>
+			      </Slider>
+			    </div>
+			    <div class="col-md-6">
+			    	<br></br>
+			    	<br></br>
+			    	<br /><br />
+			    	
+			    	<Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link>
+			    	<br />
+					<Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link>
+					<br />
+			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Foods</Link>
+			    	<br />
+			    	
+			    </div>
+		    </div>
+		    </div>
+	    );
   }
 }
