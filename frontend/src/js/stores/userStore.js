@@ -19,6 +19,7 @@ class UserStore extends EventEmitter {
           role: "Owner",
           restaurants: [],
     };
+    console.log("user store constructor")
     this.sessionInit();
   }
   guid() {
@@ -60,22 +61,23 @@ class UserStore extends EventEmitter {
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
-        console.log("Received Autentication action print out data: ", action.response.status);
-        if (action.response.status == 200) {
+        console.log("Store received Autentication: ", action.response.status);
+        if (action.response.status === 200) {
           //Save the session id to cookie
           cookie.save('sessionId', this.session.sessionId, { path: '/' });
           this.session.loginStatus = true;  
           this.emit("sessionStatusChange", this.session.loginStatus);
-          console.log("emitting sessionStatusChange");
+          this.emit("login");
+          console.log("Store: emitting sessionStatusChange");
         } else {
+          console.log("Store: Status code in response is not 200. Status code :"+action.response.status);
           this.emit("failToAuthenticate");
-          console.log("Status code in response is not 200. Status code :"+action.response.status);
         }
-        break;        
+        break;
       }
       case "AUTH_FAILURE": {
         this.emit("failToAuthenticate");
-        console.log("emitting failToAuthenticate");
+        console.log("Store: emitting failToAuthenticate");
         break;
       }
       case "LOGIN": {
@@ -89,7 +91,7 @@ class UserStore extends EventEmitter {
           sessionId: this.guid(),
           loginStatus: false,
         };
-        this.emit("loginStatusChange");
+        this.emit("sessionStatusChange");
         break;
       }
     }
