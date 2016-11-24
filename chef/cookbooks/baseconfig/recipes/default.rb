@@ -1,22 +1,15 @@
 projectDir = "/home/ubuntu/project"
-apiDir = "#{projectDir}/api"
-apiTestResultsDir = "#{apiDir}/test-result"
+serversideTestDir = "#{projectDir}/api"
+serversideTestResultsDir = "#{serversideTestDir}/test-result"
+clientsideTestDir = "#{projectDir}/frontend/test"
 playScript = "/home/downloads/play-1.4.3/play"
 
 # Make sure the Apt package lists are up to date, so we're downloading versions that exist.
 cookbook_file "apt-sources.list" do
   path "/etc/apt/sources.list"
 end
-execute 'apt_update' do
-  command 'apt-get update'
-end
-
-execute 'apt_get_npm' do
-  command 'apt-get install -y npm'
-end
-
-execute 'link_nodejs_to_node_binary' do
-  command 'ln -sf /usr/bin/nodejs /usr/bin/node'
+execute "apt_update" do
+  command "apt-get update"
 end
 
 # Base configuration recipe in Chef.
@@ -25,8 +18,21 @@ package "ntp"
 cookbook_file "ntp.conf" do
   path "/etc/ntp.conf"
 end
-execute 'ntp_restart' do
-  command 'service ntp restart'
+execute "ntp_restart" do
+  command "service ntp restart"
+end
+
+execute "java_install" do
+  cwd "#{projectDir}"
+  command "bash chef/scripts/javainstall.sh"
+end
+
+execute 'apt_get_npm' do
+  command 'apt-get install -y npm'
+end
+
+execute 'link_nodejs_to_node_binary' do
+  command 'ln -sf /usr/bin/nodejs /usr/bin/node'
 end
 
 # Play 2 setup
@@ -77,7 +83,7 @@ ruby_block "set_default_login_dir" do
 end
 
 execute "run_serverside_tests" do
-  cwd "#{apiDir}"
+  cwd "#{serversideTestDir}"
   command "#{playScript} auto-test"
   notifies :create, "ruby_block[check_serverside_tests_results]", :immediately
 end
@@ -86,6 +92,22 @@ ruby_block "check_serverside_tests_results" do
   block do
     raise "Server side tests failed. Check tests results."
   end
-  not_if { ::File.file?("#{apiTestResultsDir}/result.passed") }
+  not_if { ::File.file?("#{serversideTestResultsDir}/result.passed") }
 end
 
+execute "server_start" do
+  user "ubuntu"
+  cwd "#{projectDir}"
+  command "sudo bash chef/scripts/manage.sh"
+end
+
+execute "jasmine-node_install" do
+  user "ubuntu"
+  command "sudo /usr/bin/npm install -g jasmine-node"
+end
+
+execute "run_api_tests" do
+  user "ubuntu"
+  cwd "#{clientsideTestDir}"
+  command "/usr/local/bin/jasmine-node spec/api/ --junitreport"
+end
