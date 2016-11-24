@@ -24,7 +24,7 @@ export default class Footer extends React.Component {
               <ul className="nav nav-pills nav-stacked">
                 <li><h4>For Restaurant Owners</h4></li>
                 <li><Link to ="/">Become our partner</Link></li>
-                <li><Link to ="/">Edit your bussiness page</Link></li>
+                <li><Link to ="/">Edit your business page</Link></li>
                 <li><Link to ="/">Business support</Link></li>          
               </ul>
             </div>
