@@ -8,20 +8,8 @@ playScript = "/home/downloads/play-1.4.3/play"
 cookbook_file "apt-sources.list" do
   path "/etc/apt/sources.list"
 end
-execute 'apt_update' do
-  command 'apt-get update'
-end
-
-execute 'apt_get_npm' do
-  command 'apt-get install -y npm'
-end
-
-execute "jasmine-node_install" do
-  command "npm install -g jasmine-node"
-end
-
-execute 'link_nodejs_to_node_binary' do
-  command 'ln -sf /usr/bin/nodejs /usr/bin/node'
+execute "apt_update" do
+  command "apt-get update"
 end
 
 # Base configuration recipe in Chef.
@@ -30,8 +18,21 @@ package "ntp"
 cookbook_file "ntp.conf" do
   path "/etc/ntp.conf"
 end
-execute 'ntp_restart' do
-  command 'service ntp restart'
+execute "ntp_restart" do
+  command "service ntp restart"
+end
+
+execute "java_install" do
+  cwd "#{projectDir}"
+  command "bash chef/scripts/javainstall.sh"
+end
+
+execute 'apt_get_npm' do
+  command 'apt-get install -y npm'
+end
+
+execute 'link_nodejs_to_node_binary' do
+  command 'ln -sf /usr/bin/nodejs /usr/bin/node'
 end
 
 # Play 2 setup
@@ -94,8 +95,19 @@ ruby_block "check_serverside_tests_results" do
   not_if { ::File.file?("#{serversideTestResultsDir}/result.passed") }
 end
 
+execute "server_start" do
+  user "ubuntu"
+  cwd "#{projectDir}"
+  command "sudo bash chef/scripts/manage.sh"
+end
+
+execute "jasmine-node_install" do
+  user "ubuntu"
+  command "sudo /usr/bin/npm install -g jasmine-node"
+end
+
 execute "run_api_tests" do
+  user "ubuntu"
   cwd "#{clientsideTestDir}"
   command "/usr/local/bin/jasmine-node spec/api/ --junitreport"
 end
-
