@@ -13,10 +13,10 @@ class UserStore extends EventEmitter {
       loginStatus:false,
     }
     this.userInfo = {
-          firstName: "hello",
-          lastName: "world",
-          email: "helloworld@123.com",
-          role: "Owner",
+          firstName: '',
+          lastName: '',
+          email: '',
+          role: 'guest',
           restaurants: [],
     };
     console.log("user store constructor")
@@ -41,17 +41,20 @@ class UserStore extends EventEmitter {
         if (response.status == 200) {
           this.session.sessionId = sessionId;
           this.session.loginStatus = true;  
-          this.emit("sessionStatusChange", this.session.loginStatus);
+          this.emit("auth_success", this.session.loginStatus);
+        } else {
+          cookie.remove('sessionId', { path: '/' });          
         }
       })
     }
   }
   
-  getSession() {
-    return this.session;
+  getUserInfo() {
+    console.log(this.userInfo);
+    return this.userInfo;
   }
 
-  getGuid() {
+  getSessionId() {
     return this.session.sessionId;
   }
 
@@ -66,22 +69,24 @@ class UserStore extends EventEmitter {
           //Save the session id to cookie
           cookie.save('sessionId', this.session.sessionId, { path: '/' });
           this.session.loginStatus = true;  
-          this.emit("sessionStatusChange", this.session.loginStatus);
+          this.emit("auth_success", this.session.loginStatus);
           this.emit("login");
-          console.log("Store: emitting sessionStatusChange");
+          console.log("Store: emitting auth_success");
         } else {
           console.log("Store: Status code in response is not 200. Status code :"+action.response.status);
-          this.emit("failToAuthenticate");
+          this.emit("auth_failure");
         }
         break;
       }
       case "AUTH_FAILURE": {
-        this.emit("failToAuthenticate");
-        console.log("Store: emitting failToAuthenticate");
+        this.emit("auth_failure");
+        console.log("Store: emitting auth_failure");
         break;
       }
-      case "LOGIN": {
-        //console.log("Received login action print out data: ", action.userInfo.restaurants.length);
+      case "UPDATE_USERINFO": {
+        console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
+        this.userInfo = action.response.data;
+        this.emit("update_userinfo", this.userInfo);
         break;
       }
       case "LOGOUT": {
@@ -91,12 +96,19 @@ class UserStore extends EventEmitter {
           sessionId: this.guid(),
           loginStatus: false,
         };
-        this.emit("sessionStatusChange");
+        this.userInfo = {
+          firstName: '',
+          lastName: '',
+          email: '',
+          role: 'guest',
+          restaurants: [],
+        };
+        this.emit("logout");
+        this.emit("update_userinfo", this.userInfo);
         break;
       }
     }
   }
-
 }
 
 const userStore = new UserStore;

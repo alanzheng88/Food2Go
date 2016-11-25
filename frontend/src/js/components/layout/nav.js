@@ -6,12 +6,15 @@ import * as LoginActions from "../../actions/loginActions";
   
 export default class Nav extends React.Component {
   constructor() {
-    super()
+    super();
+    console.log("nav props:",this.props);
     this.state = {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
+      userInfo: userStore.getUserInfo(),
     };
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -21,29 +24,45 @@ export default class Nav extends React.Component {
   }
 
   componentWillMount() {
-    userStore.on("sessionStatusChange", this.updateLoginStatus);
+    userStore.on("auth_success", this.updateLoginStatus);
+    userStore.on("logout", this.updateLoginStatus);
+    userStore.on("update_userinfo", this.updateUserInfo);
   }
 
   componentWillUnmount() {
-    userStore.removeListener("sessionStatusChange", this.updateLoginStatus);
+    userStore.removeListener("auth_success", this.updateLoginStatus);
+    userStore.removeListener("logout", this.updateLoginStatus);
+    userStore.removeListener("updateUserInfo", this.updateUserInfo);
   }
 
   handleLogout(event) {
-    LoginActions.logoutUser(userStore.getGuid());
+    console.log("handleLogout: this.props", this.props);
+    LoginActions.logoutUser(userStore.getSessionId());
+    this.props.router.push('/');
+  }
+
+  updateUserInfo(userInfo) {
+    this.setState({userInfo: userInfo});
   }
 
   updateLoginStatus(loginStatus) {
     this.setState({loginStatus: loginStatus});
+    if(loginStatus) {
+      LoginActions.getUserInfo(userStore.getSessionId());  
+    }
   }
 
   render() {
     const { location } = this.props;
-    const { collapsed, loginStatus } = this.state;
+    const { userInfo, collapsed, loginStatus } = this.state;
     // const featuredClass = location.pathname === "/" ? "active" : "";
     // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
     // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
+    console.log("role: ", this.state.userInfo.role);
     return (
+      <div>
+
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -80,7 +99,7 @@ export default class Nav extends React.Component {
               {loginStatus &&
                 <NavDropdown id = 'dropdown-size-medium' activeClassName="active" title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                  <MenuItem eventKey='2' href="/" onClick={this.handleLogout} >Logout </MenuItem>
+                  <MenuItem eventKey='2'  onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
@@ -92,6 +111,12 @@ export default class Nav extends React.Component {
           </div>
         </div>
       </nav>
+      {userInfo.role === 'restaurantOwner' &&
+        <div class="alert alert-danger" role="alert">
+          Create your first restaurant! <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
+        </div>
+      }
+      </div>
     );
   }
 }

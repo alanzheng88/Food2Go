@@ -11,8 +11,8 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: '',
-      password: '',
+      userName: 'test2@sfu.ca',
+      password: 'testtest',
       authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -23,12 +23,12 @@ export default class Login extends React.Component {
   }
   
   componentWillMount() {
-    userStore.on("failToAuthenticate", this.handleAuthenticationFailure);
+    userStore.on("auth_failure", this.handleAuthenticationFailure);
     userStore.on("login", this.redirect);
   } 
 
   componentWillUnmount() {
-    userStore.removeListener("failToAuthenticate", this.handleAuthenticationFailure);
+    userStore.removeListener("auth_failure", this.handleAuthenticationFailure);
     userStore.removeListener("login", this.redirect);
   }
 
@@ -54,7 +54,7 @@ export default class Login extends React.Component {
     const data = {
       email:this.state.userName,
       password:this.state.password,
-      sessionid:userStore.getGuid(),
+      sessionid:userStore.getSessionId(),
     }
     LoginActions.authenticateUser(JSON.stringify(data));
   }
