@@ -1,10 +1,10 @@
 var frisby = require('frisby');
 var server = require('../../lib/server');
 var url = server.url;
-var sessionid = server.randSessionId();
 
+var cookie = "";
 
-var testLoginWithRestaurant = function(restaurantFcn, loginJson,
+var testLoginUserWithRestaurant = function(restaurantFcn, loginJson,
                                        statusCode) {
   frisby.create('Log In As Customer')
     .post( url + '/api/authenticate', loginJson, {json: true} )
@@ -18,15 +18,19 @@ var createRestaurant = function(jsonBefore, statusCodeBefore,
                                 jsonAfter, statusCodeAfter) {
 
   return function(err, res, body) {
+          cookie = server.getCookie(res);
           frisby.create('Create a Restaurant')
-            .post( url + '/api/restaurants?sessionid=' + sessionid, 
+            .post( url + '/api/restaurants', 
                   jsonBefore, {json: true} )
+            .addHeaders(server.getHeaders(cookie))
+            // .inspectRequest()
             .expectStatus(statusCodeBefore)
             .after(function(err, res, body) {
               frisby.create('Get Created Restaurant')
-                .get( url + '/api/restaurants')
+                .get( url + '/api/restaurants' )
+                .addHeaders(server.getHeaders(cookie))
                 .expectHeaderContains('content-type', 'application/json')
-                .expectJSON( '?', jsonAfter)
+                .expectJSON('?', jsonAfter)
                 .expectStatus(statusCodeAfter)
               .toss()
             })
@@ -44,12 +48,11 @@ var mikuValidRestaurantJson = {
 
 var billHeLoginJson = {
   email: 'billhe@sfu.ca',
-  password: 'password1',
-  sessionid: sessionid
+  password: 'password1'
 }
 
-testLoginWithRestaurant(createRestaurant(
+testLoginUserWithRestaurant(createRestaurant(
   mikuValidRestaurantJson, 201,
   mikuValidRestaurantJson, 200
-), billHeLoginJson, 200);
+), billHeLoginJson, 201);
 

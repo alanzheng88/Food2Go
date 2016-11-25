@@ -1,13 +1,15 @@
 var server = {
   url: "http://localhost:9000",
-  randSessionId: function() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
+  getCookie: function(res) {
+    var cookie = res.headers['set-cookie'][2];
+    return cookie
+  },
+  getHeaders: function(cookie) {
+    return {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Cookie": cookie
     }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4(); 
   }
 };
 

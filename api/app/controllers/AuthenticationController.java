@@ -36,32 +36,50 @@ public class AuthenticationController extends AppController {
     }
 
     public static void authenticate() {
-        Map<String, String> map = getHashMapFromRequestBody();
-        if (map.containsKey("sessionid") && 
-                map.containsKey("email") &&
-                map.containsKey("password")) {
+        
+        User user;
+        if ((user = getUserFromSessionId()) != null) {
+            // user is already logged in
+            response.status = 200;
+            return;
+        } else {
+            // user is not logged in
 
-            String sessionid = map.get("sessionid");
-            String email = map.get("email");
-            String password = map.get("password");
-            User user;
-            if ((user = User.authenticate(email, password)) != null) {
-                Cache.set(sessionid, user, "10mn");
-                response.status = 200;
-                return;
-            } else {
-                response.status = 401;
+            Map<String, String> map = getHashMapFromRequestBody();
+
+            if (!(map.containsKey("email") &&
+                    map.containsKey("password"))) {
+                // user needs to provide missing params
+                response.status = 400;
                 return;
             }
-        } else {
-            response.status = 400;
-            return;
+
+            String email = map.get("email");
+            String password = map.get("password");
+            
+            // new login
+            if ((user = User.authenticate(email, password)) != null) {
+                System.out.println("New user or session");
+                String newSessionId = createSessionId();
+                System.out.println("Creating new session id: " + newSessionId);
+                Cache.set(newSessionId, user, "10mn");
+                response.setCookie("SESSIONID", newSessionId);
+                response.setHeader("CACHE_CONTROL", "max-age=600");
+                response.status = 201;
+                return;
+            } else {
+                // user is authenticated
+                response.status = 401;
+            }
         }
-       
     }
 
     public static void deleteSession() {
         String sessionid = getSessionId();
+        if  (sessionid == null) {
+            response.status = 400;
+            return;
+        }
         boolean isSuccessfulDeletion = Cache.safeDelete(sessionid);
         if (isSuccessfulDeletion) {
             // successfully deleted session

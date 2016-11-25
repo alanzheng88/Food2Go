@@ -10,6 +10,7 @@ import models.*;
 public class Application extends AppController {
 
     public static void index() {
+        System.out.println(createSessionId());
         render();
     }
 

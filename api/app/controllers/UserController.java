@@ -40,7 +40,9 @@ public class UserController extends AppController {
 
     public static void getUser() {
         User user = getUserFromSessionId();
+
         if (user == null) {
+            System.out.println("User is null ");
             response.status = 400;
             return;
         }

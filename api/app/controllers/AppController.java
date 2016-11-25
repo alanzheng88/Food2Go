@@ -17,6 +17,11 @@ import play.data.validation.*;
 
 import play.cache.Cache;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import play.libs.Crypto;
+
 public class AppController extends Controller {
 
     protected static final Gson gson = new Gson();
@@ -65,8 +70,23 @@ public class AppController extends Controller {
     }
 
     protected static String getSessionId() {
-        // request.cookies.get('comment.name').value
-        return getRequestParams("sessionid");
+        for (String c : request.cookies.keySet()) {
+            System.out.println("key: " + c);
+        }
+        
+        Http.Cookie sessionid = request.cookies.get("SESSIONID");
+        if (sessionid == null) {
+            return null;
+        }
+        System.out.println("getting session id: " + sessionid.value);
+        return sessionid.value;
+    }
+
+    protected static String createSessionId() {
+        String sessionid = Crypto.encryptAES(
+                                LocalDateTime.now().toString()
+                                + UUID.randomUUID());
+        return sessionid;
     }
 
     protected static String getRequestParams(String key) {
@@ -75,6 +95,7 @@ public class AppController extends Controller {
 
     protected static User getUserFromSessionId() {
          String sessionid = getSessionId();
+         System.out.println("session id is: " + sessionid);
          User user = (User)Cache.get(sessionid);
          return user;
     }
