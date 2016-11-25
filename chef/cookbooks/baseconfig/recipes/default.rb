@@ -109,5 +109,5 @@ end
 execute "run_api_tests" do
   user "ubuntu"
   cwd "#{clientsideTestDir}"
-  command "/usr/local/bin/jasmine-node spec/api/ --junitreport"
+  command "/usr/local/bin/jasmine-node . --junitreport"
 end

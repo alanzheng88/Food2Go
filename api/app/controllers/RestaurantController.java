@@ -27,16 +27,33 @@ public class RestaurantController extends AppController {
     }
 	
     public static void createRestaurant() {
-        Restaurant newRestaurant = getObjectFromRequestBody(Restaurant.class);
-        save(newRestaurant);
+        Restaurant restaurant = getObjectFromRequestBody(Restaurant.class);
+        User user = getUserFromSessionId();
+        if (user == null) {
+            // user is unauthorized to create restaurant
+            response.status = 401;
+            return;
+        } else if (user.isRestaurantOwner()) {
+            restaurant.restaurantOwner = user;
+            save(restaurant, 201);
+            return;
+        } else {
+            // user is forbidden to create a restaurant
+            response.status = 403;
+            return;
+        }
     }
 	
-    public static void editRestaurant(Long restaurantId, String name, String phoneNumber, 
+    public static void updateRestaurant(Long restaurantId, String name, String phoneNumber, 
             String email, String address, String description){
         Restaurant restaurant = Restaurant.findById(restaurantId);
-        restaurant.update(name, phoneNumber, email, address, description);
-        restaurant.save();
-        response.status = 200;
+        if (restaurant == null) {
+            response.status = 400;
+            return;
+        } else {
+            restaurant.update(name, phoneNumber, email, address, description);
+            save(restaurant, 200);
+        }
     }
 
 }
