@@ -1,6 +1,7 @@
 import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
-
+import axios from "axios";
+const KEYS_TO_FILTERS = ['name', 'address', 'description'];
 export default class Restaurants extends React.Component {
 	constructor(props) {
 		  super(props);
@@ -8,10 +9,15 @@ export default class Restaurants extends React.Component {
 		    searchTerm: "",
 				restaurants: [{
 					id: 0,
-					name: "Restaurant Name",
+					name: "Restaurant 1",
 					address: "Restaurant Address",
-					description: "Resautarant Description"}]
+					description: "Restaurant Description"},{
+						id: 1,
+						name: "Restaurant 2",
+						address: "Restaurant Address",
+						description: "Restaurant Description"}]
 		  };
+		  this.getRestaurants();
 		  this.searchUpdated = this.searchUpdated.bind(this);
 	}
 	searchUpdated (term) {
@@ -20,12 +26,11 @@ export default class Restaurants extends React.Component {
 	getRestaurants(){
 	// Get restaurant info via Axios
 		var th = this;
-		console.log("id", id);
-		axios.get('http://localhost:9000/api/restaurant/')
+		axios.get('http://localhost:9000/api/restaurants')
 		  .then(function(response) {
 			  console.log(response);
 			  th.setState({
-					restaurants: th.data
+					restaurants: response.data
 				  });
 		  })
 		  .catch(function(error) {
@@ -43,25 +48,32 @@ export default class Restaurants extends React.Component {
 		  });
 	}
 	render() {
+	const filteredRestaurants = this.state.restaurants.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     console.log("Restaurants");
     return (
 		<div>
       <h1>Search Restaurants</h1>
       <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
-      {this.state.restaurants.map(restaurant => {
+      {filteredRestaurants.map(restaurant => {
        return (
-				<div key={restaurant.id} class="restaurant row" >
-					<div class=".col-md-4">
-        		<h4>{restaurant.name}</h4>
-          	<img class="img-responsive" src="http://thecatapi.com/api/images/get?format=src&type=jpg"/>
-					</div>
-					<div class=".col-md-4">
-						<p>{restaurant.address}</p>
-					</div>
-					<div class=".col-md-4">
-						<p>{restaurant.description}</p>
-					</div>
+	   <a href={"#/restaurant/"+restaurant.id} className="button">
+		<div class="panel panel-default row" key={restaurant.id} >
+			<div class="panel-heading">
+				<h4 class="panel-title">{restaurant.name}</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-md-4">
+	    			<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
+				</div>
+				<address class="col-md-4">
+					<p>{restaurant.address}</p>
+				</address>
+				<div class="col-md-4">
+					<p>{restaurant.description}</p>
+				</div>
+			</div>
         </div>
+        </a>
         )
       })} </div>
     );
