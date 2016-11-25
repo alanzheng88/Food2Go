@@ -29,10 +29,12 @@ public class UserController extends AppController {
         User newUser = getObjectFromRequestBody(User.class);
         try {
             newUser.encryptPassword();
-            save(newUser);
+            save(newUser, 201);
+            return;
         } catch (javax.persistence.PersistenceException e) {
             // creation or update breaks a unique constraint
             response.status = 409;
+            return;
         }
     }
 
@@ -48,21 +50,27 @@ public class UserController extends AppController {
         if (query == null) {
             renderJSON(gson.toJson(user));
         } else if (query.equals("restaurants")) {
-            List<Restaurant> restaurants = getRestaurants(user);
-            System.out.println("restaurants: " + restaurants);
-            if (restaurants != null) {
-                String restaurantsJson = gson.toJson(restaurants);
-                response.status = 200;
-                renderJSON(restaurantsJson);
+            if (user.isRestaurantOwner()) {
+                List<Restaurant> restaurants = getRestaurants(user);
+                System.out.println("restaurants: " + restaurants);
+                if (restaurants != null) {
+                    String restaurantsJson = gson.toJson(restaurants);
+                    response.status = 200;
+                    renderJSON(restaurantsJson);
+                }
+            } else {
+                // user is forbidden to access restaurant info
+                response.status = 403;
+                return;
             }
+        } else {
+            response.status = 400;
+            return;
         }
-        response.status = 400;
     }
 
     public static List<Restaurant> getRestaurants(User user) {
-        if (!user.role.equals("restaurantOwner")) {
-            return null;
-        }
+        if (user == null || !user.isRestaurantOwner()) { return null; }
         List<Restaurant> restaurants = 
             Restaurant.find("byRestaurantOwner", user).fetch();
         return restaurants;

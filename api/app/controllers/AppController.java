@@ -54,17 +54,18 @@ public class AppController extends Controller {
     * otherwise generates 400 status code
     * @param t object of class to be saved
     */
-    protected static <T extends Model> void save(@Valid T t) {
+    protected static <T extends Model> void save(@Valid T t, int successCode) {
         if (hasValidationErrors(t)) {
             response.status = 400;
         } else {
             t.save();
             System.out.println(t);
-            response.status = 201;
+            response.status = successCode;
         }
     }
 
     protected static String getSessionId() {
+        // request.cookies.get('comment.name').value
         return getRequestParams("sessionid");
     }
 
