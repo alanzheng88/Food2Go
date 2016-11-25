@@ -1,4 +1,4 @@
-vagrant ssh -c 'psql -d food2go -c "TRUNCATE TABLE AppUser"'
+vagrant ssh -c 'psql -d food2go -c "TRUNCATE TABLE AppUser CASCADE"'
 
 echo "Create a new user"
 curl -v -H "Content-Type: application/json" --data "{'firstName':'alex', 'lastName':'gee', 'email':'az@sfu.ca', 'password':'password1', 'role':'customer'}" http://localhost:9000/api/user
