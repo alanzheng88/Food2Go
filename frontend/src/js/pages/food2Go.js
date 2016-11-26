@@ -92,12 +92,9 @@ export default class Food2Go extends React.Component {
 			    	<br></br>
 			    	<br /><br />
 			    	
-			    	<Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link>
-			    	<br />
-					<Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link>
-					<br />
-			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Foods</Link>
-			    	<br />
+			    	<button href="#" type="button" class="btn btn-danger btn-lg btn-block">Order Now!</button>
+			    	<button href="#" type="button" class="btn btn-primary btn-lg btn-block">Browse Restaurant</button>
+			    	<button href="#" type="button" class="btn btn-primary btn-lg btn-block">Browse Food</button>
 			    	
 			    </div>
 		    </div>
