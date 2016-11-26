@@ -74,7 +74,7 @@ export default class Food2Go extends React.Component {
 		  	arrows:true,
 		  	dotsClass:'slick-dots slick-thumb',
 		  	infinite: true,
-		  	slidesToShow:10,
+		  	slidesToShow:6,
 		  	SlidestoScroll:5
 		  };
 		  const foodPic={
@@ -115,16 +115,16 @@ export default class Food2Go extends React.Component {
 			    	<br></br>
 			    	<br />
 			    	<div class="button-click-in-main">
-			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
+			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
 			    	<Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link></button>
-			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
+			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
 			    	<Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link></button>
-			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
+			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
 			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link></button>
 			    	</div>
 			    </div>
-			    <h5>Popular Restaurants pictures</h5>
 			    <div class="col-md-11">
+			    	<h5>Popular Restaurants pictures</h5>
 			    	<Slider {...restaurantPic}>
 				      <div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
@@ -138,8 +138,9 @@ export default class Food2Go extends React.Component {
 			      </Slider>
 
 			    </div>
-			    <h5>Popular foods pictures</h5>
+			    
 			    <div class="col-md-11">
+			    	<h5>Popular foods pictures</h5>
 			    	<Slider {...foodPic}>
 				      <div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
