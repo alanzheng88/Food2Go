@@ -31,8 +31,7 @@ public class AppController extends Controller {
     protected static void setDefaultHeaders() {
         response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
         response.setContentTypeIfNotSet("application/json");
-        response.setHeader("Access-Control-Allow-Headers", "*")
-        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Headers", "*");
     }
 
     protected static String getRequestBody() {
