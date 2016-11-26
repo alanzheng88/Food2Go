@@ -27,6 +27,10 @@ public class UserController extends AppController {
         // request.body => InputStream
         // params.get("body") => String
         User newUser = getObjectFromRequestBody(User.class);
+        if (newUser == null) {
+            response.status = 400;
+            return;
+        }
         try {
             newUser.encryptPassword();
             save(newUser, 201);

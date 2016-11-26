@@ -31,7 +31,6 @@ public class AppController extends Controller {
     protected static void setDefaultHeaders() {
         response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
         response.setContentTypeIfNotSet("application/json");
-        response.setHeader("Access-Control-Allow-Headers", "*");
     }
 
     protected static String getRequestBody() {
@@ -96,7 +95,7 @@ public class AppController extends Controller {
 
     protected static User getUserFromSessionId() {
          String sessionid = getSessionId();
-         System.out.println("session id is: " + sessionid);
+         System.out.println("session id for user is: " + sessionid);
          User user = (User)Cache.get(sessionid);
          return user;
     }
