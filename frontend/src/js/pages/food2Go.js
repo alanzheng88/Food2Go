@@ -10,7 +10,7 @@ export default class Food2Go extends React.Component {
 	constructor(props) {
 	  super(props);
 	  let restaurantId = this.props.params.restaurantId;
-	  // Default values
+	  // Default values not correct need to find for all restaurant not restaurant id
 	  this.state ={
 		restaurantId: {restaurantId},
 		restaurantName: "Restaurant Name",
@@ -56,6 +56,7 @@ export default class Food2Go extends React.Component {
 	}
 	render() {
 	    console.log("Food2Go");
+	    //first picture setting
 	    const settings = {
 		    dots: true,
 		    autoplay: true,
@@ -67,6 +68,7 @@ export default class Food2Go extends React.Component {
 		    slidesToShow: 1,
 		    slidesToScroll: 1
 		  };
+		  //popular restaurant picture slider setting
 		  const restaurantPic={
 		  	dots:true,
 		  	autoplay:false,
@@ -77,6 +79,7 @@ export default class Food2Go extends React.Component {
 		  	slidesToShow:6,
 		  	SlidestoScroll:5
 		  };
+		  //popular food picture slider setting
 		  const foodPic={
 		  	dots:true,
 		  	autoplay:false,
@@ -124,7 +127,7 @@ export default class Food2Go extends React.Component {
 			    	</div>
 			    </div>
 			    <div class="col-md-11">
-			    	<h5>Popular Restaurants pictures</h5>
+			    	<h4>Popular Restaurants pictures</h4>
 			    	<Slider {...restaurantPic}>
 				      <div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
@@ -140,7 +143,7 @@ export default class Food2Go extends React.Component {
 			    </div>
 			    
 			    <div class="col-md-11">
-			    	<h5>Popular foods pictures</h5>
+			    	<h4>Popular foods pictures</h4>
 			    	<Slider {...foodPic}>
 				      <div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
