@@ -3,8 +3,11 @@ import React from "react";
 import * as LoginActions from "../actions/loginActions";
 import userStore from "../stores/userStore";
 
-
 export default class Login extends React.Component {
+
+  // static contextTypes = {
+  //   router: PropTypes.func.isRequired
+  // };
   constructor(props) {
     super(props);
     this.state = {
@@ -15,23 +18,27 @@ export default class Login extends React.Component {
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleAuthenticationFailure = this.handleAuthenticationFailure.bind(this);
-
+    this.redirect = this.redirect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
   componentWillMount() {
     userStore.on("failToAuthenticate", this.handleAuthenticationFailure);
+    userStore.on("login", this.redirect);
   } 
 
   componentWillUnmount() {
     userStore.removeListener("failToAuthenticate", this.handleAuthenticationFailure);
+    userStore.removeListener("login", this.redirect);
   }
 
   handleAuthenticationFailure () {
-      this.setState({authFailed:true});
+    this.setState({authFailed:true});
   }
-  updateUser(){
 
+  redirect() {
+    console.log(this.props);
+    this.props.router.push('/');
   }
 
   handleUserNameChange(event) {
@@ -48,15 +55,11 @@ export default class Login extends React.Component {
       email:this.state.userName,
       password:this.state.password,
       sessionid:userStore.getGuid(),
-      role:'customer'
     }
     LoginActions.authenticateUser(JSON.stringify(data));
-    //LoginActions.loginUser(userStore.getGuid());
-    //LoginActions.logoutUser(userStore.getGuid());
   }
 
   render() {
-    console.log("Login");
     return (
       <div className="col-md-4">
       <h4>Login Page</h4>

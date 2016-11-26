@@ -87,3 +87,10 @@ div.desc {
 .search-input > input:focus {
   outline: none;
 }
+.button-click-in-main > Link::before{
+  font-color: white;
+
+}
+.button-click-in-main > Link::after{
+  font-color: black;
+}
