@@ -67,11 +67,32 @@ export default class Food2Go extends React.Component {
 		    slidesToShow: 1,
 		    slidesToScroll: 1
 		  };
+		  const restaurantPic={
+		  	dots:true,
+		  	autoplay:false,
+		  	adaptiveHeight:true,
+		  	arrows:true,
+		  	dotsClass:'slick-dots slick-thumb',
+		  	infinite: true,
+		  	slidesToShow:10,
+		  	SlidestoScroll:5
+		  };
+		  const foodPic={
+		  	dots:true,
+		  	autoplay:false,
+		  	adaptiveHeight:true,
+		  	arrows:true,
+		  	dotsClass:'slick-dots slick-thumb',
+		  	infinite: true,
+		  	slidesToShow:10,
+		  	SlidestoScroll:5
+		  };
+
 	    return (
 	    <div class='mySlick' id="container">
 		    <div class="row">
 		      <h1>{this.state.restaurantName}</h1>
-			    <div class="col-md-6">
+			    <div class="col-md-8">
 			      <Slider {...settings}>
 				      <div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
@@ -87,18 +108,48 @@ export default class Food2Go extends React.Component {
 				      </div>
 			      </Slider>
 			    </div>
-			    <div class="col-md-6">
+			    <div class="col-md-1">
+			    </div>
+			    <div class="col-md-4">
 			    	<br></br>
 			    	<br></br>
 			    	<br />
 			    	<div class="button-click-in-main">
 			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link></button>
+			    	<Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link></button>
 			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
 			    	<Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link></button>
 			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
 			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link></button>
 			    	</div>
+			    </div>
+			    <div class="col-md-11">
+			    	<Slider {...restaurantPic}>
+				      <div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+				      </div>
+			      </Slider>
+
+			    </div>
+			    <div class="col-md-11">
+			    	<Slider {...foodPic}>
+				      <div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+				      </div>
+			      </Slider>
+
 			    </div>
 		    </div>
 		    </div>
