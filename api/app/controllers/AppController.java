@@ -25,7 +25,8 @@ import play.libs.Crypto;
 public class AppController extends Controller {
 
     protected static final Gson gson = new Gson();
-    protected static final String SERVER_URL = "http://localhost:11000";
+    protected static final String DOMAIN = "localhost";
+    protected static final String SERVER_URL = "http://" + DOMAIN + ":11000";
     
     @Before
     protected static void setDefaultHeaders() {
@@ -89,8 +90,33 @@ public class AppController extends Controller {
         return sessionid;
     }
 
-    protected static String getRequestParams(String key) {
+    protected static Map<String, String[]> getRequestParamsMap() {
+        return request.params.all();
+    }
+
+    protected static String getRequestParamsValue(String key) {
         return request.params.get(key);
+    }
+
+    protected static boolean hasInvalidRequestParams(String[] validParams) {
+        String[] additionalParams = {"body"};
+        String[] newValidParams = concatenate(validParams, additionalParams);
+        Set<String> paramsKeys = getRequestParamsMap().keySet();
+        for (String paramsKey : paramsKeys) {
+            if (!Arrays.asList(newValidParams).contains(paramsKey)) {
+                System.out.println("param key: " + paramsKey);
+                System.out.println("Has invalid request params!");
+                response.status = 400;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static <T> T[] concatenate(T[] first, T[] second) {
+        T[] result = Arrays.copyOf(first, first.length + second.length);
+        System.arraycopy(second, 0, result, first.length, second.length);
+        return result;
     }
 
     protected static User getUserFromSessionId() {
