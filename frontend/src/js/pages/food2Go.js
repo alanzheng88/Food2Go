@@ -123,6 +123,7 @@ export default class Food2Go extends React.Component {
 			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link></button>
 			    	</div>
 			    </div>
+			    <h5>Popular Restaurants pictures</h5>
 			    <div class="col-md-11">
 			    	<Slider {...restaurantPic}>
 				      <div>
@@ -137,6 +138,7 @@ export default class Food2Go extends React.Component {
 			      </Slider>
 
 			    </div>
+			    <h5>Popular foods pictures</h5>
 			    <div class="col-md-11">
 			    	<Slider {...foodPic}>
 				      <div>
