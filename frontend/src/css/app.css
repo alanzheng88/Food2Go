@@ -87,3 +87,6 @@ div.desc {
 .search-input > input:focus {
   outline: none;
 }
+div.button-click-in-main > button{
+  font-color: white;
+}
