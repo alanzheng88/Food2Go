@@ -16,6 +16,8 @@ import play.data.validation.*;
 
 public class UserController extends AppController {
 
+    private static String[] VALID_PARAMS = {"query"};
+
     public static void getUsers() {
         List<User> userList = User.find("order by firstname asc").fetch();
         String userJson = gson.toJson(userList);
@@ -27,6 +29,10 @@ public class UserController extends AppController {
         // request.body => InputStream
         // params.get("body") => String
         User newUser = getObjectFromRequestBody(User.class);
+        if (newUser == null) {
+            response.status = 400;
+            return;
+        }
         try {
             newUser.encryptPassword();
             save(newUser, 201);
@@ -42,12 +48,14 @@ public class UserController extends AppController {
         User user = getUserFromSessionId();
 
         if (user == null) {
-            System.out.println("User is null ");
+            System.out.println("User is null");
             response.status = 400;
             return;
         }
 
-        String query = getRequestParams("query");
+        if (hasInvalidRequestParams(VALID_PARAMS)) { return; }
+
+        String query = getRequestParamsValue("query");
         System.out.println("query: " + query);
         if (query == null) {
             renderJSON(gson.toJson(user));

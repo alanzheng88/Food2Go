@@ -13,21 +13,21 @@ import com.google.gson.JsonSerializer;
 
 import play.cache.Cache;
 
+import java.util.Base64;
+
 public class AuthenticationController extends AppController {
+
+    private static final String WWW_AUTHENTICATE = "WWW-Authenticate";
+    private static final String REALM = "Basic realm=\"Food2Go\"";
+    private static final int SESSION_EXPIRE = 10;
+    private static final boolean SECURE = false;
 
     public static void checkAuthenticatedStatus() {
         String sessionid = getSessionId();
-        System.out.println("sessionid is: " + sessionid);
-        
-        boolean authorized = true; // hardcoding for now -- fix later
         User user = (User)Cache.get(sessionid);
         if (user != null) {
             // successful logged in
             response.status = 200;
-        } else if (!authorized) {
-            // user is logged in but not authorized to access resource
-            response.status = 403;
-            return;
         } else {
             // user is not logged in and sessionid is invalid
             response.status = 401;
@@ -36,7 +36,6 @@ public class AuthenticationController extends AppController {
     }
 
     public static void authenticate() {
-        
         User user;
         if ((user = getUserFromSessionId()) != null) {
             // user is already logged in
@@ -44,31 +43,21 @@ public class AuthenticationController extends AppController {
             return;
         } else {
             // user is not logged in
-
-            Map<String, String> map = getHashMapFromRequestBody();
-
-            if (!(map.containsKey("email") &&
-                    map.containsKey("password"))) {
-                // user needs to provide missing params
-                response.status = 400;
-                return;
-            }
-
-            String email = map.get("email");
-            String password = map.get("password");
+            String email = request.user;
+            String password = request.password;
             
             // new login
             if ((user = User.authenticate(email, password)) != null) {
                 System.out.println("New user or session");
                 String newSessionId = createSessionId();
                 System.out.println("Creating new session id: " + newSessionId);
-                Cache.set(newSessionId, user, "10mn");
-                response.setCookie("SESSIONID", newSessionId);
-                response.setHeader("CACHE_CONTROL", "max-age=600");
+                int maxAge = SESSION_EXPIRE * 60;
+                Cache.set(newSessionId, user, String.valueOf(SESSION_EXPIRE) + "mn");
+                response.setCookie("SESSIONID", newSessionId, DOMAIN, "/", maxAge, SECURE);
                 response.status = 201;
                 return;
             } else {
-                // user is authenticated
+                // user is not authenticated
                 response.status = 401;
             }
         }
@@ -81,6 +70,7 @@ public class AuthenticationController extends AppController {
             return;
         }
         boolean isSuccessfulDeletion = Cache.safeDelete(sessionid);
+        response.setCookie("SESSIONID", "", DOMAIN, "/", -SESSION_EXPIRE, SECURE);
         if (isSuccessfulDeletion) {
             // successfully deleted session
             response.status = 200;

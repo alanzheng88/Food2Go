@@ -2,26 +2,27 @@ var frisby = require('frisby');
 var server = require('../../lib/server');
 var url = server.url;
 
-var cookie = "";
+var cookie = '';
 
 var testLoginUserWithRestaurant = function(restaurantFcn, loginJson,
                                        statusCode) {
   frisby.create('Log In As Customer')
-    .post( url + '/api/authenticate', loginJson, {json: true} )
+    .post( url + '/api/authenticate', {json: true} )
+    .addHeaders({'Content-Type': 'application/json'})
+    .auth(loginJson.email, loginJson.password)
     .expectStatus(statusCode)
-    .expectHeaderContains('content-type', 'application/json')
+    .expectHeaderContains('Content-Type', 'application/json')
     .after(restaurantFcn)
   .toss()
 }
 
-var createRestaurant = function(jsonBefore, statusCodeBefore,
-                                jsonAfter, statusCodeAfter) {
+var createRestaurant = function(restaurantJson, statusCodeBefore, statusCodeAfter) {
 
   return function(err, res, body) {
           cookie = server.getCookie(res);
           frisby.create('Create a Restaurant')
             .post( url + '/api/restaurants', 
-                  jsonBefore, {json: true} )
+                  restaurantJson, {json: true} )
             .addHeaders(server.getHeaders(cookie))
             // .inspectRequest()
             .expectStatus(statusCodeBefore)
@@ -29,8 +30,8 @@ var createRestaurant = function(jsonBefore, statusCodeBefore,
               frisby.create('Get Created Restaurant')
                 .get( url + '/api/restaurants' )
                 .addHeaders(server.getHeaders(cookie))
-                .expectHeaderContains('content-type', 'application/json')
-                .expectJSON('?', jsonAfter)
+                .expectHeaderContains('Content-Type', 'application/json')
+                .expectJSON('?', restaurantJson)
                 .expectStatus(statusCodeAfter)
               .toss()
             })
@@ -51,8 +52,8 @@ var billHeLoginJson = {
   password: 'password1'
 }
 
-testLoginUserWithRestaurant(createRestaurant(
-  mikuValidRestaurantJson, 201,
-  mikuValidRestaurantJson, 200
-), billHeLoginJson, 201);
+testLoginUserWithRestaurant(
+  createRestaurant(mikuValidRestaurantJson, 201, 200), 
+  billHeLoginJson, 201
+);
 
