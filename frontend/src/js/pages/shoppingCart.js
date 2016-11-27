@@ -26,10 +26,10 @@ export default class ShoppingCart extends React.Component {
                       </a>
                       <div className="media-body">
                         <h4 className="media-heading">
-                          <a href="#">Product name</a>
+                          <a href="#">Food name</a>
                         </h4>
                         <h5 className="media-heading"> 
-                          by <a href="#">Brand name</a>
+                          by <a href="#">Restaurant name</a>
                         </h5>
                           <span>Status: </span>
                             <span className="text-success"> 
@@ -66,8 +66,8 @@ export default class ShoppingCart extends React.Component {
                           by <a href="#">Restaurant name</a>
                         </h5>
                         <span>Status: </span>
-                        <span className="text-warning">
-                          <strong>Leaves warehouse in 2 - 3 weeks</strong>
+                        <span className="text-success"> 
+                              <strong>In Stock</strong>
                         </span>
                       </div>
                     </div>
