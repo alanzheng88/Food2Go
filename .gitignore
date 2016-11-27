@@ -19,3 +19,4 @@ api/logs/*
 api/test-result/*
 api/*.log
 
+/frontend/nbproject/private/
