@@ -79,9 +79,6 @@ export default class Nav extends React.Component {
               <li activeClassName="active">
                 <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
               </li>
-              <li activeClassName="active">
-                <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
-              </li>
               <Navbar.Form pullLeft>
                 <FormGroup>
                   <FormControl type="text" placeholder="Search" />
@@ -94,6 +91,11 @@ export default class Nav extends React.Component {
                 <li activeClassName="active">
                   <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
                 </li>
+              {!loginStatus &&
+                <li activeClassName="active">
+                  <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
+                </li>
+              }
               {loginStatus &&
                 <NavDropdown id = 'dropdown-size-medium' activeClassName="active" title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>

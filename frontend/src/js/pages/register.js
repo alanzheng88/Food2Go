@@ -63,7 +63,6 @@ export default class Register extends React.Component {
 		    password: this.state.password.trim(),
 		    role: this.state.role
 		  }
-		  
 		  // Submit form via jQuery/AJAX
 		  axios({
 		    method: 'POST',
@@ -72,10 +71,10 @@ export default class Register extends React.Component {
 		  })
 		  .then(function(data) {
 			  alert('Account Created!');
-			  th.reset();
+			  th.props.router.push('/');
 		  })
 		  .catch(function(error) {
-			  alert('Failed to Register!');
+			  alert('Failed to Register!', error);
 			  if (error.response) {
 			  // The request was made, but the server responded with a status code 
 			  // that falls out of the range of 2xx 
