@@ -57,7 +57,7 @@ export default class ShoppingCart extends React.Component {
                 <tr>
                   <td className="col-md-6">
                     <div className="media">
-                      <a className="thumbnail pull-left" href="#">  <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style={{width: 72, height: 72}} /> </a>
+                      <a className="thumbnail pull-left" href="#"> <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style={{width: 72, height: 72}} /> </a>
                       <div className="media-body">
                         <h4 className="media-heading">
                             <a href="#">Food name</a>
