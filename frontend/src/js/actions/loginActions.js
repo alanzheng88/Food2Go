@@ -5,11 +5,11 @@ import {host, port} from "../constants/backend.js"
 export function authenticateUser(text) {
   console.log("Sending the data!", text);
   axios.post(`http://${host}:${port}/api/authenticate`, text).then((response) => {
-      dispatcher.dispatch({
-      	type: "AUTH_SUCCESS",
-      	response
-      });
-      console.log("got the response!", response);
+    dispatcher.dispatch({
+    	type: "AUTH_SUCCESS",
+    	response
+    });
+    console.log("got the response!", response);
   })
   .catch((error) => {
     console.log("Action: authenticateUser error", error);
@@ -20,23 +20,28 @@ export function authenticateUser(text) {
   })
 }
 
-export function loginUser(sessionId) {
-	// axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionId}`).then((response) => {
-	// 	console.log(response.data);
-	//     console.log(response.status);
-	//     console.log(response.statusText);
-	//     console.log(response.headers);
-	//     console.log(response.config);
-	// 	dispatcher.dispatch({type: "LOGIN"});
-	// 	console.log("got the response!", response);
- //  })
- //  .catch((error) => {
- //    dispatcher.dispatch({
- //        type: "AUTH_FAILURE",
- //        error,
- //      });
- //      console.log("Cannot get the data, fake the login");
- //  })
+export function getUserInfo(sessionId) {
+	axios.get(`http://${host}:${port}/api/user?sessionid=${sessionId}`)
+    .then((response) => {
+      console.log("Action: getUserInfo response", response);
+      dispatcher.dispatch({
+      type: "UPDATE_USERINFO",
+      response,
+    });
+    })
+    .catch((error) => {
+      console.log("Action: getUserInfo error")
+      dispatcher.dispatch({
+        type: "UPDATE_USERINFO",
+        response : {
+          firstName: 'test',
+          lastName: 'test',
+          email: 'test@sfu.ca',
+          role: 'restaurantOwner',
+          restaurants: [],
+        }
+      });
+    })
 }
 
 export function logoutUser(sessionId) {
