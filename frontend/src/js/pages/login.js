@@ -11,8 +11,8 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'test2@sfu.ca',
-      password: 'testtest',
+      userName: 'alanz@sfu.ca',
+      password: 'password',
       authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -75,7 +75,7 @@ export default class Login extends React.Component {
         <input type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
         <br/>
         <input type="submit" value="Submit" />
-      </form> 
+      </form>
       </div>
     );
   }

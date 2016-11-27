@@ -14,7 +14,11 @@ export function authenticateUser(text) {
   axios({
     method: 'POST',
     url: `http://${host}:${port}/api/authenticate`,
-    headers: {'Content-Type': 'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    withCredentials: true,
     auth: {
         username: text.email,
         password: text.password
@@ -36,43 +40,43 @@ export function authenticateUser(text) {
   })
 }
 
-export function getUserInfo(sessionId) {
-	axios.get(`http://${host}:${port}/api/user`, 
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    .then((response) => {
-      console.log("Action: getUserInfo response", response);
-      dispatcher.dispatch({
+export function getUserInfo() {
+  axios({
+    method: 'GET',
+    url: `http://${host}:${port}/api/user`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    withCredentials: true,
+  })
+  .then((response) => {
+    console.log("Action: getUserInfo response", response);
+    dispatcher.dispatch({
       type: "UPDATE_USERINFO",
       response,
     });
-    })
-    .catch((error) => {
-      console.log("Action: getUserInfo error");
-      dispatcher.dispatch( {
-        type: "UPDATE_USERINFO",
-        response : {
-          firstName: 'test',
-          lastName: 'test',
-          email: 'test@sfu.ca',
-          role: 'restaurantOwner',
-          restaurants: [],
-        }
-      });
-    })
+  })
+  .catch((error) => {
+    console.log("Action: getUserInfo error");
+    dispatcher.dispatch({
+      type: "UPDATE_USERINFO_ERROR",
+    });
+  })
 }
 
-export function logoutUser(sessionId) {
+export function logoutUser() {
 	axios({
     method: 'DELETE',
-    url: `http://${host}:${port}/api/authenticate?sessionid=${sessionId}`,
-    headers: {'Content-Type': 'application/json'}
-  }
-  ).then((response) => {
-	dispatcher.dispatch({type: "LOGOUT"});
-	console.log("got the response!", response);
+    url: `http://${host}:${port}/api/authenticate`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    withCredentials: true,
+  })
+  .then((response) => {
+	  dispatcher.dispatch({type: "LOGOUT"});
+	  console.log("got the response!", response);
   })
 }

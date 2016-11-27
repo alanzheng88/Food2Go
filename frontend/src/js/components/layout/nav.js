@@ -31,12 +31,12 @@ export default class Nav extends React.Component {
   componentWillUnmount() {
     userStore.removeListener("auth_success", this.updateLoginStatus);
     userStore.removeListener("logout", this.updateLoginStatus);
-    userStore.removeListener("updateUserInfo", this.updateUserInfo);
+    userStore.removeListener("update_userinfo", this.updateUserInfo);
   }
 
   handleLogout(event) {
     console.log("handleLogout: this.props", this.props);
-    LoginActions.logoutUser(userStore.getSessionId());
+    LoginActions.logoutUser();
     this.props.router.push('/');
   }
 
@@ -47,7 +47,7 @@ export default class Nav extends React.Component {
   updateLoginStatus(loginStatus) {
     this.setState({loginStatus: loginStatus});
     if(loginStatus) {
-      LoginActions.getUserInfo(userStore.getSessionId());  
+      LoginActions.getUserInfo();
     }
   }
 
@@ -109,7 +109,7 @@ export default class Nav extends React.Component {
           </div>
         </div>
       </nav>
-      {userInfo.role === 'restaurantOwner' &&
+      {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
         <div class="alert alert-danger" role="alert">
           Create your first restaurant! <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
         </div>
