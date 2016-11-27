@@ -2,14 +2,13 @@ var frisby = require('frisby');
 var server = require('../../lib/server');
 var url = server.url;
 
-var cookie = "";
+var cookie = '';
 
-frisby.create("Log In As Customer")
-  .post( url + "/api/authenticate", {
-    email: "alanz@sfu.ca",
-    password: "password1"
-  }, {json: true} )
+frisby.create('Log In As Customer')
+  .post( url + '/api/authenticate', {json: true} )
+  .addHeaders({'Content-Type': 'application/json'})
+  .auth('alanz@sfu.ca', 'password1')
   .expectStatus(201)
-  .expectHeaderContains('content-type', 'application/json')
+  .expectHeaderContains('Content-Type', 'application/json')
 .toss()
 

@@ -57,7 +57,7 @@ public class AuthenticationController extends AppController {
                 response.status = 201;
                 return;
             } else {
-                // user is authenticated
+                // user is not authenticated
                 response.status = 401;
             }
         }
