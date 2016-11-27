@@ -20,6 +20,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   
   config.vm.synced_folder "./", "/home/ubuntu/project"
+  # config.vm.synced_folder ".", "/home/ubuntu/project", type: "rsync", rsync__auto: true, rsync__exclude: ".git/"
+
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various

@@ -25,6 +25,17 @@ div.desc {
     text-align: center;
 }
 
+.alert-danger {
+    margin-top: 50px;
+    padding: 2px;
+}
+@media only screen and (max-width: 991px){
+    .alert-danger {
+      margin-top: 100px;
+      padding: 2px;
+    }
+}
+
 .preview * {
     box-sizing: border-box;
 }
@@ -86,4 +97,8 @@ div.desc {
 
 .search-input > input:focus {
   outline: none;
+}
+
+.navbar-fixed-top .navbar-collapse{
+    max-height: 500px;
 }
