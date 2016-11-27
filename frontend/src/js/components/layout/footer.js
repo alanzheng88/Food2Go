@@ -33,7 +33,7 @@ export default class Footer extends React.Component {
                 <li><h4>Support</h4></li>
                 <li><Link to ="/">Customer Service</Link></li>
                 <li><Link to ="/">Contact us</Link></li>
-                <li><Link to ="/">FAQ</Link></li>
+                <li><Link to ="FAQ">FAQ</Link></li>
               </ul>
             </div>
             <div className="col-md-3">

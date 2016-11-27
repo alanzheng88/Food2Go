@@ -20,6 +20,8 @@ import CreateRestaurant from "./pages/createRestaurant";
 import Restaurant from "./pages/restaurant";
 import NoMatch from "./pages/noMatch";
 import AboutUs from "./pages/aboutus";
+import FAQ from "./pages/faq";
+//import AboutUs from "./pages/whatsnew";
 
 const app = document.getElementById('app');
 
@@ -39,6 +41,7 @@ ReactDOM.render((
     <Route path="/restaurant/create" component={CreateRestaurant}/>
     <Route path="restaurant/:restaurantId" component={Restaurant}/>
     <Route path="aboutus" component={AboutUs}/>
+    <Route path="faq" component={FAQ}/>
     <Route path="/*" component={NoMatch}/>
     
     </Route>
