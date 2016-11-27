@@ -4,15 +4,11 @@ import * as LoginActions from "../actions/loginActions";
 import userStore from "../stores/userStore";
 
 export default class Login extends React.Component {
-
-  // static contextTypes = {
-  //   router: PropTypes.func.isRequired
-  // };
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'test2@sfu.ca',
-      password: 'testtest',
+      userName: '',
+      password: '',
       authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -54,9 +50,8 @@ export default class Login extends React.Component {
     const data = {
       email:this.state.userName,
       password:this.state.password,
-      sessionid:userStore.getSessionId(),
     }
-    LoginActions.authenticateUser(JSON.stringify(data));
+    LoginActions.authenticateUser(data);
   }
 
   render() {
@@ -76,7 +71,7 @@ export default class Login extends React.Component {
         <input type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
         <br/>
         <input type="submit" value="Submit" />
-      </form> 
+      </form>
       </div>
     );
   }

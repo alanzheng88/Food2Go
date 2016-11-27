@@ -1,8 +1,9 @@
 # SFU Food2Go
 
 Usage Instructions:
-1. Call "vagrant up"
-2. Go to localhost:11000
+1. If you are on Windows, run the following line before cloning the repo: git config —global core.autocrlf true
+2. Call "vagrant up"
+3. Go to localhost:11000
 
 # Features
 

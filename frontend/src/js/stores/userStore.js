@@ -9,7 +9,7 @@ class UserStore extends EventEmitter {
   constructor() {
     super()
     this.session = {
-      sessionId:this.guid(),
+      sessionId : '',
       loginStatus:false,
     }
     this.userInfo = {
@@ -19,43 +19,48 @@ class UserStore extends EventEmitter {
           role: 'guest',
           restaurants: [],
     };
-    console.log("user store constructor")
+    console.log("user store constructor");
     this.sessionInit();
-  }
-  guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
   }
 
   sessionInit() {
-    const sessionId = cookie.load('sessionId');
+    const sessionId = cookie.load('SESSIONID');
     if (sessionId !== undefined) {
       console.log("Cached sessionId: " + sessionId);
-      axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionId}`)
+      axios({
+        method: 'GET',
+        url: `http://${host}:${port}/api/authenticate`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        withCredentials: true,
+      })
       .then((response) => {
-        if (response.status == 200) {
-          this.session.sessionId = sessionId;
-          this.session.loginStatus = true;  
+        console.log("found valid cookie", response)
+        if (response.status == 200 ) {
+          this.session.loginStatus = true;
+          this.userInfo = response;  
           this.emit("auth_success", this.session.loginStatus);
         } else {
-          cookie.remove('sessionId', { path: '/' });          
+          cookie.remove('SESSIONID', { path: '/' });          
         }
       })
     }
   }
   
-  getUserInfo() {
-    console.log(this.userInfo);
-    return this.userInfo;
+  getGuestInfo() {
+    return {
+      firstName: '',
+      lastName: '',
+      email: '',
+      role: 'guest',
+      restaurants: [],
+    };
   }
 
-  getSessionId() {
-    return this.session.sessionId;
+  getUserInfo() {
+    return this.userInfo;
   }
 
   getLoginStatus() {
@@ -64,16 +69,16 @@ class UserStore extends EventEmitter {
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
-        console.log("Store received Autentication: ", action.response.status);
-        if (action.response.status === 200) {
+        console.log("Store received Autentication: ", action);
+        if (action.response.status === 201 || action.response.status === 200) {
           //Save the session id to cookie
-          cookie.save('sessionId', this.session.sessionId, { path: '/' });
+          //cookie.save('sessionId', this.session.sessionId, { path: '/' });
           this.session.loginStatus = true;  
           this.emit("auth_success", this.session.loginStatus);
           this.emit("login");
           console.log("Store: emitting auth_success");
         } else {
-          console.log("Store: Status code in response is not 200. Status code :"+action.response.status);
+          console.log("Store: Status code in response is not 200 or 201. Status code :" + action.response.status);
           this.emit("auth_failure");
         }
         break;
@@ -89,21 +94,19 @@ class UserStore extends EventEmitter {
         this.emit("update_userinfo", this.userInfo);
         break;
       }
+      case "UPDATE_USERINFO_ERROR": {
+        console.log("Store: received UPDATE_USERINFO, data: ")
+        this.session.loginStatus = false;        
+        this.userInfo = this.getGuestInfo();
+        this.emit("logout", false);        
+        this.emit("update_userinfo", this.userInfo);
+        break;
+      }
       case "LOGOUT": {
-        // this.createTodo(action.text);
-        cookie.remove('sessionId', { path: '/' });
-        this.session = {
-          sessionId: this.guid(),
-          loginStatus: false,
-        };
-        this.userInfo = {
-          firstName: '',
-          lastName: '',
-          email: '',
-          role: 'guest',
-          restaurants: [],
-        };
-        this.emit("logout");
+        // cookie.remove('SESSIONID', { path: '/' });
+        this.session.loginStatus = false;
+        this.userInfo = this.getGuestInfo();
+        this.emit("logout", false);
         this.emit("update_userinfo", this.userInfo);
         break;
       }

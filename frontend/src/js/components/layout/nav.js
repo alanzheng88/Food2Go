@@ -7,7 +7,6 @@ import * as LoginActions from "../../actions/loginActions";
 export default class Nav extends React.Component {
   constructor() {
     super();
-    console.log("nav props:",this.props);
     this.state = {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
@@ -32,12 +31,12 @@ export default class Nav extends React.Component {
   componentWillUnmount() {
     userStore.removeListener("auth_success", this.updateLoginStatus);
     userStore.removeListener("logout", this.updateLoginStatus);
-    userStore.removeListener("updateUserInfo", this.updateUserInfo);
+    userStore.removeListener("update_userinfo", this.updateUserInfo);
   }
 
   handleLogout(event) {
     console.log("handleLogout: this.props", this.props);
-    LoginActions.logoutUser(userStore.getSessionId());
+    LoginActions.logoutUser();
     this.props.router.push('/');
   }
 
@@ -48,7 +47,7 @@ export default class Nav extends React.Component {
   updateLoginStatus(loginStatus) {
     this.setState({loginStatus: loginStatus});
     if(loginStatus) {
-      LoginActions.getUserInfo(userStore.getSessionId());  
+      LoginActions.getUserInfo();
     }
   }
 
@@ -59,7 +58,6 @@ export default class Nav extends React.Component {
     // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
     // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
-    console.log("role: ", this.state.userInfo.role);
     return (
       <div>
 
@@ -81,9 +79,6 @@ export default class Nav extends React.Component {
               <li activeClassName="active">
                 <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
               </li>
-              <li activeClassName="active">
-                <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
-              </li>
               <Navbar.Form pullLeft>
                 <FormGroup>
                   <FormControl type="text" placeholder="Search" />
@@ -96,6 +91,11 @@ export default class Nav extends React.Component {
                 <li activeClassName="active">
                   <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
                 </li>
+              {!loginStatus &&
+                <li activeClassName="active">
+                  <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
+                </li>
+              }
               {loginStatus &&
                 <NavDropdown id = 'dropdown-size-medium' activeClassName="active" title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
@@ -111,7 +111,7 @@ export default class Nav extends React.Component {
           </div>
         </div>
       </nav>
-      {userInfo.role === 'restaurantOwner' &&
+      {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
         <div class="alert alert-danger" role="alert">
           Create your first restaurant! 
           <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
