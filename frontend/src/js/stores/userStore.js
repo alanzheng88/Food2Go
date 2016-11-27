@@ -9,7 +9,7 @@ class UserStore extends EventEmitter {
   constructor() {
     super()
     this.session = {
-      sessionId:this.guid(),
+      sessionId : '',
       loginStatus:false,
     }
     this.userInfo = {
@@ -22,23 +22,25 @@ class UserStore extends EventEmitter {
     console.log("user store constructor")
     this.sessionInit();
   }
-  guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
 
   sessionInit() {
     const sessionId = cookie.load('sessionId');
     if (sessionId !== undefined) {
       console.log("Cached sessionId: " + sessionId);
-      axios.get(`http://${host}:${port}/api/authenticate?sessionid=${sessionId}`)
+      axios.get(`http://${host}:${port}/api/authenticate`,
+      {
+        crossDomain: true,
+        xhrFields: {withCredentials: true},
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Cookie': sessionId,
+        },
+        auth: {
+          Cookie: sessionId,
+        },
+      })
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status == 201) {
           this.session.sessionId = sessionId;
           this.session.loginStatus = true;  
           this.emit("auth_success", this.session.loginStatus);
@@ -64,10 +66,12 @@ class UserStore extends EventEmitter {
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
-        console.log("Store received Autentication: ", action.response.status);
-        if (action.response.status === 200) {
+        console.log("Store received Autentication: ", action);
+        if (action.response.status === 201) {
           //Save the session id to cookie
-          cookie.save('sessionId', this.session.sessionId, { path: '/' });
+          this.session.sessionId = cookie.load('sessionId')
+          console.log("Store: SessionId: ", this.session.sessionId )
+          //cookie.save('sessionId', this.session.sessionId, { path: '/' });
           this.session.loginStatus = true;  
           this.emit("auth_success", this.session.loginStatus);
           this.emit("login");

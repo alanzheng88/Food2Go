@@ -7,7 +7,6 @@ import * as LoginActions from "../../actions/loginActions";
 export default class Nav extends React.Component {
   constructor() {
     super();
-    console.log("nav props:",this.props);
     this.state = {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),

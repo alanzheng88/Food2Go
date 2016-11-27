@@ -54,7 +54,6 @@ export default class Login extends React.Component {
     const data = {
       email:this.state.userName,
       password:this.state.password,
-      sessionid:userStore.getSessionId(),
     }
     LoginActions.authenticateUser(JSON.stringify(data));
   }

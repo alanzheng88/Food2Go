@@ -21,7 +21,12 @@ export function authenticateUser(text) {
 }
 
 export function getUserInfo(sessionId) {
-	axios.get(`http://${host}:${port}/api/user?sessionid=${sessionId}`)
+	axios.get(`http://${host}:${port}/api/user`, 
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
     .then((response) => {
       console.log("Action: getUserInfo response", response);
       dispatcher.dispatch({
