@@ -56,8 +56,8 @@ export default class Restaurants extends React.Component {
       <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
       {filteredRestaurants.map(restaurant => {
        return (
-	   <a href={"#/restaurant/"+restaurant.id} className="button">
-		<div class="panel panel-default row" key={restaurant.id} >
+	   //<a href={"#/restaurant/"+restaurant.id} className="button">
+		<div class="clickableDiv panel panel-default row" onClick={()=>{this.props.router.push("restaurant/"+restaurant.id);}} key={restaurant.id} >
 			<div class="panel-heading">
 				<h4 class="panel-title">{restaurant.name}</h4>
 			</div>
@@ -73,7 +73,7 @@ export default class Restaurants extends React.Component {
 				</div>
 			</div>
         </div>
-        </a>
+        //</a>
         )
       })} </div>
     );

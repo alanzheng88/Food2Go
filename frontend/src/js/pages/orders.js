@@ -60,13 +60,13 @@ export default class Orders extends React.Component {
     return (
 	<div class="container">
 		<h1 class="row text-center">Your Orders</h1>
-		Year:
+		Year:&nbsp; 
 		<SearchInput className="hidden search-input" onChange={this.searchUpdated.bind(this)} value={this.state.selectedYear} />
 		<select onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
 			<option value="2016">2016</option>
 			<option value="2015">2015</option>
 		</select>
-		<table class="table table-striped">
+		<table class="table table-hover">
 			<thead>
 		      <tr>
 		        <th class="col-md-1">Order #</th>
@@ -79,12 +79,12 @@ export default class Orders extends React.Component {
 		    <tbody>
 		    {filteredOrders.map(order => {
 		        return (
-		    	<tr key={order.id}>
-		    		<td><a href={"#/orders/"+order.id}>{order.id}</a></td>
+		    	<tr class="clickable" onClick={()=>{this.props.router.push('/order/'+order.id);}} key={order.id}>
+		    		<td>{order.id}</td>
 		    		<td>{order.restaurant}</td>
 		    		<td>{order.total}</td>
 		    		<td>{order.date}</td>
-		    		<td><a href={"#/orders/"+order.id}>{order.status}</a></td>
+		    		<td>{order.status}</td>
 		    	</tr>
 		    )})}
 		    </tbody>
