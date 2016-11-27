@@ -103,7 +103,6 @@ class UserStore extends EventEmitter {
         break;
       }
       case "LOGOUT": {
-        // this.createTodo(action.text);
         // cookie.remove('SESSIONID', { path: '/' });
         this.session.loginStatus = false;
         this.userInfo = this.getGuestInfo();

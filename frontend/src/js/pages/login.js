@@ -4,15 +4,11 @@ import * as LoginActions from "../actions/loginActions";
 import userStore from "../stores/userStore";
 
 export default class Login extends React.Component {
-
-  // static contextTypes = {
-  //   router: PropTypes.func.isRequired
-  // };
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'alanz@sfu.ca',
-      password: 'password',
+      userName: '',
+      password: '',
       authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);

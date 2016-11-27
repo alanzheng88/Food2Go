@@ -4,13 +4,6 @@ import {host, port} from "../constants/backend.js"
 
 export function authenticateUser(text) {
   console.log("Sending the data!", text);
-  // axios.post(`http://${host}:${port}/api/authenticate`, {
-  //     headers: { 'content-type': 'application/json'},
-  //     auth: {
-  //       username: text.email,
-  //       password: text.password
-  //     },
-  // })
   axios({
     method: 'POST',
     url: `http://${host}:${port}/api/authenticate`,
