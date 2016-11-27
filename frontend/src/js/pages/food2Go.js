@@ -9,50 +9,48 @@ import { IndexLink, Link } from "react-router";
 export default class Food2Go extends React.Component {
 	constructor(props) {
 	  super(props);
-	  let restaurantId = this.props.params.restaurantId;
 	  // Default values not correct need to find for all restaurant not restaurant id
 	  this.state ={
-		restaurantId: {restaurantId},
-		restaurantName: "Restaurant Name",
-		restaurantDescription: "Restaurant description",
-        imageFiles: [],
-        menuFile: [],
-        isOpened: false
+			restaurants: [{
+				id: 0,
+				name: "Restaurant 1",
+				address: "Restaurant Address",
+				description: "Restaurant Description"},{
+					id: 1,
+					name: "Restaurant 2",
+					address: "Restaurant Address",
+					description: "Restaurant Description"}]
 	  };
-	  this.getRestaurantInfo(this.props.params.restaurantId);
+	  this.getRestaurants();
 	  console.log(this.state);
 	}
 	toggleCollapse() {
     	const collapsed = !this.state.collapsed;
     	this.setState({collapsed});
   	}
-	getRestaurantInfo(id){
+	getRestaurants(){
 	// Get restaurant info via Axios
 		var th = this;
-		console.log("id", id);
-		axios.get('http://localhost:9000/api/restaurant/'+id)
+		axios.get('http://localhost:9000/api/restaurants')
 		  .then(function(response) {
 			  console.log(response);
 			  th.setState({
-					restaurantName: response.data.name,
-					estaurantDescription: response.data.description,
-			        imageFiles: [],
-			        menuFile: []
+					restaurants: response.data
 				  });
 		  })
 		  .catch(function(error) {
 			  console.log('Failed to get restaurant info!');
 			  if (error.response) {
-			  // The request was made, but the server responded with a status code 
-			  // that falls out of the range of 2xx 
+			  // The request was made, but the server responded with a status code
+			  // that falls out of the range of 2xx
 			  console.log(error.response.data);
 			  console.log(error.response.status);
 			  console.log(error.response.headers);
 			} else {
-			  // Something happened in setting up the request that triggered an Error 
+			  // Something happened in setting up the request that triggered an Error
 			  console.log('Error', error.message);
 			}
-		  });	  
+		  });
 	}
 	render() {
 	    console.log("Food2Go");
@@ -94,7 +92,8 @@ export default class Food2Go extends React.Component {
 	    return (
 	    <div class='mySlick' id="container">
 		    <div class="row">
-		      <h1>{this.state.restaurantName}</h1>
+		      <h2>Welcome to Food2Go</h2>
+		      <br></br>
 			    <div class="col-md-8">
 			      <Slider {...settings}>
 				      <div>
@@ -110,8 +109,7 @@ export default class Food2Go extends React.Component {
 				      	<p>{this.state.restaurantDescription}</p>
 				      </div>
 			      </Slider>
-			    </div>
-			    <div class="col-md-1">
+			      <br></br>
 			    </div>
 			    <div class="col-md-4">
 			    	<br></br>
@@ -137,7 +135,7 @@ export default class Food2Go extends React.Component {
 				      	</div>
 				      	<div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
-				      </div>
+				      	</div>
 			      </Slider>
 
 			    </div>
