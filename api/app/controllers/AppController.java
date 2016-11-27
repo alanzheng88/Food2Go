@@ -31,6 +31,7 @@ public class AppController extends Controller {
     @Before
     protected static void setDefaultHeaders() {
         response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setContentTypeIfNotSet("application/json");
     }
 
