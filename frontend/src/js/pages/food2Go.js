@@ -94,7 +94,8 @@ export default class Food2Go extends React.Component {
 	    return (
 	    <div class='mySlick' id="container">
 		    <div class="row">
-		      <h1>{this.state.restaurantName}</h1>
+		      <h2>Welcome to Food2Go</h2>
+		      <br></br>
 			    <div class="col-md-8">
 			      <Slider {...settings}>
 				      <div>
@@ -110,8 +111,7 @@ export default class Food2Go extends React.Component {
 				      	<p>{this.state.restaurantDescription}</p>
 				      </div>
 			      </Slider>
-			    </div>
-			    <div class="col-md-1">
+			      <br></br>
 			    </div>
 			    <div class="col-md-4">
 			    	<br></br>
