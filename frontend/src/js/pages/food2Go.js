@@ -137,6 +137,9 @@ export default class Food2Go extends React.Component {
 				      	</div>
 				      	<div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
 				      </div>
 			      </Slider>
 
