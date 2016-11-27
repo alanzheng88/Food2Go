@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-psql -d food2go -c "DROP TABLE AppUser CASCADE"
+sudo -u postgres psql -d food2go -c "DROP TABLE AppUser CASCADE"

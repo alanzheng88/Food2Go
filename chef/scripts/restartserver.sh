@@ -14,13 +14,5 @@ function restartBackendServer {
     curl -X GET -m 60 http://localhost:9000
 }
 
-function restartFrontendServer {
-    sudo kill -9 $(sudo lsof -t -i:12345)
-    pushd frontend/
-    npm install
-    screen -d -m /usr/bin/npm run dev
-    popd
-}
-
 restartBackendServer
-restartFrontendServer
+

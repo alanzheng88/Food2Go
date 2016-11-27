@@ -111,3 +111,9 @@ execute "run_api_tests" do
   cwd "#{clientsideTestDir}"
   command "/usr/local/bin/jasmine-node . --junitreport"
 end
+
+execute "server_restart" do
+  user "ubuntu"
+  cwd "#{projectDir}"
+  command "sudo bash chef/scripts/restartserver.sh"
+end
