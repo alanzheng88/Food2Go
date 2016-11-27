@@ -107,37 +107,37 @@ export default class CreateRestaurant extends React.Component {
 	render() {
 		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
             <h1>Create Restaurant</h1>
-            <div>
+            <div class="form-group">
 	            <label>
 	                Restaurant Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.restaurantName} onChange={this.onChangeRestaurantName} ref='restaurantName' name='restaurantName' validations={['required']}/>
+	                <Validation.components.Input class="form-control" errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.restaurantName} onChange={this.onChangeRestaurantName} ref='restaurantName' name='restaurantName' validations={['required']}/>
 	            </label>
             </div>
-            <div>
+            <div class="form-group">
 	            <label>
 	                Restaurant Address*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.restaurantAddress} onChange={this.onChangeRestaurantAddress} ref='restaurantAddress' name='restaurantAddress' validations={['required']}/>
+	                <Validation.components.Input class="form-control" errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.restaurantAddress} onChange={this.onChangeRestaurantAddress} ref='restaurantAddress' name='restaurantAddress' validations={['required']}/>
 	            </label>
 			</div>
-			<div>
+			<div class="form-group">
 	            <label>
 	                Restaurant Phone Number*
-	                <Validation.components.Input errorClassName='is-invalid-input' type='text' value={this.state.restaurantPhoneNumber} onChange={this.onChangeRestaurantPhoneNumber} ref='restaurantPhoneNumber' name='restaurantPhoneNUmber' validations={['required', 'phoneNumber']}/>
+	                <Validation.components.Input class="form-control" errorClassName='is-invalid-input' type='text' value={this.state.restaurantPhoneNumber} onChange={this.onChangeRestaurantPhoneNumber} ref='restaurantPhoneNumber' name='restaurantPhoneNUmber' validations={['required', 'phoneNumber']}/>
 	            </label>
             </div>
-            <div>
+            <div class="form-group">
                 <label>
                     Restaurant Email*
-                    <Validation.components.Input errorClassName='is-invalid-input' type='email' value={this.state.restaurantEmail} onChange={this.onChangeRestaurantEmail} ref='restaurantEmail' name='restaurantEmail' validations={['required', 'email']}/>
+                    <Validation.components.Input class="form-control" errorClassName='is-invalid-input' type='email' value={this.state.restaurantEmail} onChange={this.onChangeRestaurantEmail} ref='restaurantEmail' name='restaurantEmail' validations={['required', 'email']}/>
                 </label>
             </div>
-            <div>
+            <div class="form-group">
                 <label>
                     Restaurant Description*
-                    <Validation.components.Textarea errorClassName='is-invalid-input' value={this.state.restaurantDescription} onChange={this.onChangeRestaurantDescription} ref='restaurantDescription' name='restaurantDescription' validations={['required']}/>
+                    <Validation.components.Textarea class="form-control" errorClassName='is-invalid-input' value={this.state.restaurantDescription} onChange={this.onChangeRestaurantDescription} ref='restaurantDescription' name='restaurantDescription' validations={['required']}/>
                 </label>
             </div>
-            <div>
+            <div class="form-group">
             	Restaurant Images (Optional)
 	            <Dropzone onDrop={this.onImageDrop} accept="image/png,image/jpeg" ref={this.state.imageFiles}>
 	              <div>Try dropping some files here, or click to select files to upload. Only .jpg and .png files!</div>
@@ -152,14 +152,14 @@ export default class CreateRestaurant extends React.Component {
 	            </div>)}</div>
 	            </div> : null}
             </div>
-            <div>
+            <div class="form-group">
             	Restaurant Menu (Optional) [Only .pdf]
 	            <Dropzone onDrop={this.onMenuDrop} accept="application/pdf" multiple={false} ref={this.state.MenuFile}>
 	              <div>Try dropping some files here, or click to select files to upload. Only a single .pdf file</div>
 	            </Dropzone>
             </div>
             <div>
-                <Validation.components.Button className='button' errorClassName='asd'>Submit</Validation.components.Button>
+                <Validation.components.Button class="btn btn-default" className='button' errorClassName='asd'>Submit</Validation.components.Button>
             </div>
         </Validation.components.Form>;
     }

@@ -87,3 +87,7 @@ div.desc {
 .search-input > input:focus {
   outline: none;
 }
+
+.disabled-text{
+	background-color: #EBEBE4;
+}

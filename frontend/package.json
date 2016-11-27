@@ -21,6 +21,8 @@
     "jquery": "^3.1.1",
     "json-loader": "^0.5.2",
     "react": "^0.14.6",
+    "react-addons-css-transition-group": "^15.4.1",
+    "react-alert": "^1.0.14",
     "react-bootstrap": "^0.30.6",
     "react-collapse": "^2.3.3",
     "react-cookie": "^0.4.8",
@@ -37,7 +39,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
-    "frisby": "^0.8.5" 
+    "frisby": "^0.8.5"
   },
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot --host 0.0.0.0 --port 12345"
