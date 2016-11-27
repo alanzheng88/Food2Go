@@ -15,7 +15,7 @@ export default class Footer extends React.Component {
               <ul className="nav nav-pills nav-stacked">
                 <li><h4>About Food2Go</h4></li>
 
-                <li><IndexLink to="/">About us</IndexLink></li>
+                <li><IndexLink to="AboutUs">About us</IndexLink></li>
                 <li><Link to ="/">What's New</Link></li>
                 <li><Link to ="/">Join Food2Go</Link></li>
               </ul>
@@ -33,7 +33,7 @@ export default class Footer extends React.Component {
                 <li><h4>Support</h4></li>
                 <li><Link to ="/">Customer Service</Link></li>
                 <li><Link to ="/">Contact us</Link></li>
-                <li><Link to ="/">FAQ</Link></li>
+                <li><Link to ="FAQ">FAQ</Link></li>
               </ul>
             </div>
             <div className="col-md-3">
