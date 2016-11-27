@@ -58,7 +58,6 @@ export default class Nav extends React.Component {
     // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
     // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
-    console.log("role: ", this.state.userInfo.role);
     return (
       <div>
 

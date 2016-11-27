@@ -4,7 +4,23 @@ import {host, port} from "../constants/backend.js"
 
 export function authenticateUser(text) {
   console.log("Sending the data!", text);
-  axios.post(`http://${host}:${port}/api/authenticate`, text).then((response) => {
+  // axios.post(`http://${host}:${port}/api/authenticate`, {
+  //     headers: { 'content-type': 'application/json'},
+  //     auth: {
+  //       username: text.email,
+  //       password: text.password
+  //     },
+  // })
+  axios({
+    method: 'POST',
+    url: `http://${host}:${port}/api/authenticate`,
+    headers: {'Content-Type': 'application/json'},
+    auth: {
+        username: text.email,
+        password: text.password
+    },
+  })
+  .then((response) => {
     dispatcher.dispatch({
     	type: "AUTH_SUCCESS",
     	response
@@ -35,8 +51,8 @@ export function getUserInfo(sessionId) {
     });
     })
     .catch((error) => {
-      console.log("Action: getUserInfo error")
-      dispatcher.dispatch({
+      console.log("Action: getUserInfo error");
+      dispatcher.dispatch( {
         type: "UPDATE_USERINFO",
         response : {
           firstName: 'test',

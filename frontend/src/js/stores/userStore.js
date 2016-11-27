@@ -27,19 +27,13 @@ class UserStore extends EventEmitter {
     const sessionId = cookie.load('sessionId');
     if (sessionId !== undefined) {
       console.log("Cached sessionId: " + sessionId);
-      axios.get(`http://${host}:${port}/api/authenticate`,
-      {
-        crossDomain: true,
-        xhrFields: {withCredentials: true},
-        headers: {
-          'Content-Type': 'application/json',
-          // 'Cookie': sessionId,
-        },
-        auth: {
-          Cookie: sessionId,
-        },
+      axios({
+        method: 'GET',
+        url: `http://${host}:${port}/api/authenticate`,
+        headers: {'Content-Type': 'application/json'},
       })
       .then((response) => {
+        console.log("found valid cookie")
         if (response.status == 201) {
           this.session.sessionId = sessionId;
           this.session.loginStatus = true;  
@@ -69,8 +63,6 @@ class UserStore extends EventEmitter {
         console.log("Store received Autentication: ", action);
         if (action.response.status === 201) {
           //Save the session id to cookie
-          this.session.sessionId = cookie.load('sessionId')
-          console.log("Store: SessionId: ", this.session.sessionId )
           //cookie.save('sessionId', this.session.sessionId, { path: '/' });
           this.session.loginStatus = true;  
           this.emit("auth_success", this.session.loginStatus);
@@ -88,8 +80,8 @@ class UserStore extends EventEmitter {
         break;
       }
       case "UPDATE_USERINFO": {
-        console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
-        this.userInfo = action.response.data;
+        console.log("Store: received UPDATE_USERINFO, data: ", action.response)
+        this.userInfo = action.response;
         this.emit("update_userinfo", this.userInfo);
         break;
       }
