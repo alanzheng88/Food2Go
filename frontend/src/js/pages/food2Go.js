@@ -75,7 +75,7 @@ export default class Food2Go extends React.Component {
 		  	dotsClass:'slick-dots slick-thumb',
 		  	infinite: true,
 		  	slidesToShow:6,
-		  	SlidestoScroll:5
+		  	SlidestoScroll:1
 		  };
 		  //popular food picture slider setting
 		  const foodPic={
@@ -85,8 +85,8 @@ export default class Food2Go extends React.Component {
 		  	arrows:true,
 		  	dotsClass:'slick-dots slick-thumb',
 		  	infinite: true,
-		  	slidesToShow:10,
-		  	SlidestoScroll:5
+		  	slidesToShow:9,
+		  	SlidestoScroll:1
 		  };
 
 	    return (
