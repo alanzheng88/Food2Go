@@ -5,7 +5,7 @@ function restartBackendServer {
     pushd api/
     screen -d -m /home/downloads/play-1.4.3/play run --%dev
     popd
-    sleep 5
+    sleep 8
     echo "Warm up backend server"
     curl -X GET -m 60 http://localhost:9000
 }
