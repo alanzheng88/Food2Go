@@ -25,6 +25,17 @@ div.desc {
     text-align: center;
 }
 
+.alert-danger {
+    margin-top: 50px;
+    padding: 2px;
+}
+@media only screen and (max-width: 991px){
+    .alert-danger {
+      margin-top: 100px;
+      padding: 2px;
+    }
+}
+
 .preview * {
     box-sizing: border-box;
 }
@@ -87,10 +98,7 @@ div.desc {
 .search-input > input:focus {
   outline: none;
 }
-.button-click-in-main > Link::before{
-  font-color: white;
 
-}
-.button-click-in-main > Link::after{
-  font-color: black;
+.navbar-fixed-top .navbar-collapse{
+    max-height: 500px;
 }

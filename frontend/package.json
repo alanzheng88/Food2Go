@@ -45,7 +45,8 @@
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot --host 0.0.0.0 --port 12345",
     "localdev": "webpack-dev-server --content-base src --inline --hot",
-    "test": "jest"
+    "test": "jest",
+    "test:live": "jasmine-node . --autotest"
   },
   "author": "",
   "license": "ISC"

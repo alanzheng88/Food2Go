@@ -7,7 +7,7 @@ GET     /                                       Application.index
 
 # Authentication
 GET     /api/authenticate                       AuthenticationController.checkAuthenticatedStatus
-POST     /api/authenticate                      AuthenticationController.authenticate
+POST    /api/authenticate                       AuthenticationController.authenticate
 DELETE  /api/authenticate                       AuthenticationController.deleteSession
 
 # Users
@@ -18,10 +18,10 @@ POST    /api/user                               UserController.createUser
 #Restaurants
 GET     /api/restaurants                        RestaurantController.getRestaurants
 GET     /api/restaurant/{restaurantId}          RestaurantController.getRestaurant
-POST    /api/restaurants/register               RestaurantController.createRestaurant
-PUT     /api/restaurant/{restaurantID}    RestaurantController.updateRestaurant
+POST    /api/restaurants                        RestaurantController.createRestaurant
+PUT     /api/restaurant/{restaurantID}          RestaurantController.updateRestaurant
 
-OPTIONS  /{controller}/{action}                  Application.options
+OPTIONS /{controller}/{action}                  Application.options
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

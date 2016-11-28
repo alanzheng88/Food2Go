@@ -45,6 +45,11 @@ public class User extends Model {
         encryptPassword();
     }
 
+    public boolean isRestaurantOwner() {
+        System.out.println("user is: " + this);
+        return role.equals("restaurantOwner");
+    }
+
     public void encryptPassword() {
         if (password == null) return;
         String passwordHash = Crypto.passwordHash(password);

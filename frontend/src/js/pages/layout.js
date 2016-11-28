@@ -6,15 +6,14 @@ import Nav from "../components/layout/nav";
 
 export default class Layout extends React.Component {
   render() {
-    const { location } = this.props;
+    const { location, router} = this.props;
     const containerStyle = {
       marginTop: "60px"
     };
     console.log("layout");
     return (
       <div>
-        <Nav location={location} />
-
+        <Nav router={router} location={location} />  
         <div class="container" style={containerStyle}>
           <div class="row">
             <div class="col-lg-12">
@@ -24,7 +23,6 @@ export default class Layout extends React.Component {
           <Footer/>
         </div>
       </div>
-
     );
   }
 }
