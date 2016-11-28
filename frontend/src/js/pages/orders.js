@@ -14,12 +14,12 @@ export default class Orders extends React.Component {
 					restaurant: "Koto",
 					total: "$9.99",
 					date: "2016-12-06",
-					status: "Picked up"},{
+					status: 6},{
 						id: 1,
 						restaurant: "Koto",
 						total: "$30.45",
 						date: "2016-11-11",
-						status: "Delivered"}]
+						status: 4}]
 		  };
 		  this.getOrders();
 		  this.searchUpdated = this.searchUpdated.bind(this);
@@ -54,6 +54,27 @@ export default class Orders extends React.Component {
 				}
 			  });
 		}
+	orderStatus(status){
+		var orderStatus
+		if (status == -1) {
+	    	orderStatus = <td>Order Cancelled</td>;
+		} else if (status == 0) {
+			orderStatus =  <td>Order Created</td>
+	    } else if (status == 1) {
+	    	orderStatus =  <td>Order Processing</td>
+	    } else if (status == 2) {
+	    	orderStatus =  <td>Payment Processing</td>
+	    } else if (status == 3) {
+	    	orderStatus =  <td>Delivery</td>
+	    } else if (status == 4) {
+	    	orderStatus =  <td>Delivered</td>
+	    } else if (status == 5) {
+	    	orderStatus =  <td>Pick Up Ready</td>
+	    } else if (status == 6) {
+	    	orderStatus =  <td>Picked Up</td>
+	    }
+		return orderStatus
+	}
   render() {
     console.log("Orders");
     const filteredOrders = this.state.orders.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
@@ -84,7 +105,7 @@ export default class Orders extends React.Component {
 		    		<td>{order.restaurant}</td>
 		    		<td>{order.total}</td>
 		    		<td>{order.date}</td>
-		    		<td>{order.status}</td>
+		    		{this.orderStatus(order.status)}
 		    	</tr>
 		    )})}
 		    </tbody>

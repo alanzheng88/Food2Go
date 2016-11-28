@@ -13,6 +13,7 @@ import Account from "./pages/account";
 import Restaurants from "./pages/restaurants";
 import ShoppingCart from "./pages/shoppingCart";
 import Orders from "./pages/orders";
+import Order from "./pages/order";
 import Points from "./pages/points";
 import Coupons from "./pages/coupons";
 import Settings from "./pages/settings";
@@ -32,6 +33,7 @@ ReactDOM.render((
       <Route path="register" component={Register}/>
       <Route path="shoppingCart" component={ShoppingCart}/>
 	  <Route path="orders" component={Orders}/>
+	  <Route path="order/:orderId" component={Order}/>
 	  <Route path="points" component={Points}/>
 	  <Route path="coupons" component={Coupons}/>
 	  <Route path="settings" component={Settings}/>
