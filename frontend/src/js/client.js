@@ -22,6 +22,8 @@ import NoMatch from "./pages/noMatch";
 import AboutUs from "./pages/aboutus";
 import FAQ from "./pages/faq";
 import WhatIsNew from "./pages/whatisnew";
+import Privacy from "./pages/privacy";
+
 
 const app = document.getElementById('app');
 
@@ -43,6 +45,7 @@ ReactDOM.render((
     <Route path="aboutus" component={AboutUs}/>
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
+    <Route path="privacy" component={Privacy}/>
     <Route path="/*" component={NoMatch}/>
     
     </Route>
