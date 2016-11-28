@@ -17,7 +17,7 @@ export default class Footer extends React.Component {
 
                 <li><IndexLink to="AboutUs">About us</IndexLink></li>
                 <li><Link to ="WhatIsNew">What's New</Link></li>
-                <li><Link to ="/">Join Food2Go</Link></li>
+                <li><Link to ="JoinFood2Go">Join Food2Go</Link></li>
               </ul>
             </div>
             <div className="col-md-3">
