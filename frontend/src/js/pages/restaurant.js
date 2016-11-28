@@ -95,9 +95,7 @@ export default class Restaurant extends React.Component {
 			    </div>
 			    <div class="col-md-12">
 			    	<h3>Restaurant Description</h3>
-			    	<button class="btn-link center-block" onClick={ () => {this.setState({isOpened: !this.state.isOpened}); console.log("click",this.state.isOpened)}}>
-			          v
-			        </button>
+			    	<span class="caret center-block" onClick={ () => {this.setState({isOpened: !this.state.isOpened}); console.log("click",this.state.isOpened)}}/>
 			    	<Collapse isOpened={this.state.isOpened} keepCollapsedContent={true}>
 			    		<p>{this.state.restaurantDescription}</p>
 			    	</Collapse>
