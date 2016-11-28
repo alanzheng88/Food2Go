@@ -23,7 +23,6 @@ import AboutUs from "./pages/aboutus";
 import FAQ from "./pages/faq";
 import WhatIsNew from "./pages/whatisnew";
 import Privacy from "./pages/privacy";
-import JoinFood2Go from "./pages/joinfood2go";
 
 
 const app = document.getElementById('app');
@@ -47,7 +46,6 @@ ReactDOM.render((
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
-    <Route path="joinfood2go" component={JoinFood2Go}/>
     <Route path="/*" component={NoMatch}/>
     
     </Route>
