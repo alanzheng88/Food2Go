@@ -52,7 +52,7 @@ export default class Footer extends React.Component {
         <div className="row">
           <div className="col-lg-12">
             <ul className="nav nav-pills nav-justified">
-              <li><IndexLink to="/" >© 2016 Food2Go</IndexLink></li>
+              <li>@2016 Food2Go</li>
               <li><Link to ="/">Terms of Service</Link></li>
               <li><Link to ="Privacy">Privacy</Link></li>
             </ul>
