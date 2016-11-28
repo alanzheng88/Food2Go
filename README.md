@@ -7,6 +7,21 @@ Usage Instructions:
 
 # Features
 
+### Overview
+- Restful Api
+  - design using API first approach
+  - API follows REST standards
+  - authorization and authentication
+- User Profiles
+  - log in with basic authentication
+- Food
+  - browse
+  - order
+- Restaurants
+  - browse
+  - upload images (food, menu, etc)
+- Point System
+
 ### restful api
 - clear separation between frontend and backend
 
