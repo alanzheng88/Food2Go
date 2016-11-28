@@ -16,7 +16,7 @@ export default class Footer extends React.Component {
                 <li><h4>About Food2Go</h4></li>
 
                 <li><IndexLink to="AboutUs">About us</IndexLink></li>
-                <li><Link to ="/">What's New</Link></li>
+                <li><Link to ="WhatIsNew">What's New</Link></li>
                 <li><Link to ="/">Join Food2Go</Link></li>
               </ul>
             </div>

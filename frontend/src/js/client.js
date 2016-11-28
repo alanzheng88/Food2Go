@@ -21,7 +21,7 @@ import Restaurant from "./pages/restaurant";
 import NoMatch from "./pages/noMatch";
 import AboutUs from "./pages/aboutus";
 import FAQ from "./pages/faq";
-//import AboutUs from "./pages/whatsnew";
+import WhatIsNew from "./pages/whatisnew";
 
 const app = document.getElementById('app');
 
@@ -42,6 +42,7 @@ ReactDOM.render((
     <Route path="restaurant/:restaurantId" component={Restaurant}/>
     <Route path="aboutus" component={AboutUs}/>
     <Route path="faq" component={FAQ}/>
+    <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="/*" component={NoMatch}/>
     
     </Route>
