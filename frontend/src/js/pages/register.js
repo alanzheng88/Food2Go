@@ -1,6 +1,7 @@
 import React from 'react';
 import Validation from 'react-validation';
 import axios from "axios";
+import * as LoginActions from "../actions/loginActions";
 
 export default class Register extends React.Component {
 	constructor(props) {
@@ -71,6 +72,11 @@ export default class Register extends React.Component {
 		  })
 		  .then(function(data) {
 			  alert('Account Created!');
+			  var loginData = {
+			  	email: th.state.email.trim(),
+		    	password: th.state.password.trim(),
+			  }
+			  LoginActions.authenticateUser(loginData);
 			  th.props.router.push('/');
 		  })
 		  .catch(function(error) {
