@@ -47,7 +47,7 @@ ReactDOM.render((
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
-    <Route path="restaurant/:restaurantId/foods" component={OrderNow}/>
+    <Route path="restaurant/:restaurantId/ordernow" component={OrderNow}/>
     <Route path="/*" component={NoMatch}/>
     
     </Route>
