@@ -114,7 +114,7 @@ export default class Nav extends React.Component {
       {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
         <div class="alert alert-danger" role="alert">
           Create your first restaurant! 
-          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
+          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}> Go!</Link>
         </div>
       }
       </div>

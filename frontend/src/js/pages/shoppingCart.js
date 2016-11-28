@@ -1,10 +1,71 @@
 import React from "react";
+import * as ShoppingCartActions from "../actions/loginActions";
+import ShoppingCartStore from "../stores/userStore";
+import ShoppingItem from "../components/shoppingCart/shoppingItem";
 
 export default class ShoppingCart extends React.Component {
+  constructor(props) {
+    super()
+    this.state = {
+      foodList : [{
+        name: 'Pasta',
+        foodId: '1',
+        resturantId: 'abc',
+        restaurantName: 'Pasta factory',
+        originalPrice: 12.23,
+        totalPrice: 12.23,
+        status: 'In stock',
+        amount: 1,
+        img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png',
+      },{
+        name: 'Pasta2',
+        foodId: '2',
+        resturantId: 'bcd',
+        restaurantName: 'Pasta factory2',
+        originalPrice: 15.34,
+        totalPrice: 15.34,
+        status: 'In stock',
+        amount: 1,
+        img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png',
+      }]
+    };
+
+    this.handleAmountChange = this.handleAmountChange.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+  }
+
+  handleAmountChange(event,arrayNum) {
+    if (event.target.value >= 0) {
+      var list = this.state.foodList;
+      list[arrayNum].amount = event.target.value;  
+      list[arrayNum].totalPrice = Number((event.target.value*list[arrayNum].originalPrice).toFixed(2));
+      this.setState({foodList: list})
+    }
+  }
+
+  handleRemove(event, foodId) {
+    var list = this.state.foodList;    
+    list = list.filter(function(item) { return item.foodId !== foodId });
+    this.setState({foodList: list})    
+  }
+
   render() {
-    console.log("Shopping Cart");
+    const { foodList } = this.state;
+    console.log("Shopping Cart", {foodList});
+    var indents = [];
+    var subTotal = 0.00;
+    for (var i = 0; i < foodList.length; i++) {
+      var foodItem = foodList[i];
+      indents.push(<ShoppingItem arrayNum={i} food={foodItem} key={foodItem.foodId} 
+        onClick={this.handleRemove} onChange={this.handleAmountChange}/>);
+      subTotal += foodItem.totalPrice;
+    }
+    subTotal = subTotal.toFixed(2);
+    var tax = (Number(subTotal)*0.1).toFixed(2); 
+    var total = (Number(subTotal)+Number(tax)).toFixed(2);
     return (
       <div className="container">
+      <h1>My Shopping Cart</h1>
         <div className="row">
           <div className="col-sm-12 col-md-10 col-md-offset-1">
             <table className="table table-hover">
@@ -18,109 +79,51 @@ export default class ShoppingCart extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="col-sm-8 col-md-6">
-                    <div className="media">
-                      <a className="thumbnail pull-left" href="#"> 
-                        <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style={{width: 72, height: 72}} /> 
-                      </a>
-                      <div className="media-body">
-                        <h4 className="media-heading">
-                          <a href="#">Food name</a>
-                        </h4>
-                        <h5 className="media-heading"> 
-                          by <a href="#">Restaurant name</a>
-                        </h5>
-                          <span>Status: </span>
-                            <span className="text-success"> 
-                              <strong>In Stock</strong>
-                            </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="col-sm-1 col-md-1" style={{textAlign: 'center'}}>
-                    <input type="email" className="form-control" id="exampleInputEmail1" defaultValue={1} />
-                  </td>
-                  <td className="col-sm-1 col-md-1 text-center">
-                    <strong>$4.87</strong>
-                  </td>
-                  <td className="col-sm-1 col-md-1 text-center">
-                    <strong>$14.61</strong>
-                  </td>
-                  <td className="col-sm-1 col-md-1">
-                    <button type="button" className="btn btn-danger">
-                      <span className="glyphicon glyphicon-remove" /> Remove
-                    </button>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td className="col-md-6">
-                    <div className="media">
-                      <a className="thumbnail pull-left" href="#"> <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style={{width: 72, height: 72}} /> </a>
-                      <div className="media-body">
-                        <h4 className="media-heading">
-                            <a href="#">Food name</a>
-                        </h4>
-                        <h5 className="media-heading"> 
-                          by <a href="#">Restaurant name</a>
-                        </h5>
-                        <span>Status: </span>
-                        <span className="text-success"> 
-                              <strong>In Stock</strong>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="col-md-1" style={{textAlign: 'center'}}>
-                    <input type="email" className="form-control" id="exampleInputEmail1" defaultValue={2} />
-                  </td>
-                  <td className="col-md-1 text-center">
-                    <strong>$4.99</strong>
-                  </td>
-                  <td className="col-md-1 text-center">
-                    <strong>$9.98</strong>
-                  </td>
-                  <td className="col-md-1">
-                    <button type="button" className="btn btn-danger">
-                      <span className="glyphicon glyphicon-remove" /> Remove
-                    </button>
-                  </td>
-                </tr>
-
+                {indents}
+                {foodList.length === 0 && <tr>
+                    <td> &nbsp; </td>
+                    <td> &nbsp; </td>
+                    <td> &nbsp; </td>
+                    <td> &nbsp; </td>
+                    <td> &nbsp; </td>                  
+                  </tr>
+                }
                 <tr>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td><h5>Subtotal</h5></td>
-                  <td className="text-right"><h5><strong>$24.59</strong></h5></td>
+                  <td className="text-right"><h5><strong>${subTotal}</strong></h5></td>
                 </tr>
                 <tr>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
-                  <td><h5>Estimated shipping</h5></td>
-                  <td className="text-right"><h5><strong>$6.94</strong></h5></td>
+                  <td><h5>Tax</h5></td>
+                  <td className="text-right"><h5><strong>${tax}</strong></h5></td>
                 </tr>
                 <tr>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td><h3>Total</h3></td>
-                  <td className="text-right"><h3><strong>$31.53</strong></h3></td>
+                  <td className="text-right"><h3><strong>${total}</strong></h3></td>
                 </tr>
                 <tr>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
-                  <td>
-                    <button type="button" className="btn btn-default">
-                      <span className="glyphicon glyphicon-shopping-cart" /> Continue Shopping
-                    </button></td>
-                  <td>
-                    <button type="button" className="btn btn-success">
-                      Checkout <span className="glyphicon glyphicon-play" />
-                    </button></td>
+                  <td> &nbsp; </td>
+                  {foodList.length === 0 && 
+                    <td> &nbsp; </td>
+                  }
+                  {foodList.length !== 0 && 
+                    <td>
+                      <button type="button" className="btn btn-success">
+                        Checkout <span className="glyphicon glyphicon-play" />
+                      </button>
+                    </td>
+                  }
                 </tr>
               </tbody>
             </table>
