@@ -22,8 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.synced_folder "./", "/home/ubuntu/project"
   config.vm.synced_folder ".", "/home/ubuntu/project", type: "rsync", rsync__auto: true, rsync__exclude: ".git/"
 
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # If you need to more than double the defaults for this course, you have
