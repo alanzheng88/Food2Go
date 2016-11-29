@@ -1,4 +1,5 @@
 import React from "react";
+import { IndexLink, Link } from "react-router";
 import * as ShoppingCartActions from "../actions/loginActions";
 import ShoppingCartStore from "../stores/userStore";
 import ShoppingItem from "../components/shoppingCart/shoppingItem";
@@ -119,9 +120,7 @@ export default class ShoppingCart extends React.Component {
                   }
                   {foodList.length !== 0 && 
                     <td>
-                      <button type="button" className="btn btn-success">
-                        Checkout <span className="glyphicon glyphicon-play" />
-                      </button>
+                      <Link to="Checkout" className="btn btn-success"> Checkout <span className="glyphicon glyphicon-play" /></Link>
                     </td>
                   }
                 </tr>
