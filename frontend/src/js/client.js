@@ -21,6 +21,7 @@ import CreateRestaurant from "./pages/createRestaurant";
 import Restaurant from "./pages/restaurant";
 import NoMatch from "./pages/noMatch";
 import AboutUs from "./pages/aboutus";
+import Checkout from "./pages/checkout";
 import FAQ from "./pages/faq";
 import WhatIsNew from "./pages/whatisnew";
 import Privacy from "./pages/privacy";
@@ -32,6 +33,7 @@ ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={Layout}>
     <IndexRoute component={Food2Go}></IndexRoute>
+    <Route path="checkout" component={Checkout}/>
     <Route path="restaurants" component={Restaurants}/>
     <Route path="account" component={Account}/>
     <Route path="login" component={Login}/>

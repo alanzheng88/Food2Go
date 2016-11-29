@@ -6,7 +6,7 @@ import * as LoginActions from "../../actions/loginActions";
   
 export default class Nav extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
@@ -15,6 +15,7 @@ export default class Nav extends React.Component {
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.updateUserRestaurants = this.updateUserRestaurants.bind(this);
   }
 
   toggleCollapse() {
@@ -26,21 +27,29 @@ export default class Nav extends React.Component {
     userStore.on("auth_success", this.updateLoginStatus);
     userStore.on("logout", this.updateLoginStatus);
     userStore.on("update_userinfo", this.updateUserInfo);
+    userStore.on("update_userRestaurants", this.updateUserRestaurants);
   }
 
   componentWillUnmount() {
     userStore.removeListener("auth_success", this.updateLoginStatus);
     userStore.removeListener("logout", this.updateLoginStatus);
     userStore.removeListener("update_userinfo", this.updateUserInfo);
+    userStore.removeListener("update_userRestaurants", this.updateUserRestaurants);
   }
 
   handleLogout(event) {
-    console.log("handleLogout: this.props", this.props);
     LoginActions.logoutUser();
     this.props.router.push('/');
   }
 
   updateUserInfo(userInfo) {
+    this.setState({userInfo: userInfo});
+    if (this.state.userInfo.role === 'restaurantOwner') {
+      LoginActions.getUserRestaurants();
+    }
+  }
+
+  updateUserRestaurants(userInfo) {
     this.setState({userInfo: userInfo});
   }
 
@@ -54,13 +63,9 @@ export default class Nav extends React.Component {
   render() {
     const { location } = this.props;
     const { userInfo, collapsed, loginStatus } = this.state;
-    // const featuredClass = location.pathname === "/" ? "active" : "";
-    // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
-    // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
     return (
       <div>
-
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -99,7 +104,7 @@ export default class Nav extends React.Component {
               {loginStatus &&
                 <NavDropdown id = 'dropdown-size-medium' /*activeClassName="active"*/ title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                  <MenuItem eventKey='2'  onClick={this.handleLogout} >Logout </MenuItem>
+                  <MenuItem eventKey='2' onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
