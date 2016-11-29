@@ -61,26 +61,16 @@ public class RestaurantController extends AppController {
         }
     }
 
-    public static void uploadPicture(Upload data) {
-        Picture picture = new Picture();
-    	Logger.info(data.getContentType());
-    	Logger.info(data.getFieldName());
-    	Logger.info(data.getFileName());
-    	picture.contentType = data.getContentType();
-    	picture.fileName = data.getFileName();
-    	picture.file = data.asBytes();
-    	picture.save();
-    	Logger.info("saving id=%s", picture.id);
-    	index();
+    public static void uploadPicture(Picture picture) {
+        picture.save();
+        index();
     }
 	public static void index() {
-    	List images = Picture.all().fetch();
-        render(images);
+    	render();
     }
-	public static void show(Long id) {
-    	Logger.info("loading id=%s", id);
-    	Picture picture = Picture.findById(id);
-    	response.setContentTypeIfNotSet(picture.contentType);
-		renderBinary(new ByteArrayInputStream(picture.file), picture.file.length);
+	public static void show(Long photoId) {
+    	Picture picture = Picture.findById(photoId);
+        response.setContentTypeIfNotSet(picture.image.type());
+        renderBinary(picture.image.get());
     }
 }
