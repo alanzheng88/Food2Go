@@ -15,7 +15,7 @@ export default class Nav extends React.Component {
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.updateUserResturants = this.updateUserResturants.bind(this);
+    this.updateUserRestaurants = this.updateUserRestaurants.bind(this);
   }
 
   toggleCollapse() {
@@ -27,14 +27,14 @@ export default class Nav extends React.Component {
     userStore.on("auth_success", this.updateLoginStatus);
     userStore.on("logout", this.updateLoginStatus);
     userStore.on("update_userinfo", this.updateUserInfo);
-    userStore.on("update_userRestaurants", this.updateUserResturants);
+    userStore.on("update_userRestaurants", this.updateUserRestaurants);
   }
 
   componentWillUnmount() {
     userStore.removeListener("auth_success", this.updateLoginStatus);
     userStore.removeListener("logout", this.updateLoginStatus);
     userStore.removeListener("update_userinfo", this.updateUserInfo);
-    userStore.removeListener("update_userRestaurants", this.updateUserResturants);
+    userStore.removeListener("update_userRestaurants", this.updateUserRestaurants);
   }
 
   handleLogout(event) {
@@ -49,7 +49,7 @@ export default class Nav extends React.Component {
     }
   }
 
-  updateUserResturants(userInfo) {
+  updateUserRestaurants(userInfo) {
     this.setState({userInfo: userInfo});
   }
 
