@@ -7,8 +7,8 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'azip@sfu.ca',
-      password: 'password1',
+      userName: '',
+      password: '',
       authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
