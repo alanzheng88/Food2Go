@@ -83,11 +83,11 @@ export default class Nav extends React.Component {
           </div>
           <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li activeClassName="active" onlyActiveOnIndex={true}>
+              <li /*activeClassName="active"*/ /*onlyActiveOnIndex={true}*/>
                 <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Food2Go</IndexLink>
               </li>
-              <li activeClassName="active">
-                <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
+              <li /*activeClassName="active"*/>
+                <Link to="restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
               </li>
               <Navbar.Form pullLeft>
                 <FormGroup>
@@ -98,34 +98,33 @@ export default class Nav extends React.Component {
               </Navbar.Form>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li activeClassName="active">
-                  <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
+                <li /*activeClassName="active"*/>
+                  <Link to="shoppingcart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
                 </li>
               {!loginStatus &&
-                <li activeClassName="active">
-                  <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
+                <li /*activeClassName="active"*/>
+                  <Link to="register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
                 </li>
               }
               {loginStatus &&
-                <NavDropdown id = 'dropdown-size-medium' activeClassName="active" title="User">
+                <NavDropdown id = 'dropdown-size-medium' /*activeClassName="active"*/ title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
                   <MenuItem eventKey='2' onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
-                <li activeClassName="active">
-                  <Link to="Login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
+                <li /*activeClassName="active"*/>
+                  <Link to="login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
                 </li>
               }
             </ul>
           </div>
         </div>
       </nav>
-      {(userInfo.role === 'restaurantOwner' && 
-        (userInfo.restaurants !== undefined && userInfo.restaurants.length === 0)) &&
-        <div class="alert alert-danger" role="alert">
-        Create your first restaurant!&nbsp;
-          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
+      {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
+        <div class="alert alert-info" role="alert">
+          Looks like you haven&apos;t created a restaurant yet.&nbsp; 
+          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Click here to create your first restaurant!</Link>
         </div>
       }
       </div>

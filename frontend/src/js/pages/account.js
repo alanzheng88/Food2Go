@@ -34,7 +34,7 @@ export default class UserInfo extends React.Component {
 				<br></br>
 				<Link to="Coupons">Your Coupons</Link>
 				<br></br>
-				<Link to="Invite">Invite Friends</Link>
+				<Link to="Points">Invite Friends</Link>
 			<h3>Account Settings</h3>
 				<Link to="Settings">Profile Settings</Link>
 				<br></br>

@@ -13,9 +13,10 @@ import Account from "./pages/account";
 import Restaurants from "./pages/restaurants";
 import ShoppingCart from "./pages/shoppingCart";
 import Orders from "./pages/orders";
+import Order from "./pages/order";
 import Points from "./pages/points";
 import Coupons from "./pages/coupons";
-import Invite from "./pages/invite";
+import Settings from "./pages/settings";
 import CreateRestaurant from "./pages/createRestaurant";
 import Restaurant from "./pages/restaurant";
 import NoMatch from "./pages/noMatch";
@@ -37,19 +38,19 @@ ReactDOM.render((
     <Route path="account" component={Account}/>
     <Route path="login" component={Login}/>
     <Route path="register" component={Register}/>
-    <Route path="shoppingCart" component={ShoppingCart}/>
+    <Route path="shoppingcart" component={ShoppingCart}/>
     <Route path="orders" component={Orders}/>
+    <Route path="orders/:orderId" component={Order}/>
     <Route path="points" component={Points}/>
     <Route path="coupons" component={Coupons}/>
-    <Route path="invite" component={Invite}/>
-    <Route path="/restaurant/create" component={CreateRestaurant}/>
-    <Route path="restaurant/:restaurantId" component={Restaurant}/>
+    <Route path="invite" component={Points}/>
+    <Route path="/restaurants/create" component={CreateRestaurant}/>
+    <Route path="restaurants/:restaurantId" component={Restaurant}/>
     <Route path="aboutus" component={AboutUs}/>
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
     <Route path="/*" component={NoMatch}/>
-    
     </Route>
   </Router>
   ), app)
