@@ -20,8 +20,8 @@ export default class CreateRestaurant extends React.Component {
 	        imageFiles: [],
 	        menuFile: []
 		  };
-		  this.updateLoginStatus = this.updateLoginStatus.bind(this);
-		  this.updateUserInfo = this.updateUserInfo.bind(this);
+		  /*this.updateLoginStatus = this.updateLoginStatus.bind(this);
+		  this.updateUserInfo = this.updateUserInfo.bind(this);*/
 		  // Binding Inputs and Submit button
 		  this.onChangeRestaurantName = this.onChangeRestaurantName.bind(this);
 		  this.onChangeRestaurantAddress = this.onChangeRestaurantAddress.bind(this);
@@ -74,21 +74,19 @@ export default class CreateRestaurant extends React.Component {
 		  var th = this;
 		  e.preventDefault();
 		  var data = {
-			restaurantOwner: this.state.userInfo.id,
 			name: this.state.restaurantName.trim(),
 			phoneNumber: this.state.restaurantPhoneNumber.trim(),
 			email: this.state.restaurantEmail.trim(),
 		    address: this.state.restaurantAddress.trim(),
-		    description: this.state.restaurantDescription.trim()/*,
-		    imageFiles: this.state.imageFiles,
-		    menuFile: this.state.menuFiles,*/
+		    description: this.state.restaurantDescription.trim()
 		  }
 		  console.log(data);
 		  // Submit form via jQuery/AJAX
 		  axios({
 		    method: 'POST',
 		    url: 'http://localhost:9000/api/restaurants',
-		    data: JSON.stringify(data)
+		    data: JSON.stringify(data),
+		    withCredentials: true
 		  })
 		  .then(function(data) {
 			  alert('Restaurant Created!');
@@ -109,7 +107,7 @@ export default class CreateRestaurant extends React.Component {
 		  });
 
 		}
-	componentWillMount() {
+	/*componentWillMount() {
 	    userStore.on("auth_success", this.updateLoginStatus);
 	    userStore.on("update_userinfo", this.updateUserInfo);
 	  }
@@ -126,7 +124,7 @@ export default class CreateRestaurant extends React.Component {
 	    if(loginStatus) {
 	      LoginActions.getUserInfo();
 	    }
-	  }
+	  }*/
 	render() {
 		const { userInfo, loginStatus } = this.state;
 		let page = null;		

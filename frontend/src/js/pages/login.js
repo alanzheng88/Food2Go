@@ -57,7 +57,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <div className="col-md-4">
-      <h4>Login Page</h4>
+      <h2>Login Page</h2>
       {this.state.authFailed &&
         <p style={{color:'red'}}>
           Username and password combination doesn't exist.
@@ -65,11 +65,11 @@ export default class Login extends React.Component {
       }
       <form onSubmit={this.handleSubmit}>
       <div class="form-group">
-        <label><b>UserName:</b></label>
+        <label>Email:</label>
         <input class="form-control" type="text" placeholder="Email address" value={this.state.userName} onChange={this.handleUserNameChange} required />
       </div>
       <div class="form-group">
-        <label><b>Password:</b></label>
+        <label>Password:</label>
         <input class="form-control" type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
         <br/>
       </div>

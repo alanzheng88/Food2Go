@@ -57,7 +57,7 @@ export default class Restaurants extends React.Component {
       {filteredRestaurants.map(restaurant => {
        return (
 	   //<a href={"#/restaurant/"+restaurant.id} className="button">
-		<div class="clickableDiv panel panel-default row" onClick={()=>{this.props.router.push("restaurant/"+restaurant.id);}} key={restaurant.id} >
+		<div class="clickableDiv panel panel-default row" onClick={()=>{this.props.router.push("restaurants/"+restaurant.id);}} key={restaurant.id} >
 			<div class="panel-heading">
 				<h4 class="panel-title">{restaurant.name}</h4>
 			</div>

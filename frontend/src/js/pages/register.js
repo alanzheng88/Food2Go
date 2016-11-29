@@ -105,7 +105,7 @@ export default class Register extends React.Component {
 		}
 	render() {
 		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
-            <h1>Registration</h1>
+            <h2>Registration</h2>
             <div class="form-group">
 	            <label>
 	                First Name*
