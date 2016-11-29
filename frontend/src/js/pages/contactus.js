@@ -8,7 +8,7 @@ export default class ContactUs extends React.Component {
     	<h1>Contact Us</h1>
     	<div class="col-md-5">
     		<h4>Join Food2Go</h4>
-    		<p>If you want to become one of us, and have html, react.js with babel, play and test experience. Please email us through <Mailto email="joinfood2go@sfu.ca" obfuscate={true}>joinfood2go@sfu.ca</Mailto></p>
+    		<p>If you want to become one of us, and have html, react.js with babel, play and test experience. Please email us through <Mailto email="gofood2go@gmail.com" obfuscate={true}>gofood2go@gmail.com</Mailto></p>
     	</div>
     	<div class="col-md-2">
     	</div>

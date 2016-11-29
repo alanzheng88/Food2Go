@@ -40,10 +40,10 @@ export default class Footer extends React.Component {
               <div className="text-center center-block">
                 <h4>Follow us</h4>
                 <br />
-                <a href="https://www.facebook.com/bootsnipp"><i className="fa fa-facebook-square fa-3x social" /></a>
-                <a href="https://twitter.com/bootsnipp"><i className="fa fa-twitter-square fa-3x social" /></a>
-                <a href="https://plus.google.com/+Bootsnipp-page"><i className="fa fa-google-plus-square fa-3x social" /></a>
-                <a href="mailto:bootsnipp@gmail.com"><i className="fa fa-envelope-square fa-3x social" /></a>
+                <a href="https://www.facebook.com/Food2Go-1659070711051820/"><i className="fa fa-facebook-square fa-3x social" /></a>
+                <a href="https://twitter.com/GoFood2Go"><i className="fa fa-twitter-square fa-3x social" /></a>
+                { false && <a href="https://plus.google.com/+Food2Go"><i className="fa fa-google-plus-square fa-3x social" /></a> }
+                <a href="mailto:gofood2go@gmail.com"><i className="fa fa-envelope-square fa-3x social" /></a>
               </div>
             </div>
           </div>
