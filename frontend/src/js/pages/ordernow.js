@@ -5,6 +5,14 @@ import axios from "axios";
 const KEYS_TO_FILTERS = ['name', 'foodType', 'ingredient'];
 
 export default class OrderNow extends React.Component {
+/*	constructor(props){
+		super(props);
+		this.state={
+			seachTerm:"",
+				foods:[{
+				}]
+		}
+	}*/
 	render() {
     console.log("OrderNow");
     return (
