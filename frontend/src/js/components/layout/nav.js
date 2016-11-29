@@ -6,7 +6,7 @@ import * as LoginActions from "../../actions/loginActions";
   
 export default class Nav extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
@@ -63,14 +63,9 @@ export default class Nav extends React.Component {
   render() {
     const { location } = this.props;
     const { userInfo, collapsed, loginStatus } = this.state;
-    // const featuredClass = location.pathname === "/" ? "active" : "";
-    // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
-    // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
-    console.log(this.state);
     return (
       <div>
-
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">

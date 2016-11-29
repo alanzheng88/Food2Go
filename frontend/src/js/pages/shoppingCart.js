@@ -52,7 +52,6 @@ export default class ShoppingCart extends React.Component {
 
   render() {
     const { foodList } = this.state;
-    console.log("Shopping Cart", {foodList});
     var indents = [];
     var subTotal = 0.00;
     for (var i = 0; i < foodList.length; i++) {

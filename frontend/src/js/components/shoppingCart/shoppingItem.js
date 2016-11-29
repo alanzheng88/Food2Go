@@ -37,7 +37,6 @@ export default class ShoppingItem extends React.Component {
 
   render() {
     const { food } = this.props;
-    console.log("foodItem: ", food);
     return (
         <tr>
           <td className="col-sm-8 col-md-6">
