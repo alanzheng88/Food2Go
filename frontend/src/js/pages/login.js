@@ -64,12 +64,15 @@ export default class Login extends React.Component {
         </p>
       }
       <form onSubmit={this.handleSubmit}>
+      <div class="form-group">
         <label><b>UserName:</b></label>
-        <input type="text" placeholder="Email address" value={this.state.userName} onChange={this.handleUserNameChange} required />
-        <br/>
+        <input class="form-control" type="text" placeholder="Email address" value={this.state.userName} onChange={this.handleUserNameChange} required />
+      </div>
+      <div class="form-group">
         <label><b>Password:</b></label>
-        <input type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
+        <input class="form-control" type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
         <br/>
+      </div>
         <input type="submit" value="Submit" />
       </form>
       </div>

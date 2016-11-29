@@ -84,9 +84,9 @@ export default class Register extends React.Component {
 		    	password: th.state.password.trim(),
 			  }
 			  LoginActions.authenticateUser(loginData);
+			  th.reset();
 			  th.props.router.push('/');
 			  msg.success('Account created!');
-			  th.reset();
 		  })
 		  .catch(function(error) {
 			  msg.error('Failed to register!');

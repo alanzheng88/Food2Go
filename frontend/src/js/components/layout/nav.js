@@ -77,7 +77,7 @@ export default class Nav extends React.Component {
                 <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Food2Go</IndexLink>
               </li>
               <li /*activeClassName="active"*/>
-                <Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
+                <Link to="restaurants" onClick={this.toggleCollapse.bind(this)}>Restaurants</Link>
               </li>
               <Navbar.Form pullLeft>
                 <FormGroup>
@@ -89,11 +89,11 @@ export default class Nav extends React.Component {
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li /*activeClassName="active"*/>
-                  <Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
+                  <Link to="shoppingcart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
                 </li>
               {!loginStatus &&
                 <li /*activeClassName="active"*/>
-                  <Link to="Register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
+                  <Link to="register" onClick={this.toggleCollapse.bind(this)}>Register</Link>
                 </li>
               }
               {loginStatus &&
@@ -104,7 +104,7 @@ export default class Nav extends React.Component {
               }
               {!loginStatus &&
                 <li /*activeClassName="active"*/>
-                  <Link to="Login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
+                  <Link to="login" onClick={this.toggleCollapse.bind(this)}>Login </Link>
                 </li>
               }
             </ul>
@@ -112,9 +112,9 @@ export default class Nav extends React.Component {
         </div>
       </nav>
       {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
-        <div class="alert alert-danger" role="alert">
-          Create your first restaurant! 
-          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
+        <div class="alert alert-info" role="alert">
+          Looks like you haven&apos;t created a restaurant yet.&nbsp; 
+          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Click here to create your first restaurant!</Link>
         </div>
       }
       </div>

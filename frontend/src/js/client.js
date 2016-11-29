@@ -36,14 +36,14 @@ ReactDOM.render((
     <Route path="account" component={Account}/>
     <Route path="login" component={Login}/>
     <Route path="register" component={Register}/>
-    <Route path="shoppingCart" component={ShoppingCart}/>
+    <Route path="shoppingcart" component={ShoppingCart}/>
     <Route path="orders" component={Orders}/>
-    <Route path="order/:orderId" component={Order}/>
+    <Route path="orders/:orderId" component={Order}/>
     <Route path="points" component={Points}/>
     <Route path="coupons" component={Coupons}/>
     <Route path="invite" component={Points}/>
-    <Route path="/restaurant/create" component={CreateRestaurant}/>
-    <Route path="restaurant/:restaurantId" component={Restaurant}/>
+    <Route path="/restaurants/create" component={CreateRestaurant}/>
+    <Route path="restaurants/:restaurantId" component={Restaurant}/>
     <Route path="aboutus" component={AboutUs}/>
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>

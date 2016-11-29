@@ -2,12 +2,16 @@ import React from 'react';
 import Validation from 'react-validation';
 import axios from "axios";
 import Dropzone from 'react-dropzone';
-import userStore from "../../js/stores/userStore";
+import {Link} from 'react-router';
+import userStore from "../stores/userStore";
+import * as LoginActions from "../actions/loginActions";
 
 export default class CreateRestaurant extends React.Component {
 	constructor(props) {
 		  super(props);
 		  this.state ={
+		  	loginStatus: userStore.getLoginStatus(),
+			userInfo: userStore.getUserInfo(),
 			restaurantName: "",
 			restaurantAddress: "",
 			restaurantPhoneNumber: "",
@@ -16,6 +20,8 @@ export default class CreateRestaurant extends React.Component {
 	        imageFiles: [],
 	        menuFile: []
 		  };
+		  this.updateLoginStatus = this.updateLoginStatus.bind(this);
+		  this.updateUserInfo = this.updateUserInfo.bind(this);
 		  // Binding Inputs and Submit button
 		  this.onChangeRestaurantName = this.onChangeRestaurantName.bind(this);
 		  this.onChangeRestaurantAddress = this.onChangeRestaurantAddress.bind(this);
@@ -67,22 +73,21 @@ export default class CreateRestaurant extends React.Component {
 	onSubmit(e){
 		  var th = this;
 		  e.preventDefault();
-		  console.log(this.state);
 		  var data = {
-				userId: userStore.session.sessionId,
-				name: this.state.restaurantName.trim(),
+			restaurantOwner: this.state.userInfo.id,
+			name: this.state.restaurantName.trim(),
+			phoneNumber: this.state.restaurantPhoneNumber.trim(),
+			email: this.state.restaurantEmail.trim(),
 		    address: this.state.restaurantAddress.trim(),
-		    phoneNumber: this.state.restaurantPhoneNumber.trim(),
-		    email: this.state.restaurantEmail.trim(),
 		    description: this.state.restaurantDescription.trim()/*,
 		    imageFiles: this.state.imageFiles,
 		    menuFile: this.state.menuFiles,*/
 		  }
-
+		  console.log(data);
 		  // Submit form via jQuery/AJAX
 		  axios({
 		    method: 'POST',
-		    url: 'http://localhost:9000/api/restaurant',
+		    url: 'http://localhost:9000/api/restaurants',
 		    data: JSON.stringify(data)
 		  })
 		  .then(function(data) {
@@ -104,8 +109,30 @@ export default class CreateRestaurant extends React.Component {
 		  });
 
 		}
+	componentWillMount() {
+	    userStore.on("auth_success", this.updateLoginStatus);
+	    userStore.on("update_userinfo", this.updateUserInfo);
+	  }
+	componentWillUnmount() {
+	    userStore.removeListener("auth_success", this.updateLoginStatus);
+	    userStore.removeListener("update_userinfo", this.updateUserInfo);
+	  }
+	updateUserInfo(userInfo) {
+	    this.setState({userInfo: userInfo});
+	  }
+
+	  updateLoginStatus(loginStatus) {
+	    this.setState({loginStatus: loginStatus});
+	    if(loginStatus) {
+	      LoginActions.getUserInfo();
+	    }
+	  }
 	render() {
-		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
+		const { userInfo, loginStatus } = this.state;
+		let page = null;		
+		if(userInfo.role === 'restaurantOwner' && loginStatus)
+		{
+			page = <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
             <h1>Create Restaurant</h1>
             <div class="form-group">
 	            <label>
@@ -162,5 +189,27 @@ export default class CreateRestaurant extends React.Component {
                 <Validation.components.Button class="btn btn-default" className='button' errorClassName='asd'>Submit</Validation.components.Button>
             </div>
         </Validation.components.Form>;
+		}else if(loginStatus){
+			page= (
+					<div>
+				      <h1 class="noMatch">You&apos;re not a restaurant owner!</h1>
+					  <p class="emoji">😕</p>
+					  <h3 class="noMatch">If you want to create a restaurant you must <Link to={`register`}>register</Link> as a restaurant owner.</h3>
+					</div>
+				    );
+		}else{
+			page = (
+					<div>
+				      <h1 class="noMatch">You&apos;re not logged in!</h1>
+					  <p class="emoji">😕</p>
+					  <h3 class="noMatch">If you want to create a restaurant you must <Link to={`register`}>register</Link> or <Link to={`login`}>login</Link> as a restaurant owner.</h3>
+					</div>
+				    );
+		}
+		return(
+		<div>
+		{page}
+		</div>
+		);
     }
 }
