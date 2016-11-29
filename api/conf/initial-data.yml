@@ -47,4 +47,13 @@ Restaurant(Al Porto):
     restaurantOwner:
                     - alan
 
+Food(California Roll):
+    name:           California Roll
+    price:          5.99
+    description:    Yummiest thing on earth
+
+Order(Alan Order):
+    date:           2016-11-28 14:40
+    totalCost:      24.99
+    status:         0
 
