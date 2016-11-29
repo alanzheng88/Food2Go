@@ -17,22 +17,22 @@ export default class Footer extends React.Component {
 
                 <li><IndexLink to="AboutUs">About us</IndexLink></li>
                 <li><Link to ="WhatIsNew">What's New</Link></li>
-                <li><Link to ="/">Join Food2Go</Link></li>
+                <li><Link to ="ContactUs">Join Food2Go</Link></li>
               </ul>
             </div>
             <div className="col-md-3">
               <ul className="nav nav-pills nav-stacked">
                 <li><h4>For Restaurant Owners</h4></li>
-                <li><Link to ="/">Become our partner</Link></li>
-                <li><Link to ="/">Edit your business page</Link></li>
-                <li><Link to ="/">Business support</Link></li>          
+                <li><Link to ="Register">Become our partner</Link></li>
+                <li><Link to ="restaurant/create">Edit your business page</Link></li>
+                <li><Link to ="ContactUs">Business support</Link></li>          
               </ul>
             </div>
             <div className="col-md-3">
               <ul className="nav nav-pills nav-stacked">
                 <li><h4>Support</h4></li>
-                <li><Link to ="/">Customer Service</Link></li>
-                <li><Link to ="/">Contact us</Link></li>
+                <li><Link to ="CustomerService">Customer Service</Link></li>
+                <li><Link to ="ContactUs">Contact us</Link></li>
                 <li><Link to ="FAQ">FAQ</Link></li>
               </ul>
             </div>
@@ -53,7 +53,7 @@ export default class Footer extends React.Component {
           <div className="col-lg-12">
             <ul className="nav nav-pills nav-justified">
               <li>@2016 Food2Go</li>
-              <li><Link to ="/">Terms of Service</Link></li>
+              <li><Link to ="TermsOfService">Terms of Service</Link></li>
               <li><Link to ="Privacy">Privacy</Link></li>
             </ul>
           </div>

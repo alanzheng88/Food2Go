@@ -25,6 +25,10 @@ import Checkout from "./pages/checkout";
 import FAQ from "./pages/faq";
 import WhatIsNew from "./pages/whatisnew";
 import Privacy from "./pages/privacy";
+import OrderNow from "./pages/ordernow";
+import ContactUs from "./pages/contactus";
+import CustomerService from "./pages/customerservice";
+import TermsOfService from "./pages/termsofservice";
 
 
 const app = document.getElementById('app');
@@ -50,6 +54,10 @@ ReactDOM.render((
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
+    <Route path="restaurant/:restaurantId/ordernow" component={OrderNow}/>
+    <Route path="customerservice" component={CustomerService}/>
+    <Route path="contactus" component={ContactUs}/>
+    <Route path="termsofservice" component={TermsOfService}/>
     <Route path="/*" component={NoMatch}/>
     </Route>
   </Router>
