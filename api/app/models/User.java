@@ -42,6 +42,12 @@ public class User extends Model {
         this.email = email;
         this.password = password;
         this.role = role;
+        encryptPassword();
+    }
+
+    public boolean isRestaurantOwner() {
+        System.out.println("user is: " + this);
+        return role.equals("restaurantOwner");
     }
 
     public void encryptPassword() {

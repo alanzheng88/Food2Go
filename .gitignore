@@ -1,5 +1,6 @@
 .vagrant
 
+*.log
 *.pyc
 *.sqlite3
 
@@ -11,9 +12,11 @@ log/*
 frontend/.project
 frontend/node_modules/*
 frontend/*.log
+frontend/test/reports/*
 
 api/tmp/*
 api/logs/*
 api/test-result/*
 api/*.log
 
+/frontend/nbproject/private/

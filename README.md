@@ -1,10 +1,26 @@
 # SFU Food2Go
 
 Usage Instructions:
-1. Call "vagrant up"
-2. Go to localhost:11000
+1. If you are on Windows, run the following line before cloning the repo: git config —global core.autocrlf true
+2. Call "vagrant up"
+3. Go to localhost:11000
 
 # Features
+
+### Overview
+- Restful Api
+  - design using API first approach
+  - API follows REST standards
+  - authorization and authentication
+- User Profiles
+  - log in with basic authentication
+- Food
+  - browse
+  - order
+- Restaurants
+  - browse
+  - upload images (food, menu, etc)
+- Point System
 
 ### restful api
 - clear separation between frontend and backend

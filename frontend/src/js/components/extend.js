@@ -12,6 +12,14 @@ Object.assign(Validation.rules, {
             return <span className='form-error is-visible'>Required</span>
         }
     },
+    phoneNumber: {
+    	rule: value => validator.isMobilePhone(value,'en-CA'),
+    	hint: value =>(
+			<span className="form-error is-visible">
+                This is not a valid phone number.
+            </span>	
+    	)
+    },
     // Make sure input is an email
     email: {
         rule: value => {
@@ -30,7 +38,7 @@ Object.assign(Validation.rules, {
             </span>
         )
 	},
-	// Make sure password is the same
+	// Make sure password is the same and more than 6 characters long
     password: {
         rule: (value, components) => {
             const password = components.password.state;
@@ -40,13 +48,18 @@ Object.assign(Validation.rules, {
                 && password.isUsed
                 && passwordConfirm.isUsed;
             const isBothChanged = isBothUsed && password.isChanged && passwordConfirm.isChanged;
-
             if (!isBothUsed || !isBothChanged) {
                 return true;
             }
-
+			
             return password.value === passwordConfirm.value;
         },
         hint: () => <span className="form-error is-visible"> Passwords should be the same.</span>
-    }
+    },
+	passwordLength: {
+		rule: value => validator.isLength(value, '7'),
+		hint: () => (
+			<span className="form-error is-visible"> Password must be length 7 or greater.</span>
+		)
+	}
 });

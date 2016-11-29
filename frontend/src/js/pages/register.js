@@ -1,6 +1,7 @@
 import React from 'react';
 import Validation from 'react-validation';
-import $ from "jquery";
+import axios from "axios";
+import * as LoginActions from "../actions/loginActions";
 
 export default class Register extends React.Component {
 	constructor(props) {
@@ -63,26 +64,39 @@ export default class Register extends React.Component {
 		    password: this.state.password.trim(),
 		    role: this.state.role
 		  }
-
 		  // Submit form via jQuery/AJAX
-		  $.ajax({
-		    type: 'POST',
+		  axios({
+		    method: 'POST',
 		    url: 'http://localhost:9000/api/user',
 		    data: JSON.stringify(data)
 		  })
-		  .done(function(data) {
+		  .then(function(data) {
 			  alert('Account Created!');
-			  th.reset();
+			  var loginData = {
+			  	email: th.state.email.trim(),
+		    	password: th.state.password.trim(),
+			  }
+			  LoginActions.authenticateUser(loginData);
+			  th.props.router.push('/');
 		  })
-		  .fail(function(jqXhr) {
-			  alert('Failed to Register!');
-			  console.log('failed to register');
+		  .catch(function(error) {
+			  alert('Failed to Register!', error);
+			  if (error.response) {
+			  // The request was made, but the server responded with a status code 
+			  // that falls out of the range of 2xx 
+			  console.log(error.response.data);
+			  console.log(error.response.status);
+			  console.log(error.response.headers);
+			} else {
+			  // Something happened in setting up the request that triggered an Error 
+			  console.log('Error', error.message);
+			}
 		  });
 
 		}
 	render() {
 		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
-            <h3>Registration</h3>
+            <h1>Registration</h1>
             <div>
 	            <label>
 	                First Name*
@@ -104,7 +118,7 @@ export default class Register extends React.Component {
             <div>
                 <label>
                     Password*
-                    <Validation.components.Input type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required']}/>
+                    <Validation.components.Input type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required', 'passwordLength']}/>
                 </label>
             </div>
             <div>
@@ -119,7 +133,7 @@ export default class Register extends React.Component {
 	                <Validation.components.Select errorClassName='is-invalid-input' onChange={this.onChangeRole} ref='role' name='role' value={this.state.role} validations={['required']}>
 	                    <option value=''>Choose Your Account Type</option>
 	                    <option value='customer'>Customer</option>
-	                    <option value='restaurant_owner'>Restaurant Owner</option>
+	                    <option value='restaurantOwner'>Restaurant Owner</option>
 	                </Validation.components.Select>
 	            </label>
             </div>

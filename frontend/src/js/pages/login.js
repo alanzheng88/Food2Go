@@ -1,8 +1,7 @@
 import React from "react";
 
 import * as LoginActions from "../actions/loginActions";
-import LoginStore from "../stores/loginStore";
-
+import userStore from "../stores/userStore";
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -10,32 +9,32 @@ export default class Login extends React.Component {
     this.state = {
       userName: '',
       password: '',
-      ID: this.guid(),
+      authFailed: false,
     };
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-
+    this.handleAuthenticationFailure = this.handleAuthenticationFailure.bind(this);
+    this.redirect = this.redirect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
+  
   componentWillMount() {
-    LoginStore.on("change", this.updateUser);
-  }
+    userStore.on("auth_failure", this.handleAuthenticationFailure);
+    userStore.on("login", this.redirect);
+  } 
 
   componentWillUnmount() {
-    LoginStore.removeListener("change", this.updateUser);
+    userStore.removeListener("auth_failure", this.handleAuthenticationFailure);
+    userStore.removeListener("login", this.redirect);
   }
 
-  updateUser(){
+  handleAuthenticationFailure () {
+    this.setState({authFailed:true});
+  }
 
+  redirect() {
+    console.log(this.props);
+    this.props.router.push('/');
   }
 
   handleUserNameChange(event) {
@@ -49,27 +48,30 @@ export default class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = {
-      userName:this.state.userName,
+      email:this.state.userName,
       password:this.state.password,
-      ID:this.state.ID,
     }
-    LoginActions.loginUser(JSON.stringify(data));
+    LoginActions.authenticateUser(data);
   }
 
   render() {
-    console.log("Login");
     return (
       <div className="col-md-4">
       <h4>Login Page</h4>
+      {this.state.authFailed &&
+        <p style={{color:'red'}}>
+          Username and password combination doesn't exist.
+        </p>
+      }
       <form onSubmit={this.handleSubmit}>
         <label><b>UserName:</b></label>
-        <input type="text" value={this.state.userName} onChange={this.handleUserNameChange} required />
+        <input type="text" placeholder="Email address" value={this.state.userName} onChange={this.handleUserNameChange} required />
         <br/>
         <label><b>Password:</b></label>
         <input type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
         <br/>
         <input type="submit" value="Submit" />
-      </form> 
+      </form>
       </div>
     );
   }

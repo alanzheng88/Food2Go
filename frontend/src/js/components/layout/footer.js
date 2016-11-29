@@ -15,8 +15,8 @@ export default class Footer extends React.Component {
               <ul className="nav nav-pills nav-stacked">
                 <li><h4>About Food2Go</h4></li>
 
-                <li><IndexLink to="/">About us</IndexLink></li>
-                <li><Link to ="/">What's New</Link></li>
+                <li><IndexLink to="AboutUs">About us</IndexLink></li>
+                <li><Link to ="WhatIsNew">What's New</Link></li>
                 <li><Link to ="/">Join Food2Go</Link></li>
               </ul>
             </div>
@@ -24,8 +24,8 @@ export default class Footer extends React.Component {
               <ul className="nav nav-pills nav-stacked">
                 <li><h4>For Restaurant Owners</h4></li>
                 <li><Link to ="/">Become our partner</Link></li>
-                <li><Link to ="/">Edit your bussiness page</Link></li>
-                <li><Link to ="/">Bussiness support</Link></li>          
+                <li><Link to ="/">Edit your business page</Link></li>
+                <li><Link to ="/">Business support</Link></li>          
               </ul>
             </div>
             <div className="col-md-3">
@@ -33,7 +33,7 @@ export default class Footer extends React.Component {
                 <li><h4>Support</h4></li>
                 <li><Link to ="/">Customer Service</Link></li>
                 <li><Link to ="/">Contact us</Link></li>
-                <li><Link to ="/">FAQ</Link></li>
+                <li><Link to ="FAQ">FAQ</Link></li>
               </ul>
             </div>
             <div className="col-md-3">
@@ -52,9 +52,9 @@ export default class Footer extends React.Component {
         <div className="row">
           <div className="col-lg-12">
             <ul className="nav nav-pills nav-justified">
-              <li><IndexLink to="/" >© 2016 Food2Go</IndexLink></li>
+              <li>@2016 Food2Go</li>
               <li><Link to ="/">Terms of Service</Link></li>
-              <li><Link to ="/">Privacy</Link></li>
+              <li><Link to ="Privacy">Privacy</Link></li>
             </ul>
           </div>
         </div>

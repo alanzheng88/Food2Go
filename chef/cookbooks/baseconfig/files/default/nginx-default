@@ -13,14 +13,13 @@
 
 # Default server configuration
 #
-
 upstream backend {
     server 127.0.0.1:12345;
 }
 
 server {
 	listen 80;
-
+	 
 	# SSL configuration
 	#
 	# listen 443 ssl default_server;
@@ -43,6 +42,7 @@ server {
 	server_name _;
 
 	location / {
+		sendfile 		   off;
         proxy_buffering    off;
         proxy_set_header   X-Real-IP $remote_addr;
         proxy_set_header   X-Forwarded-Proto $scheme;
@@ -50,33 +50,10 @@ server {
         proxy_set_header   Host $http_host; 
         proxy_http_version 1.1;
         proxy_pass http://backend;
-		if ($request_method = 'OPTIONS') {
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-        #
-        # Custom headers and headers various browsers *should* be OK with but aren't
-        #
-        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-        #
-        # Tell client that this pre-flight info is valid for 20 days
-        #
-        add_header 'Access-Control-Max-Age' 1728000;
-        add_header 'Content-Type' 'text/plain charset=UTF-8';
-        add_header 'Content-Length' 0;
-        return 204;
-		}
-		if ($request_method = 'POST') {
-			add_header 'Access-Control-Allow-Origin' '*';
-			add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-		}
-		if ($request_method = 'GET') {
-			add_header 'Access-Control-Allow-Origin' '*';
-			add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-		 }
 	}
-
+	location /static/css {
+		alias /home/ubuntu/project/frontend/src/css;
+	}
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
 	#location ~ \.php$ {

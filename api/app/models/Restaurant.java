@@ -7,7 +7,6 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-@Table(name = "Restaurant")
 public class Restaurant extends Model {
  
     @Required
@@ -27,9 +26,12 @@ public class Restaurant extends Model {
     @Required
     @Lob
     public String description;
+
+    @ManyToOne
+    public User restaurantOwner;
 	
     
-    public Restaurant(String name, String email, String phoneNumber, String address, String description) {
+    public Restaurant(String name, String phoneNumber, String email, String address, String description) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -43,6 +45,5 @@ public class Restaurant extends Model {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.description = description;
-        this.save();
     } 
 }
