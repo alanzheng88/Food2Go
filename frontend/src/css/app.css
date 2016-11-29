@@ -102,3 +102,19 @@ div.desc {
 .navbar-fixed-top .navbar-collapse{
     max-height: 500px;
 }
+
+.disabled-text{
+	background-color: #EBEBE4;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.clickableDiv {
+	background: #fff;
+	cursor: pointer;
+}
+.clickableDiv:hover {
+	background: #f5f5f5;
+}
