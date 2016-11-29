@@ -28,7 +28,6 @@ class ShoppingCartStore extends EventEmitter {
         discountedPrice: '8.0',
       }
     ]
-    }
   }
   
   handleActions(action) {
@@ -46,4 +45,4 @@ class ShoppingCartStore extends EventEmitter {
 const shoppingCartStore = new ShoppingCartStore;
 dispatcher.register(shoppingCartStore.handleActions.bind(shoppingCartStore));
 
-export default userStore;
+export default shoppingCartStore;

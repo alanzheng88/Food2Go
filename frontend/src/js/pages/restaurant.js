@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import Collapse from "react-collapse";
 import axios from "axios";
+import NumberFormat from 'react-number-format';
 
 export default class Restaurant extends React.Component {
 	constructor(props) {
@@ -68,40 +69,41 @@ export default class Restaurant extends React.Component {
 		  };
 	    return (
 	    <div class='mySlick' id="container">
-		    <div class="row">
-		      <h1>{this.state.restaurantName}</h1>
-			    <div class="col-md-6">
-			      <Slider {...settings}>
-				      <div>
-				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
-				      </div>
-				      <div>
-				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
-				      </div>
-				      <div>
-				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
-				      </div>
-			      </Slider>
+		    <div class="container">
+		      <h1 class="row col-md-12">{this.state.restaurantName}</h1>
+		      <div class="row">
+				   <div class="col-md-6">
+				      <Slider {...settings}>
+					      <div>
+					      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
+					      </div>
+					      <div>
+					      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+					      </div>
+					      <div>
+					      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+					      </div>
+				      </Slider>
+				    </div>
+				    <div class="col-md-6">
+				    	<br></br>
+				    	<br></br>
+				    	<button type="button" class="btn btn-primary btn-lg btn-block">Browse Menu</button>
+				    	<button type="button" class="btn btn-danger btn-lg btn-block">Order Now!</button>
+				    	<h4>Contact Information</h4>
+				    	<p><NumberFormat value={this.state.restaurantPhoneNumber} displayType={'text'} format="(###) ###-####" /></p>
+				    	<p>{this.state.restaurantEmail}</p>
+				    	<p>{this.state.restaurantAddress}</p>
+				    </div>
 			    </div>
-			    <div class="col-md-6">
-			    	<br></br>
-			    	<br></br>
-			    	<button type="button" class="btn btn-primary btn-lg btn-block">Browse Menu</button>
-			    	<button type="button" class="btn btn-danger btn-lg btn-block">Order Now!</button>
-			    	<h4>Contact Information</h4>
-			    	<p>{this.state.restaurantPhoneNumber}</p>
-			    	<p>{this.state.restaurantEmail}</p>
-			    	<p>{this.state.restaurantAddress}</p>
-			    </div>
-			    <div class="col-md-12">
-			    	<h3>Restaurant Description</h3>
-			    	<button class="btn-link center-block" onClick={ () => {this.setState({isOpened: !this.state.isOpened}); console.log("click",this.state.isOpened)}}>
-			          v
-			        </button>
-			    	<Collapse isOpened={this.state.isOpened} keepCollapsedContent={true}>
+			    	<h3 class="row">Restaurant Description</h3>
+			    	<div class="row">
 			    		<p>{this.state.restaurantDescription}</p>
-			    	</Collapse>
-			    </div>
+				    	{/*<span class="clickable caret center-block" onClick={ () => {this.setState({isOpened: !this.state.isOpened}); console.log("click",this.state.isOpened)}}/>
+				    		<Collapse isOpened={this.state.isOpened} keepCollapsedContent={true}>
+				    		<p>{this.state.restaurantDescription}</p>
+				    	</Collapse>*/}
+			    	</div>
 		    </div>
 		    </div>
 	    );

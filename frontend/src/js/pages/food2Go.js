@@ -15,11 +15,13 @@ export default class Food2Go extends React.Component {
 				id: 0,
 				name: "Restaurant 1",
 				address: "Restaurant Address",
-				description: "Restaurant Description"},{
-					id: 1,
-					name: "Restaurant 2",
-					address: "Restaurant Address",
-					description: "Restaurant Description"}]
+				description: "Restaurant Description"
+			},{
+				id: 1,
+				name: "Restaurant 2",
+				address: "Restaurant Address",
+				description: "Restaurant Description"
+			}]
 	  };
 	  this.getRestaurants();
 	  console.log(this.state);
@@ -116,12 +118,9 @@ export default class Food2Go extends React.Component {
 			    	<br></br>
 			    	<br />
 			    	<div class="button-click-in-main">
-			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link></button>
-			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link></button>
-			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link></button>
+			    	<Link to="Restaurants" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link>
+			    	<Link to="Foods" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link>
+			    	<Link to="ShoppingCart" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link>
 			    	</div>
 			    </div>
 			    <div class="col-md-11">
