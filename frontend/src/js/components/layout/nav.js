@@ -15,6 +15,7 @@ export default class Nav extends React.Component {
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.updateUserResturants = this.updateUserResturants.bind(this);
   }
 
   toggleCollapse() {
@@ -26,21 +27,29 @@ export default class Nav extends React.Component {
     userStore.on("auth_success", this.updateLoginStatus);
     userStore.on("logout", this.updateLoginStatus);
     userStore.on("update_userinfo", this.updateUserInfo);
+    userStore.on("update_userRestaurants", this.updateUserResturants);
   }
 
   componentWillUnmount() {
     userStore.removeListener("auth_success", this.updateLoginStatus);
     userStore.removeListener("logout", this.updateLoginStatus);
     userStore.removeListener("update_userinfo", this.updateUserInfo);
+    userStore.removeListener("update_userRestaurants", this.updateUserResturants);
   }
 
   handleLogout(event) {
-    console.log("handleLogout: this.props", this.props);
     LoginActions.logoutUser();
     this.props.router.push('/');
   }
 
   updateUserInfo(userInfo) {
+    this.setState({userInfo: userInfo});
+    if (this.state.userInfo.role === 'restaurantOwner') {
+      LoginActions.getUserRestaurants();
+    }
+  }
+
+  updateUserResturants(userInfo) {
     this.setState({userInfo: userInfo});
   }
 
@@ -58,6 +67,7 @@ export default class Nav extends React.Component {
     // const archivesClass = location.pathname.match(/^\/archives/) ? "active" : "";
     // const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
+    console.log(this.state);
     return (
       <div>
 
@@ -99,7 +109,7 @@ export default class Nav extends React.Component {
               {loginStatus &&
                 <NavDropdown id = 'dropdown-size-medium' activeClassName="active" title="User">
                   <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
-                  <MenuItem eventKey='2'  onClick={this.handleLogout} >Logout </MenuItem>
+                  <MenuItem eventKey='2' onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
               {!loginStatus &&
@@ -111,10 +121,11 @@ export default class Nav extends React.Component {
           </div>
         </div>
       </nav>
-      {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
+      {(userInfo.role === 'restaurantOwner' && 
+        (userInfo.restaurants !== undefined && userInfo.restaurants.length === 0)) &&
         <div class="alert alert-danger" role="alert">
-          Create your first restaurant! 
-          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}> Go!</Link>
+        Create your first restaurant!&nbsp;
+          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Go!</Link>
         </div>
       }
       </div>

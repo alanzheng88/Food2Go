@@ -17,7 +17,6 @@ class UserStore extends EventEmitter {
           lastName: '',
           email: '',
           role: 'guest',
-          restaurants: [],
     };
     console.log("user store constructor");
     this.sessionInit();
@@ -55,7 +54,6 @@ class UserStore extends EventEmitter {
       lastName: '',
       email: '',
       role: 'guest',
-      restaurants: [],
     };
   }
 
@@ -92,6 +90,12 @@ class UserStore extends EventEmitter {
         console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
         this.userInfo = action.response.data;
         this.emit("update_userinfo", this.userInfo);
+        break;
+      }
+      case "UPDATE_USERRESTAURANTS": {
+        console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
+        this.userInfo.restaurants = action.response.data;
+        this.emit("update_userRestaurants", this.userInfo);
         break;
       }
       case "UPDATE_USERINFO_ERROR": {
