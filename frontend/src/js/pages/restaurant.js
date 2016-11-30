@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import Collapse from "react-collapse";
 import axios from "axios";
+import { IndexLink, Link } from "react-router";
 import NumberFormat from 'react-number-format';
 
 export default class Restaurant extends React.Component {
@@ -23,10 +24,7 @@ export default class Restaurant extends React.Component {
 	  this.getRestaurantInfo(this.props.params.restaurantId);
 	  console.log(this.state);
 	}
-	toggleCollapse() {
-    	const collapsed = !this.state.collapsed;
-    	this.setState({collapsed});
-  	}
+
 	getRestaurantInfo(id){
 	// Get restaurant info via Axios
 		var th = this;
@@ -60,6 +58,9 @@ export default class Restaurant extends React.Component {
 	}
 	render() {
 	    console.log("Restaurant");
+	    const {restaurantId} = this.state.restaurantId;
+	    //console.log("!!!", restaurantId);
+	    const orderNow = `restaurants/${restaurantId}/foods`
 	    const settings = {
 		    dots: true,
 		    autoplay: true,
@@ -93,7 +94,7 @@ export default class Restaurant extends React.Component {
 				    	<br></br>
 				    	<br></br>
 				    	<button type="button" class="btn btn-primary btn-lg btn-block">Browse Menu</button>
-				    	<Link to="restaurants/:restaurantId/ordernow" class="btn btn-danger btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link>
+				    	<Link to={orderNow} class="btn btn-danger btn-lg btn-block">Order Now!</Link>
 				    	<h4>Contact Information</h4>
 				    	<p><NumberFormat value={this.state.restaurantPhoneNumber} displayType={'text'} format="(###) ###-####" /></p>
 				    	<p>{this.state.restaurantEmail}</p>

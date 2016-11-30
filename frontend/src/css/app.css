@@ -25,6 +25,10 @@ div.desc {
     text-align: center;
 }
 
+.foodItem {
+  padding-right: 4px;
+}
+
 .alert-danger {
     margin-top: 50px;
     padding: 2px;
