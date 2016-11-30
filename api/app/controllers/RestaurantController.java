@@ -1,22 +1,16 @@
 package controllers;
 
 import play.*;
-
 import play.mvc.*;
 
 import java.util.*;
 
 import models.*;
-import play.db.jpa.*;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSerializer;
 
 public class RestaurantController extends AppController {
 	
     public static void getRestaurants(){
-        List<Restaurant> restaurantList = Restaurant.find("order by name").fetch();
+        List<Restaurant> restaurantList = Restaurant.find("order by name asc").fetch();
         String restaurantJson = gson.toJson(restaurantList);
         renderJSON(restaurantList);
     }

@@ -8,10 +8,6 @@ import java.util.*;
 import models.*;
 import play.db.jpa.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSerializer;
-
 import play.data.validation.*;
 
 public class UserController extends AppController {

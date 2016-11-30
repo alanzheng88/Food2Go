@@ -47,13 +47,38 @@ Restaurant(Al Porto):
     restaurantOwner:
                     - alan
 
+Food(Unagi):
+    name:           Unagi
+    price:          3.99
+    description:    Unagi is served as part of unadon. (sometimes spelled unagidon especially in menus in Japanese restaurants in Western countries) A donburi dish with sliced eel served on a bed of rice. A kind of sweet biscuit called unagi pie made with powdered unagi also exists
+
+Food(Sashimi):
+    name:           Unagi
+    price:          10.99
+    description:    A type of fish
+
 Food(California Roll):
     name:           California Roll
     price:          5.99
     description:    Yummiest thing on earth
 
-Order(Alan Order):
-    date:           2016-11-28 14:40
+Order(Alan First Order):
     totalCost:      24.99
     status:         0
+    date:           2016-11-29 19:37:22
+    foods:
+                    - California Roll
+                    - Sashimi
+    user:
+                    - alan
+
+Order(Alan Second Order):
+    totalCost:      28.99
+    status:         0
+    date:           2016-11-29 19:37:40
+    foods:
+                    - California Roll
+                    - Unagi
+    user:
+                    - alan
 
