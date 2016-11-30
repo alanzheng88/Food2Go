@@ -7,10 +7,6 @@ import java.util.*;
 
 import models.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSerializer;
-
 import play.cache.Cache;
 
 import java.util.Base64;
@@ -19,8 +15,6 @@ public class AuthenticationController extends AppController {
 
     private static final String WWW_AUTHENTICATE = "WWW-Authenticate";
     private static final String REALM = "Basic realm=\"Food2Go\"";
-    private static final int SESSION_EXPIRE = 10;
-    private static final boolean SECURE = false;
 
     public static void checkAuthenticatedStatus() {
         String sessionid = getSessionId();
@@ -51,9 +45,11 @@ public class AuthenticationController extends AppController {
                 System.out.println("New user or session");
                 String newSessionId = createSessionId();
                 System.out.println("Creating new session id: " + newSessionId);
-                int maxAge = SESSION_EXPIRE * 60;
-                Cache.set(newSessionId, user, String.valueOf(SESSION_EXPIRE) + "mn");
-                response.setCookie("SESSIONID", newSessionId, DOMAIN, "/", maxAge, SECURE);
+                Cache.set(newSessionId, user, Config.SESSION_MAX_AGE);
+                int maxAgeInSeconds = parseInt(Config.SESSION_MAX_AGE) * 60;
+                response.setCookie(Config.SESSION_ID, newSessionId, 
+                    DOMAIN, "/", maxAgeInSeconds, 
+                    Boolean.parseBoolean(Config.SESSION_SECURE));
                 response.status = 201;
                 return;
             } else {
@@ -70,7 +66,9 @@ public class AuthenticationController extends AppController {
             return;
         }
         boolean isSuccessfulDeletion = Cache.safeDelete(sessionid);
-        response.setCookie("SESSIONID", "", DOMAIN, "/", -SESSION_EXPIRE, SECURE);
+        response.setCookie(Config.SESSION_ID, "", 
+            DOMAIN, "/", -parseInt(Config.SESSION_MAX_AGE), 
+            Boolean.parseBoolean(Config.SESSION_SECURE));
         if (isSuccessfulDeletion) {
             // successfully deleted session
             response.status = 200;

@@ -1,9 +1,24 @@
 # Test Data
 
+Food(Unagi):
+    name:           Unagi
+    price:          3.99
+    description:    Unagi is served as part of unadon. (sometimes spelled unagidon especially in menus in Japanese restaurants in Western countries) A donburi dish with sliced eel served on a bed of rice. A kind of sweet biscuit called unagi pie made with powdered unagi also exists
+
+Food(Sashimi):
+    name:           Sashimi
+    price:          10.99
+    description:    A type of fish
+
+Food(California Roll):
+    name:           California Roll
+    price:          5.99
+    description:    Yummiest thing on earth
+
 User(bob):
-    firstName:      Alan
-    lastName:       Zheng
-    email:          alanz@sfu.ca
+    firstName:      Bob
+    lastName:       Blueberry
+    email:          bb@sfu.ca
     password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           customer
 
@@ -47,4 +62,23 @@ Restaurant(Al Porto):
     restaurantOwner:
                     - alan
 
+Order(Alan First Order):
+    totalCost:      24.99
+    status:         0
+    date:           2016-11-29 19:37:22
+    foods:
+                    - California Roll
+                    - Sashimi
+    user:
+                    - bob
+
+Order(Alan Second Order):
+    totalCost:      28.99
+    status:         0
+    date:           2016-11-29 19:37:40
+    foods:
+                    - California Roll
+                    - Unagi
+    user:
+                    - bob
 

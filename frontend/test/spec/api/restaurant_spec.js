@@ -4,7 +4,7 @@ var url = server.url;
 
 var cookie = '';
 
-var testLoginUserWithRestaurant = function(restaurantFcn, loginJson,
+var testLoginUserPerformFcn = function(fcn, loginJson,
                                        statusCode) {
   frisby.create('Log In As Customer')
     .post( url + '/api/authenticate', {json: true} )
@@ -12,7 +12,7 @@ var testLoginUserWithRestaurant = function(restaurantFcn, loginJson,
     .auth(loginJson.email, loginJson.password)
     .expectStatus(statusCode)
     .expectHeaderContains('Content-Type', 'application/json')
-    .after(restaurantFcn)
+    .after(fcn)
   .toss()
 }
 
@@ -52,7 +52,7 @@ var billHeLoginJson = {
   password: 'password1'
 }
 
-testLoginUserWithRestaurant(
+testLoginUserPerformFcn(
   createRestaurant(mikuValidRestaurantJson, 201, 200), 
   billHeLoginJson, 201
 );
