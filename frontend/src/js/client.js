@@ -54,7 +54,7 @@ ReactDOM.render((
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
-    <Route path="restaurant/:restaurantId/ordernow" component={OrderNow}/>
+    <Route path="restaurants/1/ordernow" component={OrderNow}/>
     <Route path="customerservice" component={CustomerService}/>
     <Route path="contactus" component={ContactUs}/>
     <Route path="termsofservice" component={TermsOfService}/>
