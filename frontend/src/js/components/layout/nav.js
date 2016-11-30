@@ -2,7 +2,9 @@ import React from "react";
 import { IndexLink, Link } from "react-router";
 import { Button, NavDropdown, MenuItem, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import userStore from "../../stores/userStore";
+import ShoppingCartStore from "../../stores/shoppingCartStore";
 import * as LoginActions from "../../actions/loginActions";
+import * as ShoppingCartActions from "../../actions/shoppingCartActions";
   
 export default class Nav extends React.Component {
   constructor() {
@@ -11,11 +13,13 @@ export default class Nav extends React.Component {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
       userInfo: userStore.getUserInfo(),
+      shoppingCartItems: ShoppingCartStore.getFoodIds().length,
     };
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.updateUserRestaurants = this.updateUserRestaurants.bind(this);
+    this.updateFoodIdList = this.updateFoodIdList.bind(this);
   }
 
   toggleCollapse() {
@@ -28,6 +32,7 @@ export default class Nav extends React.Component {
     userStore.on("logout", this.updateLoginStatus);
     userStore.on("update_userinfo", this.updateUserInfo);
     userStore.on("update_userRestaurants", this.updateUserRestaurants);
+    ShoppingCartStore.on("updateFoodIdList", this.updateFoodIdList);
   }
 
   componentWillUnmount() {
@@ -35,10 +40,12 @@ export default class Nav extends React.Component {
     userStore.removeListener("logout", this.updateLoginStatus);
     userStore.removeListener("update_userinfo", this.updateUserInfo);
     userStore.removeListener("update_userRestaurants", this.updateUserRestaurants);
+    ShoppingCartStore.removeListener("updateFoodIdList", this.updateFoodIdList);    
   }
 
   handleLogout(event) {
     LoginActions.logoutUser();
+    ShoppingCartActions.clearCart();
     this.props.router.push('/');
   }
 
@@ -47,6 +54,10 @@ export default class Nav extends React.Component {
     if (this.state.userInfo.role === 'restaurantOwner') {
       LoginActions.getUserRestaurants();
     }
+  }
+
+  updateFoodIdList(itemNum) {
+    this.setState({shoppingCartItems: itemNum})
   }
 
   updateUserRestaurants(userInfo) {
@@ -62,7 +73,7 @@ export default class Nav extends React.Component {
 
   render() {
     const { location } = this.props;
-    const { userInfo, collapsed, loginStatus } = this.state;
+    const { userInfo, collapsed, loginStatus, shoppingCartItems} = this.state;
     const navClass = collapsed ? "collapse" : "";
     return (
       <div>
@@ -94,7 +105,7 @@ export default class Nav extends React.Component {
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li /*activeClassName="active"*/>
-                  <Link to="shoppingcart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart</Link>
+                  <Link to="shoppingcart" onClick={this.toggleCollapse.bind(this)}>Shopping Cart({shoppingCartItems})</Link>
                 </li>
               {!loginStatus &&
                 <li /*activeClassName="active"*/>
@@ -116,7 +127,8 @@ export default class Nav extends React.Component {
           </div>
         </div>
       </nav>
-      {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
+      {(userInfo.role === 'restaurantOwner' && 
+        (userInfo.restaurants !== undefined && userInfo.restaurants.length === 0)) &&
         <div class="alert alert-info" role="alert">
           Looks like you haven&apos;t created a restaurant yet.&nbsp; 
           <Link to="restaurants/create" onClick={this.toggleCollapse.bind(this)}>Click here to create your first restaurant!</Link>

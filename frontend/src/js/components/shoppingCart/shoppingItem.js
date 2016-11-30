@@ -1,8 +1,5 @@
 import React from "react";
 import { IndexLink, Link } from "react-router";
-import { Button, NavDropdown, MenuItem, Navbar, FormGroup, FormControl} from 'react-bootstrap';
-import ShoppingCartStore from "../../stores/shoppingCartStore";
-import * as ShoppingCartAction from "../../actions/shoppingCartActions";
 import DynamicNumber from 'react-dynamic-number';
   
 export default class ShoppingItem extends React.Component {
@@ -11,14 +8,6 @@ export default class ShoppingItem extends React.Component {
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     // this.updateLoginStatus = this.updateLoginStatus.bind(this);
-  }
-
-  componentWillMount() {
-    // userStore.on("auth_success", this.updateLoginStatus);
-  }
-
-  componentWillUnmount() {
-    // userStore.removeListener("auth_success", this.updateLoginStatus);
   }
 
   handleAmountChange(event) {
@@ -34,7 +23,6 @@ export default class ShoppingItem extends React.Component {
       this.props.onClick(event, this.props.food.foodId);
     }
   }
-
   render() {
     const { food } = this.props;
     return (
