@@ -2,6 +2,7 @@ import React from 'react';
 import Validation from 'react-validation';
 import axios from "axios";
 import * as LoginActions from "../actions/loginActions";
+import AlertContainer from 'react-alert';
 
 export default class Register extends React.Component {
 	constructor(props) {
@@ -13,6 +14,12 @@ export default class Register extends React.Component {
 		    password: "",
 	    	passwordConfirm: "",
 		    role: ""
+		  };
+		  this.alertOptions = {
+			      offset: 14,
+			      position: 'top left',
+			      time: 2000,
+			      transition: 'scale'
 		  };
 		  // Binding Inputs and Submit button
 		  this.onChangeFirstName = this.onChangeFirstName.bind(this);
@@ -77,10 +84,12 @@ export default class Register extends React.Component {
 		    	password: th.state.password.trim(),
 			  }
 			  LoginActions.authenticateUser(loginData);
+			  th.reset();
 			  th.props.router.push('/');
+			  msg.success('Account created!');
 		  })
 		  .catch(function(error) {
-			  alert('Failed to Register!', error);
+			  msg.error('Failed to register!');
 			  if (error.response) {
 			  // The request was made, but the server responded with a status code 
 			  // that falls out of the range of 2xx 
@@ -96,41 +105,41 @@ export default class Register extends React.Component {
 		}
 	render() {
 		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
-            <h1>Registration</h1>
-            <div>
+            <h2>Registration</h2>
+            <div class="form-group">
 	            <label>
 	                First Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.firstName} onChange={this.onChangeFirstName} ref='firstName' name='firstName' validations={['required', 'alpha']}/>
+	                <Validation.components.Input class="form-control" errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.firstName} onChange={this.onChangeFirstName} ref='firstName' name='firstName' validations={['required', 'alpha']}/>
 	            </label>
             </div>
-            <div>
+            <div class="form-group">
 	            <label>
 	                Last Name*
-	                <Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.lastName} onChange={this.onChangeLastName} ref='lastName' name='lastName' validations={['required', 'alpha']}/>
+	                <Validation.components.Input class="form-control" errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.lastName} onChange={this.onChangeLastName} ref='lastName' name='lastName' validations={['required', 'alpha']}/>
 	            </label>
 			</div>
-            <div>
+            <div class="form-group">
                 <label>
                     Email*
-                    <Validation.components.Input value={this.state.email} onChange={this.onChangeEmail} ref='email' name='email' validations={['required', 'email']}/>
+                    <Validation.components.Input class="form-control" value={this.state.email} onChange={this.onChangeEmail} ref='email' name='email' validations={['required', 'email']}/>
                 </label>
             </div>
-            <div>
+            <div class="form-group">
                 <label>
                     Password*
-                    <Validation.components.Input type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required', 'passwordLength']}/>
+                    <Validation.components.Input class="form-control" type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required', 'passwordLength']}/>
                 </label>
             </div>
-            <div>
+            <div class="form-group">
 	            <label>
 	                Confirm Password*
-	                <Validation.components.Input type='password' onChange={this.onChangePasswordC} errorClassName='is-invalid-input' containerClassName='' value={this.state.passwordConfirm} name='passwordConfirm' validations={['required', 'password']}/>
+	                <Validation.components.Input class="form-control" type='password' onChange={this.onChangePasswordC} errorClassName='is-invalid-input' containerClassName='' value={this.state.passwordConfirm} name='passwordConfirm' validations={['required', 'password']}/>
 	            </label>
             </div>
-            <div>
+            <div class="form-group">
 	            <label>
 	                Role*
-	                <Validation.components.Select errorClassName='is-invalid-input' onChange={this.onChangeRole} ref='role' name='role' value={this.state.role} validations={['required']}>
+	                <Validation.components.Select class="form-control" errorClassName='is-invalid-input' onChange={this.onChangeRole} ref='role' name='role' value={this.state.role} validations={['required']}>
 	                    <option value=''>Choose Your Account Type</option>
 	                    <option value='customer'>Customer</option>
 	                    <option value='restaurantOwner'>Restaurant Owner</option>
@@ -138,7 +147,7 @@ export default class Register extends React.Component {
 	            </label>
             </div>
             <div>
-                <Validation.components.Button className='button' errorClassName='asd'>Submit</Validation.components.Button>
+                <Validation.components.Button class="btn btn-default" className='button' errorClassName='asd'>Submit</Validation.components.Button>
             </div>
         </Validation.components.Form>;
     }
