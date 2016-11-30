@@ -1,53 +1,64 @@
 import React from "react";
 import { IndexLink, Link } from "react-router";
-import * as ShoppingCartActions from "../actions/loginActions";
-import ShoppingCartStore from "../stores/userStore";
+import * as ShoppingCartActions from "../actions/shoppingCartActions";
+import ShoppingCartStore from "../stores/shoppingCartStore";
 import ShoppingItem from "../components/shoppingCart/shoppingItem";
 
 export default class ShoppingCart extends React.Component {
   constructor(props) {
     super()
+    
     this.state = {
-      foodList : [{
-        name: 'Pasta',
-        foodId: '1',
-        resturantId: 'abc',
-        restaurantName: 'Pasta factory',
-        originalPrice: 12.23,
-        totalPrice: 12.23,
-        status: 'In stock',
-        amount: 1,
-        img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png',
-      },{
-        name: 'Pasta2',
-        foodId: '2',
-        resturantId: 'bcd',
-        restaurantName: 'Pasta factory2',
-        originalPrice: 15.34,
-        totalPrice: 15.34,
-        status: 'In stock',
-        amount: 1,
-        img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png',
-      }]
+      foodIdList : ShoppingCartStore.getFoodIds(),
+      foodList : [],
     };
-
+    if(this.state.foodIdList !== undefined && this.state.foodIdList.length > 0) {
+      ShoppingCartActions.getFoodList(this.state.foodIdList.toString());  
+    }
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.updateFoodList = this.updateFoodList.bind(this);
+  }
+
+  componentWillMount() {
+    ShoppingCartStore.on("updateFoodList", this.updateFoodList);
+    ShoppingCartStore.on("updateFoodList_error", this.updateFoodList);
+  }
+
+  componentWillUnmount() {
+    ShoppingCartStore.removeListener("updateFoodList", this.updateFoodList);
+    ShoppingCartStore.removeListener("updateFoodList_error", this.updateFoodList);
+  }
+
+  updateFoodList(foodList) {
+    this.setState({ foodList: foodList });
+  }
+
+  handleCheckout() {
+    ShoppingCartStore.setFoodInfo(this.state.foodList);
   }
 
   handleAmountChange(event,arrayNum) {
     if (event.target.value >= 0) {
       var list = this.state.foodList;
-      list[arrayNum].amount = event.target.value;  
+      list[arrayNum].amount = Number(event.target.value);  
       list[arrayNum].totalPrice = Number((event.target.value*list[arrayNum].originalPrice).toFixed(2));
       this.setState({foodList: list})
     }
   }
 
   handleRemove(event, foodId) {
-    var list = this.state.foodList;    
-    list = list.filter(function(item) { return item.foodId !== foodId });
-    this.setState({foodList: list})    
+    ShoppingCartActions.removeFoodInCart(foodId);
+    var infoList = this.state.foodList;
+    var idList = this.state.foodIdList;
+    infoList = infoList.filter(function(item) { return item.foodId !== foodId });
+    idList = idList.filter(function(item) { return item.foodId !== foodId });
+    this.setState({
+        foodList: infoList,
+        foodIdList: idList,
+      }
+    )
   }
 
   render() {
@@ -81,11 +92,11 @@ export default class ShoppingCart extends React.Component {
               <tbody>
                 {indents}
                 {foodList.length === 0 && <tr>
-                    <td> &nbsp; </td>
-                    <td> &nbsp; </td>
-                    <td> &nbsp; </td>
-                    <td> &nbsp; </td>
-                    <td> &nbsp; </td>                  
+                    <td className="col-sm-8 col-md-6"> &nbsp; </td>
+                    <td className="col-sm-1 col-md-1" style={{textAlign: 'center'}}> &nbsp; </td>
+                    <td className="col-sm-1 col-md-1 text-center"> &nbsp; </td>
+                    <td className="col-sm-1 col-md-1 text-center"> &nbsp; </td>
+                    <td className="col-sm-1 col-md-1"> &nbsp; </td>                  
                   </tr>
                 }
                 <tr>
@@ -113,13 +124,22 @@ export default class ShoppingCart extends React.Component {
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
-                  <td> &nbsp; </td>
                   {foodList.length === 0 && 
+                    <td>
+                      <Link to="/" className="btn btn-default"> Continue Shopping <span className="glyphicon glyphicon-shopping-cart" /></Link>
+                    </td>
+                  }
+                  {foodList.length === 0 && 
+                    <td>
+                      <Link className="btn btn-success" disabled> Checkout <span className="glyphicon glyphicon-play" /></Link>
+                    </td>
+                  }
+                  {foodList.length !== 0 && 
                     <td> &nbsp; </td>
                   }
                   {foodList.length !== 0 && 
                     <td>
-                      <Link to="Checkout" className="btn btn-success"> Checkout <span className="glyphicon glyphicon-play" /></Link>
+                      <Link to="Checkout" className="btn btn-success" onClick={this.handleCheckout}> Checkout <span className="glyphicon glyphicon-play" /></Link>
                     </td>
                   }
                 </tr>

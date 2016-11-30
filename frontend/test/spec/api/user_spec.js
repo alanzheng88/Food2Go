@@ -6,7 +6,7 @@ var cookie = '';
 
 frisby.create('Log In As Customer')
   .post( url + '/api/authenticate', {json: true} )
-  .auth('alanz@sfu.ca', 'password1', false)
+  .auth('bb@sfu.ca', 'password1', false)
   .addHeaders({'Content-Type': 'application/json'})
   // .inspectRequest()
   .expectStatus(201)
@@ -18,9 +18,9 @@ frisby.create('Log In As Customer')
       .addHeaders(server.getHeaders(cookie))
       .expectStatus(200)
       .expectJSON({
-        firstName: 'Alan',
-        lastName: 'Zheng',
-        email: 'alanz@sfu.ca',
+        firstName: 'Bob',
+        lastName: 'Blueberry',
+        email: 'bb@sfu.ca',
         password: '2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2',
         role: 'customer'
       })
