@@ -23,6 +23,10 @@ export default class Restaurant extends React.Component {
 	  this.getRestaurantInfo(this.props.params.restaurantId);
 	  console.log(this.state);
 	}
+	toggleCollapse() {
+    	const collapsed = !this.state.collapsed;
+    	this.setState({collapsed});
+  	}
 	getRestaurantInfo(id){
 	// Get restaurant info via Axios
 		var th = this;
@@ -89,7 +93,7 @@ export default class Restaurant extends React.Component {
 				    	<br></br>
 				    	<br></br>
 				    	<button type="button" class="btn btn-primary btn-lg btn-block">Browse Menu</button>
-				    	<button type="button" class="btn btn-danger btn-lg btn-block">Order Now!</button>
+				    	<Link to="restaurants/:restaurantId/ordernow" class="btn btn-danger btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link>
 				    	<h4>Contact Information</h4>
 				    	<p><NumberFormat value={this.state.restaurantPhoneNumber} displayType={'text'} format="(###) ###-####" /></p>
 				    	<p>{this.state.restaurantEmail}</p>
