@@ -8,7 +8,7 @@ import play.data.validation.*;
 
 @Entity
 @Table(name="food")
-public class Food extends Model {
+public class Food extends AppModel {
     
     @Required
     public String name;
@@ -21,9 +21,6 @@ public class Food extends Model {
     @Required
     @Lob
     public String description;
-
-    @ManyToMany
-    public List<Order> orders = new ArrayList<Order>();
     
     public Food(String name, String price, String salePrice, String description) {
         this.name = name;

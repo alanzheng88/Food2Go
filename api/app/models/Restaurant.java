@@ -8,7 +8,7 @@ import play.data.validation.*;
 
 @Entity
 @Table(name = "restaurant")
-public class Restaurant extends Model {
+public class Restaurant extends AppModel {
  
     @Required
     public String name;

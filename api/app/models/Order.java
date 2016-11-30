@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "app_order")
-public class Order extends Model {
+public class Order extends AppModel {
  
     @Required
     @ManyToOne
@@ -36,8 +36,8 @@ public class Order extends Model {
     @Required
     public int status;
 
-    @ManyToMany(mappedBy = "orders")
-    public List<Food> foods = new ArrayList<Food>();
+    @ManyToMany(cascade=CascadeType.PERSIST)
+    public List<Food> foods;
 
     @ManyToOne
     public User user;
@@ -46,6 +46,16 @@ public class Order extends Model {
     public Order(String totalCost, String status) {
         this.totalCost = totalCost;
         this.status = Integer.parseInt(status);
+    }
+
+    public static List<Order> findOrderWith(User user) {
+        try {
+            Query q = createQuery("select o from Order o join o.user as t where t.id = ?1");
+            q.setParameter(1, user.id);
+            return q.getResultList();
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
 }
