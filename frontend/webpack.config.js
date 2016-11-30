@@ -28,4 +28,5 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
   ],
+  devServer: { contentBase: "src", host: "localhost", port: 12345 },
 };
