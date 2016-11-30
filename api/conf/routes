@@ -15,11 +15,18 @@ GET     /api/users                              UserController.getUsers
 GET     /api/user                               UserController.getUser
 POST    /api/users                              UserController.createUser
 
-#Restaurants
+# Restaurants
 GET     /api/restaurants                        RestaurantController.getRestaurants
 GET     /api/restaurant/{restaurantId}          RestaurantController.getRestaurant
 POST    /api/restaurants                        RestaurantController.createRestaurant
 PUT     /api/restaurant/{restaurantID}          RestaurantController.updateRestaurant
+
+# Food
+GET     /api/foods                              FoodController.getFoods
+
+# Order
+GET     /api/orders                             OrderController.getOrders
+
 
 OPTIONS /{controller}/{action}                  Application.options
 

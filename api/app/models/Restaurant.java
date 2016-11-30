@@ -7,7 +7,8 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-public class Restaurant extends Model {
+@Table(name = "restaurant")
+public class Restaurant extends AppModel {
  
     @Required
     public String name;
