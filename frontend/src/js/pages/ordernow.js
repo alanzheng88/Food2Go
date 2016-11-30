@@ -2,7 +2,7 @@ import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
 
-const KEYS_TO_FILTERS = ['name', 'foodType', 'ingredient'];
+const KEYS_TO_FILTERS = ['name', 'description'];
 
 export default class OrderNow extends React.Component {
 	constructor(props){
@@ -10,19 +10,19 @@ export default class OrderNow extends React.Component {
 		this.state={
 			seachTerm:"",
 			foods:[{
-				foodId:1,
-				foodName:"pasta",
-				foodPrice:"10",
-				foodSalePrice:"5",
-				foodDescription:"food description"},{
-				foodId:2,
-				foodName:"California Roll",
-				foodPrice:"9",
-				foodSalePrice:"NULL",
-				foodDescription:"food description"}]
+				id:1,
+				name:"pasta",
+				price:"10",
+				saleprice:"5",
+				description:"food description"},{
+				id:2,
+				name:"California Roll",
+				price:"9",
+				saleprice:"no",
+				description:"food description"}]
 		};
 		//this.getFoods();
-		//this.searchUpdated=this.searchUpdated.bind(this);		
+		this.searchUpdated=this.searchUpdated.bind(this);		
 	}
 	searchUpdated (term) {
 	    this.setState({searchTerm: term})
@@ -72,7 +72,7 @@ export default class OrderNow extends React.Component {
 					</div>
 					<div class="col-md-6">
 						<p>{food.price}</p>
-						<p>{food.salePrice}</p>
+						<p>{food.saleprice}</p>
 						<p>{food.description}</p>
 					</div>
 				</div>

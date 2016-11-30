@@ -29,6 +29,7 @@ import OrderNow from "./pages/ordernow";
 import ContactUs from "./pages/contactus";
 import CustomerService from "./pages/customerservice";
 import TermsOfService from "./pages/termsofservice";
+import Foods from "./pages/foods";
 
 
 const app = document.getElementById('app');
@@ -59,6 +60,7 @@ ReactDOM.render((
     <Route path="customerservice" component={CustomerService}/>
     <Route path="contactus" component={ContactUs}/>
     <Route path="termsofservice" component={TermsOfService}/>
+    <Route path="restaurants/1/foods" component={Foods}/>
     <Route path="/*" component={NoMatch}/>
     </Route>
   </Router>
