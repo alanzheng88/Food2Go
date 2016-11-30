@@ -42,7 +42,7 @@ export default class ShoppingCart extends React.Component {
   handleAmountChange(event,arrayNum) {
     if (event.target.value >= 0) {
       var list = this.state.foodList;
-      list[arrayNum].amount = event.target.value;  
+      list[arrayNum].amount = Number(event.target.value);  
       list[arrayNum].totalPrice = Number((event.target.value*list[arrayNum].originalPrice).toFixed(2));
       this.setState({foodList: list})
     }
