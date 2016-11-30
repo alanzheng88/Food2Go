@@ -1,10 +1,24 @@
 import React from "react";
 import Validation from 'react-validation';
 import axios from "axios";
+import {Link} from "react-router";
+import userStore from "../stores/userStore";
 
 export default class Settings extends React.Component {
   constructor(props) {
 	  super(props);
+	  this.state = {
+			  	loginStatus: userStore.getLoginStatus(),
+				userInfo: userStore.getUserInfo(),
+				firstName: "",
+				lastName: "",
+				email: "",
+				role: ""
+		  };
+	  this.state.firstName = this.state.userInfo.firstName;
+	  this.state.lastName = this.state.userInfo.lastName;
+	  this.state.email = this.state.userInfo.email;
+	  this.state.role = this.state.userInfo.role;
 	  this.onSubmit = this.onSubmit.bind(this);
 	  // Binding Inputs and Submit button
 	  this.onChangeFirstName = this.onChangeFirstName.bind(this);
@@ -13,13 +27,7 @@ export default class Settings extends React.Component {
 	  this.onChangePassword = this.onChangePassword.bind(this);
 	  this.onChangePasswordC = this.onChangePasswordC.bind(this);
 	  this.onChangeRole = this.onChangeRole.bind(this);
-	  this.state = {
-				id: 0,
-				firstName: "",
-				lastName: "",
-				email: "",
-				role: "customer"
-		  };
+	  console.log("user", this.state.userInfo);
 	}
 	// Handling onChange events on inputs
 	onChangeFirstName(e) {
@@ -41,9 +49,9 @@ export default class Settings extends React.Component {
 	    this.setState({ role: e.target.value });
 	  }
   componentDidMount() {
-    var _this = this;
+    /*var _this = this;
       axios
-        .get("http://localhost:9000/api/user/1")
+        .get("http://localhost:9000/api/user/"+this.state.userInfo.id)
         .then(function(result) {  
 			console.log(response);
           _this.setState({
@@ -54,7 +62,7 @@ export default class Settings extends React.Component {
           })
 		.catch(function(error) {
 			console.log(error);
-		  });
+		  });*/
   }
   componentWillUnmount() {
     //this.serverRequest.abort();
@@ -97,8 +105,12 @@ export default class Settings extends React.Component {
 
 		}
 	render() {
-		return <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
-            <h1>Settings</h1>
+		const { userInfo, loginStatus } = this.state;
+		let page = null;
+		if(loginStatus)
+		{
+			page= <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
+            <h1>Profile Settings</h1>
 				<div>
 					<div>
 						<label>
@@ -136,7 +148,7 @@ export default class Settings extends React.Component {
 							<Validation.components.Select class="disabled-text" errorClassName='is-invalid-input' ref='role' name='role' value={this.state.role}  validations={['required']} disabled>
 								<option value=''>Choose Your Account Type</option>
 								<option value='customer'>Customer</option>
-								<option value='restaurant_owner'>Restaurant Owner</option>
+								<option value='restaurantOwner'>Restaurant Owner</option>
 							</Validation.components.Select>
 						</label>
 					</div>
@@ -145,5 +157,19 @@ export default class Settings extends React.Component {
                 <Validation.components.Button className='button' errorClassName='asd'>Save Changes</Validation.components.Button>
             </div>
         </Validation.components.Form>;
+		} else {
+			page = (
+					<div>
+				      <h1 class="noMatch">You&apos;re not logged in!</h1>
+					  <p class="emoji">😕</p>
+					  <h3 class="noMatch">You must <Link to={`register`}>register</Link> or <Link to={`login`}>login</Link> to view this page!</h3>
+					</div>
+				    );
+		}
+        return(
+        	<div>
+        	{page}
+        	</div>	
+        );
     }
 }
