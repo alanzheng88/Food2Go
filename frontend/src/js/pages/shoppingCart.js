@@ -9,9 +9,12 @@ export default class ShoppingCart extends React.Component {
     super()
     
     this.state = {
+      foodIdList : ShoppingCartStore.getFoodIds(),
       foodList : [],
     };
-    ShoppingCartActions.getFoodList(ShoppingCartStore.getFoodIdsInString());
+    if(this.state.foodIdList !== undefined && this.state.foodIdList.length > 0) {
+      ShoppingCartActions.getFoodList(this.state.foodIdList.toString());  
+    }
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
@@ -47,9 +50,15 @@ export default class ShoppingCart extends React.Component {
 
   handleRemove(event, foodId) {
     ShoppingCartActions.removeFoodInCart(foodId);
-    var list = this.state.foodList;
-    list = list.filter(function(item) { return item.foodId !== foodId });
-    this.setState({foodList: list})    
+    var infoList = this.state.foodList;
+    var idList = this.state.foodIdList;
+    infoList = infoList.filter(function(item) { return item.foodId !== foodId });
+    idList = idList.filter(function(item) { return item.foodId !== foodId });
+    this.setState({
+        foodList: infoList,
+        foodIdList: idList,
+      }
+    )
   }
 
   render() {

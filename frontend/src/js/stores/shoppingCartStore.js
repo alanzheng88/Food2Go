@@ -45,11 +45,11 @@ class ShoppingCartStore extends EventEmitter {
     return this.foodIdList;
   }
 
-  getFoodIdsInString(){
+  getFoodIds(){
     var foodIdList = this.foodIdList;
     console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
     var res = [];
-    if(foodIdList === undefined) {
+    if(foodIdList === undefined || foodIdList.length === 0) {
       console.log("ShoppingCartStore::getFoodIdsInString: empty foodId");
     } else {
       var arrayLength = foodIdList.length;
@@ -58,7 +58,7 @@ class ShoppingCartStore extends EventEmitter {
       }
     }
     console.log("ShoppingCartStore::getFoodIdsInString: res:", res);
-    return res.toString();
+    return res;
   }
 
   setFoodInfo(foodList) {
@@ -93,8 +93,10 @@ class ShoppingCartStore extends EventEmitter {
   }
   
   removeFood(id) {
+    console.log("removeFood: ", id);
     this.foodIdList = this.foodIdList.filter(function(item) { return item.foodId !== id });
     this.foodInfoList = this.foodInfoList.filter(function(item) { return item.foodId !== id });
+    console.log("after removeFood: ", this.foodIdList);
     cookie.save('cart', this.foodIdList, { path: '/' });
   }
 
