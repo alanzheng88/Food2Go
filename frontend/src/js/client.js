@@ -42,6 +42,7 @@ ReactDOM.render((
     <Route path="points" component={Points}/>
     <Route path="coupons" component={Coupons}/>
     <Route path="invite" component={Points}/>
+    <Route path="settings" component={Settings}/>
     <Route path="/restaurants/create" component={CreateRestaurant}/>
     <Route path="restaurants/:restaurantId" component={Restaurant}/>
     <Route path="aboutus" component={AboutUs}/>

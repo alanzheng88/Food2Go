@@ -98,7 +98,7 @@ export default class Nav extends React.Component {
               }
               {loginStatus &&
                 <NavDropdown id = 'dropdown-size-medium' /*activeClassName="active"*/ title="User">
-                  <MenuItem eventKey='1' href="#UserInfo" onClick={this.toggleCollapse.bind(this)}>User Info </MenuItem>
+                  <MenuItem eventKey='1' href="#/account" onClick={this.toggleCollapse.bind(this)}>My Account </MenuItem>
                   <MenuItem eventKey='2'  onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
               }
@@ -114,7 +114,7 @@ export default class Nav extends React.Component {
       {userInfo.role === 'restaurantOwner' && userInfo.role === 'restaurantOwner' &&
         <div class="alert alert-info" role="alert">
           Looks like you haven&apos;t created a restaurant yet.&nbsp; 
-          <Link to="restaurant/create" onClick={this.toggleCollapse.bind(this)}>Click here to create your first restaurant!</Link>
+          <Link to="restaurants/create" onClick={this.toggleCollapse.bind(this)}>Click here to create your first restaurant!</Link>
         </div>
       }
       </div>
