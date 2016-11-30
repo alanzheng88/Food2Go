@@ -15,11 +15,13 @@ export default class Food2Go extends React.Component {
 				id: 0,
 				name: "Restaurant 1",
 				address: "Restaurant Address",
-				description: "Restaurant Description"},{
-					id: 1,
-					name: "Restaurant 2",
-					address: "Restaurant Address",
-					description: "Restaurant Description"}]
+				description: "Restaurant Description"
+			},{
+				id: 1,
+				name: "Restaurant 2",
+				address: "Restaurant Address",
+				description: "Restaurant Description"
+			}]
 	  };
 	  this.getRestaurants();
 	  console.log(this.state);
@@ -75,18 +77,18 @@ export default class Food2Go extends React.Component {
 		  	dotsClass:'slick-dots slick-thumb',
 		  	infinite: true,
 		  	slidesToShow:6,
-		  	SlidestoScroll:5
+		  	SlidestoScroll:1
 		  };
 		  //popular food picture slider setting
 		  const foodPic={
-		  	dots:true,
+		  	dots:false,
 		  	autoplay:false,
 		  	adaptiveHeight:true,
 		  	arrows:true,
 		  	dotsClass:'slick-dots slick-thumb',
-		  	infinite: true,
-		  	slidesToShow:10,
-		  	SlidestoScroll:5
+		  	infinite: false,
+		  	slidesToShow:9,
+		  	SlidestoScroll:1
 		  };
 
 	    return (
@@ -116,12 +118,9 @@ export default class Food2Go extends React.Component {
 			    	<br></br>
 			    	<br />
 			    	<div class="button-click-in-main">
-			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="ShoppingCart" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link></button>
-			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="Restaurants" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link></button>
-			    	<button type="button" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)} >
-			    	<Link to="Foods" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link></button>
+			    	<Link to="Restaurants" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Browse Restaurants</Link>
+			    	<Link to="Foods" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Browse Food</Link>
+			    	<Link to="ShoppingCart" class="btn btn-default btn-lg btn-block" onClick={this.toggleCollapse.bind(this)}>Order Now!</Link>
 			    	</div>
 			    </div>
 			    <div class="col-md-11">
@@ -151,7 +150,28 @@ export default class Food2Go extends React.Component {
 				      	</div>
 				      	<div>
 				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
-				      </div>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/49c/e4060076403dee3ff9a71611456bb49c_1472062521.JPG" />
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/4e2/958b6249cc3eedd75ed6d930b29004e2_1472062526.JPG"/>
+				      	</div>
+				      	<div>
+				      	<img class="img-responsive" src="https://b.zmtcdn.com/data/reviews_photos/13e/77244f043c397962c3fa536e6e36313e_1472062525.JPG"/>
+				      	</div>
 			      </Slider>
 
 			    </div>
