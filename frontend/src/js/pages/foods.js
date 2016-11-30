@@ -1,6 +1,7 @@
 import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
+
 const KEYS_TO_FILTERS = ['name', 'price', 'description'];
 export default class Foods extends React.Component {
 	constructor(props) {
@@ -26,14 +27,16 @@ export default class Foods extends React.Component {
 	getFoods(){
 	// Get food info via Axios
 		var th = this;
-		axios.get('http://localhost:9000/api/foods')
-		  .then(function(response) {
+		var pathName = th.props.location.pathname;
+		console.log(pathName);		
+		axios.get(`http://localhost:9000/api${pathName}`)
+		.then(function(response) {
 			  console.log(response);
 			  th.setState({
 					foods: response.data
 				  });
-		  })
-		  .catch(function(error) {
+		})
+	    .catch(function(error) {
 			  console.log('Failed to get food info!');
 			  if (error.response) {
 			  // The request was made, but the server responded with a status code
@@ -48,6 +51,8 @@ export default class Foods extends React.Component {
 		  });
 	}
 	render() {
+	console.log(this.props);
+	var pathName = this.props.location.pathname;
 	const filteredFoods = this.state.foods.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     console.log("Foods");
     return (
@@ -57,19 +62,17 @@ export default class Foods extends React.Component {
       {filteredFoods.map(food => {
        return (
 	   //<a href={"#/food/"+food.id} className="button">
-		<div class="clickableDiv panel panel-default row" onClick={()=>{this.props.router.push("foods/"+food.id);}} key={food.id} >
-			<div class="panel-heading">
-				<h4 class="panel-title">{food.name}</h4>
+		<div class="clickableDiv panel panel-default col-md-5 foodItem" onClick={()=>{this.props.router.push(`${pathName}/`+food.id);}} key={food.id} >
+			<div class="col-md-3">
+	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
+	   		</div>
+			<div class="col-md-4">
+				<p>{food.name}</p>
+				<p>{food.description}</p>
 			</div>
-			<div class="panel-body">
-				<div class="col-md-4">
-	    			<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
-				</div>
-				<div class="col-md-4">
-					<p>{food.description}</p>
-				</div>
-			</div>
+			<p>&nbsp;</p>
         </div>
+
         //</a>
         )
       })} </div>

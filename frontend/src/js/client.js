@@ -25,7 +25,7 @@ import Checkout from "./pages/checkout";
 import FAQ from "./pages/faq";
 import WhatIsNew from "./pages/whatisnew";
 import Privacy from "./pages/privacy";
-import OrderNow from "./pages/ordernow";
+
 import ContactUs from "./pages/contactus";
 import CustomerService from "./pages/customerservice";
 import TermsOfService from "./pages/termsofservice";
@@ -56,11 +56,10 @@ ReactDOM.render((
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
-    <Route path="restaurants/1/ordernow" component={OrderNow}/>
     <Route path="customerservice" component={CustomerService}/>
     <Route path="contactus" component={ContactUs}/>
     <Route path="termsofservice" component={TermsOfService}/>
-    <Route path="restaurants/1/foods" component={Foods}/>
+    <Route path="restaurants/:restaurantId/foods" component={Foods}/>
     <Route path="/*" component={NoMatch}/>
     </Route>
   </Router>
