@@ -9,7 +9,6 @@ class UserStore extends EventEmitter {
   constructor() {
     super()
     this.session = {
-      sessionId : '',
       loginStatus:false,
     }
     this.userInfo = {
@@ -62,7 +61,12 @@ class UserStore extends EventEmitter {
   }
 
   getLoginStatus() {
-    return this.session.loginStatus;
+    const sessionId = cookie.load('SESSIONID');
+    if (sessionId === undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
   handleActions(action) {
     switch(action.type) {
