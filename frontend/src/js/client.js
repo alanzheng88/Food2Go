@@ -25,11 +25,11 @@ import Checkout from "./pages/checkout";
 import FAQ from "./pages/faq";
 import WhatIsNew from "./pages/whatisnew";
 import Privacy from "./pages/privacy";
-
 import ContactUs from "./pages/contactus";
 import CustomerService from "./pages/customerservice";
 import TermsOfService from "./pages/termsofservice";
 import Foods from "./pages/foods";
+import Food from "./pages/food";
 
 
 const app = document.getElementById('app');
@@ -60,6 +60,7 @@ ReactDOM.render((
     <Route path="contactus" component={ContactUs}/>
     <Route path="termsofservice" component={TermsOfService}/>
     <Route path="restaurants/:restaurantId/foods" component={Foods}/>
+    <Route path="restaurants/:restaurantId/foods/:foodId" component={Food}/>
     <Route path="/*" component={NoMatch}/>
     </Route>
   </Router>
