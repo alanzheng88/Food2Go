@@ -8,10 +8,6 @@ import java.util.*;
 import models.*;
 import play.db.jpa.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSerializer;
-
 import play.data.validation.*;
 
 public class UserController extends AppController {
@@ -57,23 +53,40 @@ public class UserController extends AppController {
 
         String query = getRequestParamsValue("query");
         System.out.println("query: " + query);
+
         if (query == null) {
             renderJSON(gson.toJson(user));
-        } else if (query.equals("restaurants")) {
-            if (user.isRestaurantOwner()) {
-                List<Restaurant> restaurants = getRestaurants(user);
-                System.out.println("restaurants: " + restaurants);
-                if (restaurants != null) {
-                    String restaurantsJson = gson.toJson(restaurants);
-                    response.status = 200;
-                    renderJSON(restaurantsJson);
-                }
-            } else {
+        }
+
+        switch (query) {
+        case "restaurants":
+            if (!user.isRestaurantOwner()) {
                 // user is forbidden to access restaurant info
                 response.status = 403;
                 return;
             }
-        } else {
+            List<Restaurant> restaurants = getRestaurants(user);
+            System.out.println("restaurants: " + restaurants);
+            if (restaurants == null) {
+                response.status = 404;
+                return;
+            }
+            String restaurantsJson = gson.toJson(restaurants);
+            response.status = 200;
+            renderJSON(restaurantsJson);
+            break;
+        case "orders":
+            List<Order> orders = Order.findOrderWith(user);
+            System.out.println("orders: " + orders);
+            if (orders == null) {
+                response.status = 404;
+                return;
+            }
+            String ordersJson = gson.toJson(orders);
+            response.status = 200;
+            renderJSON(ordersJson);
+            break;
+        default:
             response.status = 400;
             return;
         }

@@ -24,10 +24,12 @@ import play.libs.Crypto;
 
 public class AppController extends Controller {
 
-    protected static final Gson gson = new Gson();
+    protected static final Gson gson = new GsonBuilder()
+                    .setDateFormat(Config.DATE_FORMAT)
+                    .setPrettyPrinting().create();
     protected static final String DOMAIN = "localhost";
     protected static final String SERVER_URL = "http://" + DOMAIN + ":11000";
-    
+
     @Before
     protected static void setDefaultHeaders() {
         response.accessControl(SERVER_URL, "GET,POST,PUT,DELETE,OPTIONS", true);
@@ -76,7 +78,7 @@ public class AppController extends Controller {
             System.out.println("key: " + c);
         }
         
-        Http.Cookie sessionid = request.cookies.get("SESSIONID");
+        Http.Cookie sessionid = request.cookies.get(Config.SESSION_ID);
         if (sessionid == null) {
             return null;
         }
@@ -118,6 +120,10 @@ public class AppController extends Controller {
         T[] result = Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
+    }
+
+    public static int parseInt(String s) {
+        return Integer.parseInt(s.replaceAll("[^\\d.]",""));
     }
 
     protected static User getUserFromSessionId() {
