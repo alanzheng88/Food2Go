@@ -8,23 +8,35 @@ import {host, port} from "../constants/backend.js"
 class UserStore extends EventEmitter {
   constructor() {
     super()
-    this.session = {
-      loginStatus:false,
+    var sessionId = cookie.load('SESSIONID');
+    if (sessionId === undefined) {
+      this.session = {
+        sessionId:'',
+        loginStatus:false,
+      }
+    } else {
+      this.session = {
+        sessionId:sessionId,
+        loginStatus:true,
+      }
     }
-    this.userInfo = {
-          firstName: '',
-          lastName: '',
-          email: '',
-          role: 'guest',
-    };
-    console.log("user store constructor");
+    var userInfo = cookie.load('USERINFO');
+    if(userInfo === undefined) {
+      this.userInfo = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: 'guest',
+      };
+    } else {
+      this.userInfo = userInfo;
+    }
     this.sessionInit();
   }
 
   sessionInit() {
     const sessionId = cookie.load('SESSIONID');
     if (sessionId !== undefined) {
-      console.log("Cached sessionId: " + sessionId);
       axios({
         method: 'GET',
         url: `http://${host}:${port}/api/authenticate`,
@@ -38,11 +50,19 @@ class UserStore extends EventEmitter {
         console.log("found valid cookie", response)
         if (response.status == 200 ) {
           this.session.loginStatus = true;
-          this.userInfo = response;  
+          this.userInfo = response;
+          cookie.save('USERINFO',response, { path: '/' });
           this.emit("auth_success", this.session.loginStatus);
         } else {
-          cookie.remove('SESSIONID', { path: '/' });          
+          cookie.remove('SESSIONID', { path: '/' });
+          cookie.remove('USERINFO', { path: '/' });
+          this.emit("logout", false);
         }
+      })
+      .catch((error) => {
+        cookie.remove('SESSIONID', { path: '/' });
+        cookie.remove('USERINFO', { path: '/' });
+        this.emit("logout", false);
       })
     }
   }
@@ -61,13 +81,9 @@ class UserStore extends EventEmitter {
   }
 
   getLoginStatus() {
-    const sessionId = cookie.load('SESSIONID');
-    if (sessionId === undefined) {
-      return false;
-    } else {
-      return true;
-    }
+    return this.session.loginStatus;
   }
+
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
