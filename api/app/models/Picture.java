@@ -13,5 +13,11 @@ public class Picture extends Model {
     public byte[] file;
 	public String fileName;
 	public String contentType;
-	
+
+public Picture(Blob image, byte[] file, String fileName, String contentType) {
+        this.image = image;
+        this.file = file;
+        this.fileName = fileName;
+        this.contentType = contentType;
+    }	
 }

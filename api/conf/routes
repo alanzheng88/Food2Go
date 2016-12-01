@@ -22,9 +22,8 @@ GET     /api/restaurant/{restaurantId}          RestaurantController.getRestaura
 POST    /api/restaurant                         RestaurantController.createRestaurant
 PUT     /api/restaurant/{restaurantID}          RestaurantController.updateRestaurant
 OPTIONS /{controller}/{action}                  Application.options
-GET     /api/restaurant/imageuploads             RestaurantController.index
-#POST    /api/restaurant/imageupload            RestaurantController.uploadPicture
-GET     /api/restaurant/image/{photoId}         RestaurantController.show
+POST    /api/restaurant/imageupload             ImageController.uploadImage
+GET     /api/restaurant/images                  ImageController.showImages
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

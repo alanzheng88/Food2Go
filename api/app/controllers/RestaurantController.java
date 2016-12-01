@@ -1,15 +1,9 @@
 package controllers;
 
 import play.*;
-
 import play.mvc.*;
-import play.data.Upload;
 
 import java.util.*;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 
 import models.*;
 import play.db.jpa.*;
@@ -39,7 +33,7 @@ public class RestaurantController extends AppController {
             response.status = 401;
             return;
         } else if (user.isRestaurantOwner()) {
-            restaurant.restaurantOwner = user;
+            restaurant.restaurantOwner = user; 
             save(restaurant, 201);
             return;
         } else {
@@ -61,16 +55,4 @@ public class RestaurantController extends AppController {
         }
     }
 
-    public static void uploadPicture(Picture picture) {
-        picture.save();
-        index();
-    }
-	public static void index() {
-    	render();
-    }
-	public static void show(Long photoId) {
-    	Picture picture = Picture.findById(photoId);
-        response.setContentTypeIfNotSet(picture.image.type());
-        renderBinary(picture.image.get());
-    }
 }
