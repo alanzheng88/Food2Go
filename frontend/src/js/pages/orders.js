@@ -11,13 +11,13 @@ export default class Orders extends React.Component {
 			  selectedYear: "",
 				orders: [{
 					id: 0,
-					restaurant: "Koto",
-					total: "$9.99",
+					//restaurant: "Koto",
+					totalCost: "$9.99",
 					date: "2016-12-06",
 					status: 6},{
 						id: 1,
-						restaurant: "Koto",
-						total: "$30.45",
+						//restaurant: "Koto",
+						totalCost: "$30.45",
 						date: "2016-11-11",
 						status: 4}]
 		  };
@@ -101,9 +101,10 @@ export default class Orders extends React.Component {
 		    {filteredOrders.map(order => {
 		        return (
 		    	<tr class="clickable" onClick={()=>{this.props.router.push('/order/'+order.id);}} key={order.id}>
-		    		<td>{order.id}</td>
-		    		<td>{order.restaurant}</td>
-		    		<td>{order.total}</td>
+                    <td>{order.id}</td>
+                    <td>Some restaurant</td>
+                    {/*<td>{order.restaurant}</td>*/}
+		    		<td>${order.totalCost}</td>
 		    		<td>{order.date}</td>
 		    		{this.orderStatus(order.status)}
 		    	</tr>

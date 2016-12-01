@@ -4,6 +4,9 @@
 *.pyc
 *.sqlite3
 
+.vs/
+*.sln
+
 Gemfile.lock
 log/*
 .bundle
