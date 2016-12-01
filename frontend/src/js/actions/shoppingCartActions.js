@@ -6,7 +6,7 @@ export function getFoodList(text) {
   console.log("shoppingCartAction::getFoodList:Sending data!", text);
   axios({
     method: 'GET',
-    url: `http://${host}:${port}/api/shopping-cart@foodid=${text}`,
+    url: `http://${host}:${port}/api/shopping-cart?foodid=${text}`,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
