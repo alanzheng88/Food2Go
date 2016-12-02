@@ -127,9 +127,12 @@ public class AppController extends Controller {
     }
 
     protected static User getUserFromSessionId() {
-         String sessionid = getSessionId();
-         System.out.println("session id for user is: " + sessionid);
-         User user = (User)Cache.get(sessionid);
-         return user;
+        String sessionid = getSessionId();
+        System.out.println("session id for user is: " + sessionid);
+        User user = (User)Cache.get(sessionid);
+        if (user != null) {
+            user = User.findById(user.id);
+        }
+        return user;
     }
 }

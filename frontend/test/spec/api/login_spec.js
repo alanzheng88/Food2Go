@@ -1,14 +1,8 @@
 var frisby = require('frisby');
-var server = require('../../lib/server');
-var url = server.url;
+var loginHelper = require('../../lib/login_helper');
+var fixture = require('../../lib/fixture');
+var userInfoHelper = require('../../lib/user_info_helper');
 
-var cookie = '';
-
-frisby.create('Log In As Customer')
-  .post( url + '/api/authenticate', {json: true} )
-  .addHeaders({'Content-Type': 'application/json'})
-  .auth('bb@sfu.ca', 'password1')
-  .expectStatus(201)
-  .expectHeaderContains('Content-Type', 'application/json')
-.toss()
-
+var fcn = userInfoHelper.getCustomerInfoFcn(fixture.loginJsonAsCustomer1, 200);
+loginHelper.testLoginUserPerformFcn(fixture.loginAsCustomerMsg, getCustomerInfoFcn, 
+                                    fixture.loginJsonAsCustomer1, 201);

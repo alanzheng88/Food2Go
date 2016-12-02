@@ -17,8 +17,11 @@ public class Order extends AppModel {
     public Restaurant restaurant;
 
     @Required
+    public String destinationAddress;
+
     @Temporal(TemporalType.TIMESTAMP)
-    public Date date;
+    @Column(name = "dateCreated", nullable = false, updatable=false)
+    public Date dateCreated;
     
     @Required
     public String totalCost;
@@ -43,9 +46,18 @@ public class Order extends AppModel {
     public User user;
     
     
-    public Order(String totalCost, String status) {
+    public Order(Restaurant restaurant, String destinationAddress, 
+                 String totalCost, int status, List<Food> foods) {
+        this.restaurant = restaurant;
+        this.destinationAddress = destinationAddress;
         this.totalCost = totalCost;
-        this.status = Integer.parseInt(status);
+        this.status = status;
+        this.foods = foods;
+    }
+
+    @PrePersist
+    public void onCreate() {
+        dateCreated = new Date();
     }
 
     public static List<Order> findOrderWith(User user) {

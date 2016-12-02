@@ -26,7 +26,7 @@ public class UserController extends AppController {
         // params.get("body") => String
         User newUser = getObjectFromRequestBody(User.class);
         if (newUser == null) {
-            response.status = 400;
+            response.status = 401;
             return;
         }
         try {
@@ -45,7 +45,7 @@ public class UserController extends AppController {
 
         if (user == null) {
             System.out.println("User is null");
-            response.status = 400;
+            response.status = 401;
             return;
         }
 
@@ -88,6 +88,40 @@ public class UserController extends AppController {
             break;
         default:
             response.status = 400;
+            return;
+        }
+    }
+
+    public static void updateUser() {
+        User currentUser = getUserFromSessionId();
+
+        if (currentUser == null) {
+            response.status = 401;
+            return;
+        }
+
+        User updatedUser = getObjectFromRequestBody(User.class);
+        if (updatedUser == null) {
+            response.status = 400;
+            return;
+        }
+
+        try {
+            // email cannot changed because it is unique
+            currentUser.update(updatedUser.firstName, updatedUser.lastName,
+                               updatedUser.email, updatedUser.password, 
+                               updatedUser.role);
+            if (hasValidationErrors(currentUser)) {
+                response.status = 400;
+                return;
+            }
+            currentUser.save();
+            response.status = 200;
+            return;
+        } catch (javax.persistence.PersistenceException e) {
+            // creation or update breaks a unique constraint
+            e.printStackTrace();
+            response.status = 409;
             return;
         }
     }
