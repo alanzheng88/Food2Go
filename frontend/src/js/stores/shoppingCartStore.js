@@ -78,10 +78,10 @@ class ShoppingCartStore extends EventEmitter {
       for (var i = 0; i < arrayLength; i++) {
         if (this.foodIdList[i].foodId === id) {
           this.foodIdList[i].amount++;
+          contains = true;
+          console.log("addFoodId this should be true: ", contains);
+          break;
         }
-        contains = true;
-        console.log("addFoodId this should be true: ", contains);
-        break;
       }
     }
     if (!contains) {
@@ -92,7 +92,7 @@ class ShoppingCartStore extends EventEmitter {
         });
     }
     console.log("Print before save to cookie: ", this.foodIdList);
-    cookie.save('cart', this.foodIdList, { path: '/' });
+    cookie.save('cartId', this.foodIdList, { path: '/' });
   }
   
   removeFood(id) {
@@ -100,7 +100,7 @@ class ShoppingCartStore extends EventEmitter {
     this.foodIdList = this.foodIdList.filter(function(item) { return item.foodId !== id });
     this.foodInfoList = this.foodInfoList.filter(function(item) { return item.foodId !== id });
     console.log("after removeFood: ", this.foodIdList);
-    cookie.save('cart', this.foodIdList, { path: '/' });
+    cookie.save('cartId', this.foodIdList, { path: '/' });
   }
 
   appendAmountToFoodInfo(foodInfoArray) {
@@ -136,7 +136,7 @@ class ShoppingCartStore extends EventEmitter {
       }
       case "ADD_FOOD": {
         this.addFoodId(action.foodId);
-        this.emit("updateFoodIdList", this.foodInfoList);
+        this.emit("updateFoodIdList", this.foodIdList.length);
         break;
       }
       case "REMOVE_FOOD": {
@@ -145,23 +145,24 @@ class ShoppingCartStore extends EventEmitter {
         break;
       }
       case "CLEAR_CART": {
-        cookie.remove('CART', { path: '/' });
-        cookie.remove('CARTINFO', { path: '/' });
+        cookie.remove('cartId', { path: '/' });
+        cookie.remove('cartInfo', { path: '/' });
         this.foodIdList=[];
         this.foodInfoList = [];
+        this.emit("updateFoodIdList", this.foodIdList.length);                
         break;
       }
       case "CHECKOUT_SUCCESS": {
-        cookie.remove('CART', { path: '/' });
-        cookie.remove('CARTINFO', { path: '/' });
+        cookie.remove('cartId', { path: '/' });
+        cookie.remove('cartInfo', { path: '/' });
         this.foodIdList=[];
         this.foodInfoList = [];
         this.emit("checkout_success");
         break;
       }
       case "CHECKOUT_FAILURE": {
-        // cookie.remove('CART', { path: '/' });
-        // cookie.remove('CARTINFO', { path: '/' });
+        // cookie.remove('cartId', { path: '/' });
+        // cookie.remove('cartInfo', { path: '/' });
         // this.foodIdList=[];
         // this.foodInfoList = [];
         this.emit("checkout_success");
