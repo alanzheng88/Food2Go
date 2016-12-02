@@ -83,7 +83,8 @@ export default class Food extends React.Component {
 			    </div>
 			    <div class="row" style={wellStyles}>
 			    	<br></br>
-			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={ShoppingCartActions.addFoodToCart(this.state.foodId)}>Select this item to shoppingCart</button>
+			    	<Link to="ShoppingCart" class="btn btn-primary btn-lg btn-block" onClick={ShoppingCartActions.addFoodToCart(this.state.foodId)}>Select this item to shoppingCart</Link>
+			    	<Link to="Restaurants" class="btn btn-primary btn-lg btn-block">Back to all Restaurants page</Link>
   				</div>
   			</div>
 		</div>
