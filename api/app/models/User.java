@@ -10,7 +10,7 @@ import play.data.validation.*;
 import play.libs.Crypto;
  
 @Entity
-@Table(name = "app_user", 
+@Table(name = "app_user",
        uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
 public class User extends AppModel {
  
@@ -37,6 +37,16 @@ public class User extends AppModel {
     // this is only used by unit tests for testing
     public User(String firstName, String lastName, 
                 String email, String password, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        encryptPassword();
+    }
+
+    public void update(String firstName, String lastName, 
+                       String email, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

@@ -12,7 +12,7 @@ export default class ContactUs extends React.Component {
     	</div>
     	<div class="col-md-4">
     		<h4>Contact us for specific problem</h4>
-            <p>If you want to become one of us, and have html, react.js with babel, play and test experience. Please email us through <Mailto email="gofood2go@gmail.com" obfuscate={true}>gofood2go@gmail.com</Mailto> and please mention Join Food2Go in the title of the mail, thank you</p> 	
+            <p>If you want to you have any specific question and do not need to be answer within 1 hours. Please email us through <Mailto email="gofood2go@gmail.com" obfuscate={true}>gofood2go@gmail.com</Mailto> and please mention type customers problem in the title of the mail, thank you</p> 	
         </div>
         <div class="col-md-4">
             <h4>Business support</h4>

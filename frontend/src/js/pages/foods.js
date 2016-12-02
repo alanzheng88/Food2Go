@@ -1,6 +1,8 @@
 import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
+import Checkbox from 'react-checkbox';
+
 const KEYS_TO_FILTERS = ['name', 'price', 'description'];
 export default class Foods extends React.Component {
 	constructor(props) {
@@ -15,7 +17,20 @@ export default class Foods extends React.Component {
 						id: 2,
 						name: "food 2",
 						price: "8",
-						description: "Food Description"}]
+						description: "Food Description"},{
+						id: 3,
+						name: "food 3",
+						price: "4",
+						description: "Food Description"},{
+						id: 4,
+						name: "food 4",
+						price: "15",
+						description: "Food Description"},{
+						id: 5,
+						name: "food 5",
+						price: "7",
+						description: "Food Description"
+						}]
 		  };
 		  this.getFoods();
 		  this.searchUpdated = this.searchUpdated.bind(this);
@@ -26,14 +41,16 @@ export default class Foods extends React.Component {
 	getFoods(){
 	// Get food info via Axios
 		var th = this;
-		axios.get('http://localhost:9000/api/foods')
-		  .then(function(response) {
+		var pathName = th.props.location.pathname;
+		console.log(pathName);		
+		axios.get(`http://localhost:9000/api${pathName}`)
+		.then(function(response) {
 			  console.log(response);
 			  th.setState({
 					foods: response.data
 				  });
-		  })
-		  .catch(function(error) {
+		})
+	    .catch(function(error) {
 			  console.log('Failed to get food info!');
 			  if (error.response) {
 			  // The request was made, but the server responded with a status code
@@ -48,6 +65,8 @@ export default class Foods extends React.Component {
 		  });
 	}
 	render() {
+	console.log(this.props);
+	var pathName = this.props.location.pathname;
 	const filteredFoods = this.state.foods.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     console.log("Foods");
     return (
@@ -57,19 +76,15 @@ export default class Foods extends React.Component {
       {filteredFoods.map(food => {
        return (
 	   //<a href={"#/food/"+food.id} className="button">
-		<div class="clickableDiv panel panel-default row" onClick={()=>{this.props.router.push("foods/"+food.id);}} key={food.id} >
-			<div class="panel-heading">
-				<h4 class="panel-title">{food.name}</h4>
+		<div class="clickableDiv panel-default col-md-3" onClick={()=>{this.props.router.push(`${pathName}/`+food.id);}} key={food.id} >
+			<div class="col-md-12">
+	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
+				<h4>{food.name}</h4>
+				<h5>${food.price}</h5>
 			</div>
-			<div class="panel-body">
-				<div class="col-md-4">
-	    			<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
-				</div>
-				<div class="col-md-4">
-					<p>{food.description}</p>
-				</div>
-			</div>
+			<p>&nbsp;</p>
         </div>
+
         //</a>
         )
       })} </div>
