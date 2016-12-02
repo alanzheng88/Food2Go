@@ -8,12 +8,14 @@ import {host, port} from "../constants/backend.js"
 class ShoppingCartStore extends EventEmitter {
   constructor() {
     super()
-    this.foodIdList = cookie.load('cart');
-    console.log("ShoppingCartStore::constructor: ", this.foodIdList);
+    this.foodIdList = cookie.load('cartId');
     if (this.foodIdList === undefined || this.foodIdList.length === 0) {
-      this.foodIdList = [ {foodId:'1', amount:10},{foodId:'2', amount:1}];
+      this.foodIdList = [ {foodId:'1', amount:2},{foodId:'2', amount:1}];
     }
-    this.foodInfoList = [];
+    this.foodInfoList = cookie.load('cartInfo');;
+    if (this.foodInfoList === undefined) {
+      this.foodInfoList = [];
+    }
   }
 
   mockData() {
@@ -41,11 +43,6 @@ class ShoppingCartStore extends EventEmitter {
   }
 
   getFoodIds(){
-    console.log("ShoppingCartStore::getFoodIds: ", this.foodIdList);
-    return this.foodIdList;
-  }
-
-  getFoodIds(){
     var foodIdList = this.foodIdList;
     console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
     var res = [];
@@ -61,8 +58,14 @@ class ShoppingCartStore extends EventEmitter {
     return res;
   }
 
+  getFoodInfo() {
+    var foodInfoList = cookie.load('cartInfo');
+    return foodInfoList;
+  }
+
   setFoodInfo(foodList) {
     this.foodInfoList = foodList;
+    cookie.save('cartInfo', this.foodInfoList,{ path: '/' } );;
     console.log("ShoppingCartStore::setFoodInfo: ", this.foodInfoList)
   }
 
@@ -117,25 +120,51 @@ class ShoppingCartStore extends EventEmitter {
     switch(action.type) {
       case "GET_SC_RESPONSE": {
         this.foodInfoList = this.appendAmountToFoodInfo(action.response.data);
+        cookie.save('cartInfo', this.foodInfoList,{ path: '/' } );
         // console.log("Store: emitting updateFoodList:", this.foodInfoList);
+        
         this.emit("updateFoodList", this.foodInfoList);
         break;
       }
       case "GET_SC_ERROR": {
         this.foodInfoList = this.appendAmountToFoodInfo(action.response);
+        cookie.save('cartInfo', this.foodInfoList,{ path: '/' } );
         // console.log("Store: emitting updateFoodList_error:", this.foodInfoList);
         this.emit("updateFoodList_error", this.foodInfoList);
         console.log("Store: emitting updateFoodList_error");
         break;
       }
       case "ADD_FOOD": {
-        addFoodId(action.foodId);
+        this.addFoodId(action.foodId);
         this.emit("updateFoodIdList", this.foodInfoList);
         break;
       }
       case "REMOVE_FOOD": {
         this.removeFood(action.foodId);
         this.emit("updateFoodIdList", this.foodIdList.length);        
+        break;
+      }
+      case "CLEAR_CART": {
+        cookie.remove('CART', { path: '/' });
+        cookie.remove('CARTINFO', { path: '/' });
+        this.foodIdList=[];
+        this.foodInfoList = [];
+        break;
+      }
+      case "CHECKOUT_SUCCESS": {
+        cookie.remove('CART', { path: '/' });
+        cookie.remove('CARTINFO', { path: '/' });
+        this.foodIdList=[];
+        this.foodInfoList = [];
+        this.emit("checkout_success");
+        break;
+      }
+      case "CHECKOUT_FAILURE": {
+        // cookie.remove('CART', { path: '/' });
+        // cookie.remove('CARTINFO', { path: '/' });
+        // this.foodIdList=[];
+        // this.foodInfoList = [];
+        this.emit("checkout_success");
         break;
       }
     }

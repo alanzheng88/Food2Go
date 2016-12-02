@@ -6,7 +6,7 @@ export function getFoodList(text) {
   console.log("shoppingCartAction::getFoodList:Sending data!", text);
   axios({
     method: 'GET',
-    url: `http://${host}:${port}/api/shopping-cart@foodid=${text}`,
+    url: `http://${host}:${port}/api/shopping-cart?foodid=${text}`,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -46,6 +46,34 @@ export function getFoodList(text) {
   })
 }
 
+export function checkout(text) {
+  axios({
+    method: 'POST',
+    url: `http://${host}:${port}/api/checkout`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    withCredentials: true,
+    data: text,
+  })
+  .then((response) => {
+    console.log("ShoppingCartActions::checkout:response", response);
+    dispatcher.dispatch({
+      type: "CHECKOUT_SUCCESS",
+      response
+    });
+    console.log("got the response!", response);
+  })
+  .catch((error) => {
+    console.log("ShoppingCartActions::checkout:error", error);
+    dispatcher.dispatch({
+        type: "CHECKOUT_FAILURE",
+        error,
+      });
+  })
+}
+
 export function addFoodToCart(foodId) {
   dispatcher.dispatch({
     type: "ADD_FOOD",
@@ -63,7 +91,6 @@ export function removeFoodInCart(foodId) {
 export function clearCart() {
   dispatcher.dispatch({
     type: "CLEAR_CART",
-    foodId
   });  
 }
 

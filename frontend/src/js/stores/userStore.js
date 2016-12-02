@@ -8,24 +8,33 @@ import {host, port} from "../constants/backend.js"
 class UserStore extends EventEmitter {
   constructor() {
     super()
-    this.session = {
-      sessionId : '',
-      loginStatus:false,
+    var sessionId = cookie.load('SESSIONID');
+    var userInfo = cookie.load('USERINFO');
+
+    if (sessionId === undefined) {
+      this.session = {
+        sessionId:'',
+        loginStatus:false,
+      };
+      this.userInfo = this.getGuestInfo();
+    } else {
+      this.session = {
+        sessionId:sessionId,
+        loginStatus:true,
+      }
+      if(userInfo === undefined) {
+        this.userInfo = this.getGuestInfo();
+      } else {
+        this.userInfo = userInfo;
+      }
+
     }
-    this.userInfo = {
-          firstName: '',
-          lastName: '',
-          email: '',
-          role: 'guest',
-    };
-    console.log("user store constructor");
     this.sessionInit();
   }
 
   sessionInit() {
     const sessionId = cookie.load('SESSIONID');
     if (sessionId !== undefined) {
-      console.log("Cached sessionId: " + sessionId);
       axios({
         method: 'GET',
         url: `http://${host}:${port}/api/authenticate`,
@@ -38,12 +47,17 @@ class UserStore extends EventEmitter {
       .then((response) => {
         console.log("found valid cookie", response)
         if (response.status == 200 ) {
-          this.session.loginStatus = true;
-          this.userInfo = response;  
-          this.emit("auth_success", this.session.loginStatus);
+          this.emit("auth_success", true);
         } else {
-          cookie.remove('SESSIONID', { path: '/' });          
+          cookie.remove('SESSIONID', { path: '/' });
+          cookie.remove('USERINFO', { path: '/' });
+          this.emit("logout", false);
         }
+      })
+      .catch((error) => {
+        cookie.remove('SESSIONID', { path: '/' });
+        cookie.remove('USERINFO', { path: '/' });
+        this.emit("logout", false);
       })
     }
   }
@@ -64,6 +78,7 @@ class UserStore extends EventEmitter {
   getLoginStatus() {
     return this.session.loginStatus;
   }
+
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
@@ -89,6 +104,7 @@ class UserStore extends EventEmitter {
       case "UPDATE_USERINFO": {
         console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
         this.userInfo = action.response.data;
+        cookie.save('USERINFO', this.userInfo, { path: '/' });
         this.emit("update_userinfo", this.userInfo);
         break;
       }
@@ -100,14 +116,15 @@ class UserStore extends EventEmitter {
       }
       case "UPDATE_USERINFO_ERROR": {
         console.log("Store: received UPDATE_USERINFO, data: ")
-        this.session.loginStatus = false;        
+        this.session.loginStatus = false;
         this.userInfo = this.getGuestInfo();
         this.emit("logout", false);        
         this.emit("update_userinfo", this.userInfo);
         break;
       }
       case "LOGOUT": {
-        // cookie.remove('SESSIONID', { path: '/' });
+        cookie.remove('SESSIONID', { path: '/' });
+        cookie.remove('USERINFO', { path: '/' });
         this.session.loginStatus = false;
         this.userInfo = this.getGuestInfo();
         this.emit("logout", false);

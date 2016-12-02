@@ -10,7 +10,8 @@ import play.data.validation.*;
 import play.libs.Crypto;
  
 @Entity
-@Table(name = "app_user")
+@Table(name = "app_user",
+       uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
 public class User extends AppModel {
  
     @Required
