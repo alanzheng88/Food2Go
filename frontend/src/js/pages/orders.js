@@ -1,7 +1,9 @@
-import React from "react";
+﻿import React from "react";
+import { Link } from "react-router";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
 const KEYS_TO_FILTERS = ['date'];
+import userStore from "../stores/userStore";
 
 export default class Orders extends React.Component {
 	constructor(props) {
@@ -78,40 +80,57 @@ export default class Orders extends React.Component {
   render() {
     console.log("Orders");
     const filteredOrders = this.state.orders.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
-    return (
-	<div class="container">
-		<h1 class="row text-center">Your Orders</h1>
-		Year:&nbsp; 
+    let page = null;
+    console.log("UserInfo");
+    if (userStore.getLoginStatus()) {
+        page = (<div class="container">
+            <h1 class="row text-center">Your Orders</h1>
+            Year:&nbsp;
 		<SearchInput className="hidden search-input" onChange={this.searchUpdated.bind(this)} value={this.state.selectedYear} />
-		<select onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
-			<option value="2016">2016</option>
-			<option value="2015">2015</option>
-		</select>
-		<table class="table table-hover">
-			<thead>
-		      <tr>
-		        <th class="col-md-1">Order #</th>
-		        <th class="col-md-3">Restaurant</th>
-		        <th class="col-md-2">Total</th>
-		        <th class="col-md-4">Date</th>
-		        <th class="col-md-2">Status</th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		    {filteredOrders.map(order => {
-		        return (
-		    	<tr class="clickable" onClick={()=>{this.props.router.push('/order/'+order.id);}} key={order.id}>
-                    <td>{order.id}</td>
-                    <td>Some restaurant</td>
-                    {/*<td>{order.restaurant}</td>*/}
-		    		<td>${order.totalCost}</td>
-		    		<td>{order.date}</td>
-		    		{this.orderStatus(order.status)}
-		    	</tr>
-		    )})}
-		    </tbody>
-		</table>
-	</div>
+            <select onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+            </select>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-1">Order #</th>
+                        <th class="col-md-3">Restaurant</th>
+                        <th class="col-md-2">Total</th>
+                        <th class="col-md-4">Date</th>
+                        <th class="col-md-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredOrders.map(order => {
+                        return (
+                            <tr class="clickable" onClick={() => { this.props.router.push('/order/' + order.id); } } key={order.id}>
+                                <td>{order.id}</td>
+                                <td>Some restaurant</td>
+                                {/*<td>{order.restaurant}</td>*/}
+                                <td>${order.totalCost}</td>
+                                <td>{order.date}</td>
+                                {this.orderStatus(order.status)}
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
+        );
+    } else {
+        page = (
+            <div>
+                <h1 class="noMatch">You&apos;re not logged in!</h1>
+                <p class="emoji">😕</p>
+                <h3 class="noMatch">You must <Link to={`register`}>register</Link> or <Link to={`login`}>login</Link> to view this page!</h3>
+            </div>
+        );
+    }
+    return (
+        <div>
+            {page}
+        </div>
     );
   }
 }
