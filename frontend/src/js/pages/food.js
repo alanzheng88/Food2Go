@@ -4,6 +4,8 @@ import Collapse from "react-collapse";
 import axios from "axios";
 import { IndexLink, Link } from "react-router";
 import NumberFormat from 'react-number-format';
+import Pager from 'react-pager';
+import * as ShoppingCartActions from "../actions/shoppingCartActions";
 
 export default class Food extends React.Component {
 	constructor(props) {
@@ -58,6 +60,7 @@ export default class Food extends React.Component {
 	render() {
 	    console.log("Food");
 	    const {foodId} = this.state.foodId;
+	    const wellStyles={maxWidth:400, margin:'0 auto 10px'};
 	    //console.log("!!!", foodId);
 	    //const orderNow = `restaurantss/${RestaurantId}/foods`
 	    return (
@@ -78,13 +81,12 @@ export default class Food extends React.Component {
 				    	<br></br>
 				    </div>
 			    </div>
-			    <div class="row">
+			    <div class="row" style={wellStyles}>
 			    	<br></br>
-			    	<button type="button" class="btn btn-primary btn-lg btn-block">Select this item to shoppingCart</button>
-				    <button type="button" class="btn btn-danger btn-lg btn-block">back to previous page</button>
-			    </div>
-		    </div>
-		    </div>
+			    	<button type="button" class="btn btn-primary btn-lg btn-block" onClick={ShoppingCartActions.addFoodToCart(this.state.foodId)}>Select this item to shoppingCart</button>
+  				</div>
+  			</div>
+		</div>
 	    );
   }
 }
