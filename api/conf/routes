@@ -14,6 +14,7 @@ DELETE  /api/authenticate                       AuthenticationController.deleteS
 GET     /api/users                              UserController.getUsers
 GET     /api/user                               UserController.getUser
 POST    /api/users                              UserController.createUser
+PUT     /api/user                               UserController.updateUser
 
 # Restaurants
 GET     /api/restaurants                        RestaurantController.getRestaurants

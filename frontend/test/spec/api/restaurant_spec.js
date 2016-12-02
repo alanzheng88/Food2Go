@@ -1,43 +1,9 @@
 var frisby = require('frisby');
 var server = require('../../lib/server');
+var loginHelper = require('../../lib/login_helper');
+var fixture = require('../../lib/fixture');
+var restaurantHelper = require('../../lib/restaurant_helper');
 var url = server.url;
-
-var cookie = '';
-
-var testLoginUserPerformFcn = function(fcn, loginJson,
-                                       statusCode) {
-  frisby.create('Log In As Customer')
-    .post( url + '/api/authenticate', {json: true} )
-    .addHeaders({'Content-Type': 'application/json'})
-    .auth(loginJson.email, loginJson.password)
-    .expectStatus(statusCode)
-    .expectHeaderContains('Content-Type', 'application/json')
-    .after(fcn)
-  .toss()
-}
-
-var createRestaurant = function(restaurantJson, statusCodeBefore, statusCodeAfter) {
-
-  return function(err, res, body) {
-          cookie = server.getCookie(res);
-          frisby.create('Create a Restaurant')
-            .post( url + '/api/restaurants', 
-                  restaurantJson, {json: true} )
-            .addHeaders(server.getHeaders(cookie))
-            // .inspectRequest()
-            .expectStatus(statusCodeBefore)
-            .after(function(err, res, body) {
-              frisby.create('Get Created Restaurant')
-                .get( url + '/api/restaurants' )
-                .addHeaders(server.getHeaders(cookie))
-                .expectHeaderContains('Content-Type', 'application/json')
-                .expectJSON('?', restaurantJson)
-                .expectStatus(statusCodeAfter)
-              .toss()
-            })
-          .toss()
-        }
-}
 
 var mikuValidRestaurantJson = {
   name: 'Miku',
@@ -47,13 +13,11 @@ var mikuValidRestaurantJson = {
   description: 'A great place to dine!'
 }
 
-var billHeLoginJson = {
-  email: 'billhe@sfu.ca',
-  password: 'password1'
-}
+var createRestaurantWithValidRestaurantJsonFcn = 
+  restaurantHelper.createRestaurant(mikuValidRestaurantJson, 201, 200);                    
 
-testLoginUserPerformFcn(
-  createRestaurant(mikuValidRestaurantJson, 201, 200), 
-  billHeLoginJson, 201
-);
+loginHelper.testLoginUserPerformFcn(
+  fixture.loginAsRestaurantOwnerMsg, 
+  createRestaurantWithValidRestaurantJsonFcn,
+  fixture.loginJsonAsRestaurantOwner1, 201);
 
