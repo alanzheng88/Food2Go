@@ -10,8 +10,6 @@ import * as ShoppingCartActions from "../actions/shoppingCartActions";
 export default class Food extends React.Component {
     constructor(props) {
       super(props);
-      console.log("!!!,", this.props);
-
       let foodId = this.props.params.foodId;
       // Default values
       this.state ={
