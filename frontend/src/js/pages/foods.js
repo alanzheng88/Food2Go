@@ -1,6 +1,7 @@
 import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
+import Checkbox from 'react-checkbox';
 
 const KEYS_TO_FILTERS = ['name', 'price', 'description'];
 export default class Foods extends React.Component {

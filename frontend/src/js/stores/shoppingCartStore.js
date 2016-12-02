@@ -129,7 +129,7 @@ class ShoppingCartStore extends EventEmitter {
         break;
       }
       case "ADD_FOOD": {
-        addFoodId(action.foodId);
+        this.addFoodId(action.foodId);
         this.emit("updateFoodIdList", this.foodInfoList);
         break;
       }
