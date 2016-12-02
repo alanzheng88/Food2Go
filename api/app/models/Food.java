@@ -21,6 +21,10 @@ public class Food extends AppModel {
     @Required
     @Lob
     public String description;
+
+    @Required
+    @ManyToOne
+    public Restaurant restaurant;
     
     public Food(String name, String price, String salePrice, String description) {
         this.name = name;
@@ -29,4 +33,32 @@ public class Food extends AppModel {
         this.description = description;
     }
 
+    public static List<Food> findByIds(String foodIds) {
+        List<Long> foodIdList = convertToLongList(foodIds.split(","));
+        if (foodIdList == null) {
+            System.out.println("food id list is null");
+            return null;
+        }
+        try {
+            Query q = createQuery("select f from Food f where f.id IN ?1");
+            System.out.println("executing query for findWithIds");
+            q.setParameter(1, foodIdList);
+            return q.getResultList();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static List<Long> convertToLongList(String[] arr) {
+        List<Long> intList = new ArrayList<Long>();
+        for (int i = 0; i < arr.length; i++) {
+            try {
+                intList.add(Long.valueOf(arr[i]));
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return intList;
+    }
 }
