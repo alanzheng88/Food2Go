@@ -1,6 +1,7 @@
 import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
+import Checkbox from 'react-checkbox';
 
 const KEYS_TO_FILTERS = ['name', 'price', 'description'];
 export default class Foods extends React.Component {
@@ -16,7 +17,20 @@ export default class Foods extends React.Component {
 						id: 2,
 						name: "food 2",
 						price: "8",
-						description: "Food Description"}]
+						description: "Food Description"},{
+						id: 3,
+						name: "food 3",
+						price: "4",
+						description: "Food Description"},{
+						id: 4,
+						name: "food 4",
+						price: "15",
+						description: "Food Description"},{
+						id: 5,
+						name: "food 5",
+						price: "7",
+						description: "Food Description"
+						}]
 		  };
 		  this.getFoods();
 		  this.searchUpdated = this.searchUpdated.bind(this);
@@ -62,13 +76,11 @@ export default class Foods extends React.Component {
       {filteredFoods.map(food => {
        return (
 	   //<a href={"#/food/"+food.id} className="button">
-		<div class="clickableDiv panel panel-default col-md-5 foodItem" onClick={()=>{this.props.router.push(`${pathName}/`+food.id);}} key={food.id} >
-			<div class="col-md-3">
+		<div class="clickableDiv panel-default col-md-3" onClick={()=>{this.props.router.push(`${pathName}/`+food.id);}} key={food.id} >
+			<div class="col-md-12">
 	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
-	   		</div>
-			<div class="col-md-4">
-				<p>{food.name}</p>
-				<p>{food.description}</p>
+				<h4>{food.name}</h4>
+				<h5>${food.price}</h5>
 			</div>
 			<p>&nbsp;</p>
         </div>
