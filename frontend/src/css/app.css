@@ -30,12 +30,12 @@ div.desc {
   padding-right: 4px;
 }
 
-.alert-info {
+.create_restaurant_popup {
     margin-top: 50px;
     padding: 2px;
 }
 @media only screen and (max-width: 991px){
-    .alert-info {
+    .create_restaurant_popup {
       margin-top: 100px;
       padding: 2px;
     }
