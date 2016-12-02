@@ -11,14 +11,10 @@ import play.data.validation.*;
 public class Point extends Model {
  
     @Required
-	public long userID
+    public int points;
 
-    @Required
-    public int points
-
-    public Point(long userID, int points) 
+    public Point(int points) 
 	{
-        this.userID = userID;
         this.points = points;
     }
  

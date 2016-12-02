@@ -24,8 +24,10 @@ PUT     /api/restaurant/{restaurantID}          RestaurantController.updateResta
 OPTIONS /{controller}/{action}                  Application.options
 POST    /api/restaurant/imageupload             ImageController.uploadImage
 GET     /api/restaurant/images                  ImageController.showImages
-GET     /api/points/{userId}                    PointController.getPoint
-POST    /api/points/{userId}                    PointController.updatePoint
+GET     /api/point/                             PointController.getPoint
+GET     /api/points/                            PointController.getPoints
+POST    /api/point/                             PointController.createPoint
+PUT     /api/point/                             PointController.updatePoint
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

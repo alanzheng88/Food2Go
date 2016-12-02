@@ -14,9 +14,15 @@ import com.google.gson.JsonSerializer;
 
 public class PointController extends AppController {
 	
-    public static void getPoint(long userId){
-        Point userPoint = Point.findById(userId);
+    public static void getPoint(){
+	    User user = getUserFromSessionId();
+        Point userPoint = Point.findById(user.id);
         renderJSON(userPoint);
+    }
+	
+    public static void getPoints(){
+        List<Point> pointList = Point.find("order by id").fetch();
+        renderJSON(pointList);
     }
 	
     public static void createPoint() {
@@ -26,16 +32,19 @@ public class PointController extends AppController {
             // no user to assign points to.
             response.status = 401;
             return;
-        } else {
-		    point.userID = user;
+         } else {
+		    point.id = user.id;
+			point.points=0;
             save(point, 201);
             return;
         } 
     }
 	
-    public static void updatePoint(Long userId, int pointDelta){
-        Point userPoint = Point.findById(userId);
-        userPoint.points = userPoint.points + pointDelta;
+    public static void updatePoint(){
+        Point point = getObjectFromRequestBody(Point.class);
+        User user = getUserFromSessionId();
+        Point userPoint = Point.findById(user.id);
+        userPoint.points = point.points;
         save(userPoint, 200);      
     }
 
