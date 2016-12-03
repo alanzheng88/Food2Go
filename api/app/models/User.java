@@ -46,7 +46,7 @@ public class User extends AppModel {
         this.email = email;
         this.password = password;
         this.role = role;
-		this point = point;
+        this point = point;
         encryptPassword();
     }
 
