@@ -34,6 +34,9 @@ public class User extends AppModel {
     @Match("(restaurantOwner)|(customer)")
     public String role;
 
+    @OneToOne(cascade = {CascadeType.ALL})
+    public Point point;
+
     // this is only used by unit tests for testing
     public User(String firstName, String lastName, 
                 String email, String password, String role) {
