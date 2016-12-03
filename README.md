@@ -21,6 +21,11 @@ Usage Instructions:
   - browse
   - upload images (food, menu, etc)
 - Point System
+- checkout system
+  - Shopping Cart
+  - Checkout
+  - Add food to shopping cart  
+  
 
 ### restful api
 - clear separation between frontend and backend
