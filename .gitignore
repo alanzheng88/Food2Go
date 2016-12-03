@@ -9,6 +9,10 @@ log/*
 .bundle
 **/.DS_Store
 
+*.sln
+.vs/
+*.suo
+
 frontend/.project
 frontend/node_modules/*
 frontend/*.log

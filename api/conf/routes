@@ -26,12 +26,19 @@ PUT     /api/restaurant/{restaurantId}          RestaurantController.updateResta
 GET     /api/foods                              FoodController.getFoods
 GET     /api/foods/{foodId}                     FoodController.getFood
 GET     /api/user/foods                         FoodController.getUserFoods
+GET     /api/restaurants/{restaurantId}/foods   FoodController.getRestaurantFoods
 
 # Order
 GET     /api/orders                             OrderController.getOrders
 GET     /api/user/orders                        OrderController.getUserOrders
 GET     /api/user/orders/{orderId}              OrderController.getUserOrder
 POST    /api/user/orders                        OrderController.createOrder
+
+# Point
+GET     /api/user/point                         PointController.getPoint
+GET     /api/points                             PointController.getPoints
+POST    /api/user/point                         PointController.createPoint
+PUT     /api/user/point                         PointController.updatePoint
 
 OPTIONS /{controller}/{action}                  Application.options
 

@@ -113,7 +113,7 @@ export default class Nav extends React.Component {
                 </li>
               }
               {loginStatus &&
-                <NavDropdown id = 'dropdown-size-medium' /*activeClassName="active"*/ title="User">
+                <NavDropdown id='dropdown-size-medium' /*activeClassName="active"*/ title={"Hello, " + userInfo.firstName + "!"}>
                   <MenuItem eventKey='1' href="#/account" onClick={this.toggleCollapse.bind(this)}>My Account </MenuItem>
                   <MenuItem eventKey='2'  onClick={this.handleLogout} >Logout </MenuItem>
                 </NavDropdown>
