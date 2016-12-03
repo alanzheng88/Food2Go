@@ -38,8 +38,22 @@ public class FoodController extends AppController {
         List<Food> foodList = Food.findByIds(foodIds);
         if (foodList == null) {
             response.status = 400;
+            return;
         }
         String foodJson = gson.toJson(foodList);
+        response.status = 200;
         renderJSON(foodJson);
     }
+
+    public static void getRestaurantFoods(long restaurantId) {
+        List<Food> foodList = Food.findByRestaurantId(restaurantId);
+        if (foodList == null) {
+            response.status = 400;
+            return;
+        }
+        String foodJson = gson.toJson(foodList);
+        response.status = 200;
+        renderJSON(foodJson);
+    }
+
 }

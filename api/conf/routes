@@ -26,6 +26,7 @@ PUT     /api/restaurant/{restaurantId}          RestaurantController.updateResta
 GET     /api/foods                              FoodController.getFoods
 GET     /api/foods/{foodId}                     FoodController.getFood
 GET     /api/user/foods                         FoodController.getUserFoods
+GET     /api/restaurants/{restaurantId}/foods   FoodController.getRestaurantFoods
 
 # Order
 GET     /api/orders                             OrderController.getOrders
