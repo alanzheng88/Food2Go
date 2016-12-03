@@ -34,8 +34,8 @@ public class PointController extends AppController {
             response.status = 401;
             return;
          } else {
-		    point.id = user.id;
-            save(point, 201);
+            user.point = point;
+            save(user, 201);
             return;
         } 
     }
