@@ -1,6 +1,7 @@
 import React from "react";
 import SearchInput, {createFilter} from 'react-search-input';
 import axios from "axios";
+import * as ShoppingCartActions from "../actions/shoppingCartActions";
 
 const KEYS_TO_FILTERS = ['name', 'price', 'description'];
 export default class Foods extends React.Component {
@@ -33,6 +34,7 @@ export default class Foods extends React.Component {
 		  };
 		  this.getFoods();
 		  this.searchUpdated = this.searchUpdated.bind(this);
+		  this.addToCart = this.addToCart.bind(this);
 	}
 	searchUpdated (term) {
 	    this.setState({searchTerm: term})
@@ -63,6 +65,9 @@ export default class Foods extends React.Component {
 			}
 		  });
 	}
+	addToCart() {
+      ShoppingCartActions.addFoodToCart(Number(this.state.foodId));      
+    }
 	render() {
 	console.log(this.props);
 	var pathName = this.props.location.pathname;
@@ -75,11 +80,14 @@ export default class Foods extends React.Component {
       {filteredFoods.map(food => {
        return (
 	   //<a href={"#/food/"+food.id} className="button">
-		<div class="clickableDiv panel-default col-md-3" onClick={()=>{this.props.router.push(`${pathName}/`+food.id);}} key={food.id} >
+		<div class="panel-default col-md-3">
 			<div class="col-md-12">
 	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
-				<h4>{food.name}</h4>
-				<h5>${food.price}</h5>
+	    		<div class="col-md-8">
+	    			<h4>{food.name}</h4>
+	    		</div>
+				<div class="col-md-3"><h5>${food.price}</h5> </div>
+				<button type="button" class="btn btn-success btn-sm" onClick={this.addToCart}>Select item</button>
 			</div>
 			<p>&nbsp;</p>
         </div>
