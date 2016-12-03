@@ -79,11 +79,12 @@ export default class BrowseFoods extends React.Component {
       {filteredFoods.map(food => {
        return (
 	   //<a href={"#/food/"+food.id} className="button">
-		<div class="clickableDiv panel-default col-md-2" onClick={()=>{this.props.router.push(`restaurants/${food.restaurant.id}/foods/${food.id}`)}}>
+		<div class="clickableDiv panel-default col-md-2" onClick={()=>{this.props.router.push(`restaurants/${food.restaurant.id}/foods/${food.id}`)}} key={food.id}>
 			<div class="col-md-12">
 	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
 				<h4>{food.name}</h4>
 				<h5>${food.price}</h5>
+				<h5>From restaurant: <br />{food.restaurant.name}</h5>
 			</div>
 			<p>&nbsp;</p>
         </div>
