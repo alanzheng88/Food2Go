@@ -15,10 +15,8 @@ import com.google.gson.JsonSerializer;
 public class PointController extends AppController {
 	
     public static void getPoint(){
-	    User user = getUserFromSessionId();
-		long id = 55;
-        Point userPoint = Point.findById(id);
-        renderJSON(userPoint);
+        User user = getUserFromSessionId();
+        renderJSON(user.point);
     }
 	
     public static void getPoints(){
@@ -34,8 +32,8 @@ public class PointController extends AppController {
             response.status = 401;
             return;
          } else {
-		    point.id = user.id;
-            save(point, 201);
+		    user.point = point;
+            save(user, 201);
             return;
         } 
     }

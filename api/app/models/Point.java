@@ -14,7 +14,7 @@ public class Point extends Model {
     public int points;
 
     public Point(int points) 
-	{
+    {
         this.points = points;
     }
  
