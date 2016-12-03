@@ -69,6 +69,9 @@ export default class Foods extends React.Component {
 	addToCart() {
       ShoppingCartActions.addFoodToCart(Number(this.state.foodId));      
     }
+    toDetail(){
+    	this.pro
+    }
 	render() {
 	console.log(this.props);
 	var pathName = this.props.location.pathname;
@@ -88,7 +91,12 @@ export default class Foods extends React.Component {
 	    			<h4>{food.name}</h4>
 	    		</div>
 				<div class="col-md-3"><h5>${food.price}</h5> </div>
+				//<div class="col-md-6">
+				//<button type="button" class="btn btn-success btn-sm" onClick={this.addToCart}>View Detail</button>
+				//</div>
+				<div class="col-md-6">
 				<button type="button" class="btn btn-success btn-sm" onClick={this.addToCart}>Select item</button>
+				</div>
 			</div>
 			<p>&nbsp;</p>
         </div>
