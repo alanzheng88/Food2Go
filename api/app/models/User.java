@@ -33,20 +33,15 @@ public class User extends AppModel {
     @Required
     @Match("(restaurantOwner)|(customer)")
     public String role;
-	
-	@Required
-	@OneToOne
-	public int point;
 
     // this is only used by unit tests for testing
     public User(String firstName, String lastName, 
-                String email, String password, String role, int point) {
+                String email, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
-        this point = point;
         encryptPassword();
     }
 
@@ -93,8 +88,7 @@ public class User extends AppModel {
             + "\nlast name: " + lastName
             + "\nemail: " + email
             + "\npassword: " + password
-            + "\nrole: " + role
-            + "\npoint: " + point;
+            + "\nrole: " + role;
     }
  
 }
