@@ -1,6 +1,4 @@
-<ul>
-#{list items:models.Picture.findAll(), as:'picture'}
-    <li>${picture.id} <img src="@{ImageController.showImage(picture.id)}" /></li>
-#{/list}
-</ul>
+{extends 'main.html' /}
+{set title:'Home' /}
 
+The rest api is ready!
