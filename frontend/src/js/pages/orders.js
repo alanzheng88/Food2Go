@@ -14,13 +14,13 @@ export default class Orders extends React.Component {
 				orders: [{
 					id: 0,
 					//restaurant: "Koto",
-					totalCost: "$9.99",
-					date: "2016-12-06",
+					totalCost: "9.99",
+					dateCreated: "2016-12-06",
 					status: 6},{
 						id: 1,
 						//restaurant: "Koto",
-						totalCost: "$30.45",
-						date: "2016-11-11",
+						totalCost: "30.45",
+						dateCreated: "2016-11-11",
 						status: 4}]
 		  };
 		  this.getOrders();
@@ -35,9 +35,13 @@ export default class Orders extends React.Component {
 	getOrders(){
 		// Get order info via Axios
 			var th = this;
-			axios.get('http://localhost:9000/api/orders')
+            axios({
+                method: 'GET',
+                url: 'http://localhost:9000/api/user/orders',
+                withCredentials: true
+            })
 			  .then(function(response) {
-				  console.log(response);
+				  console.log("response",response);
 				  th.setState({
 						orders: response.data
 					  });
@@ -95,21 +99,18 @@ export default class Orders extends React.Component {
                 <thead>
                     <tr>
                         <th class="col-md-1">Order #</th>
-                        <th class="col-md-3">Restaurant</th>
                         <th class="col-md-2">Total</th>
-                        <th class="col-md-4">Date</th>
+                        <th class="col-md-4">Date Created</th>
                         <th class="col-md-2">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredOrders.map(order => {
                         return (
-                            <tr class="clickable" onClick={() => { this.props.router.push('/order/' + order.id); } } key={order.id}>
+                            <tr class="clickable" onClick={() => { this.props.router.push('/orders/' + order.id); } } key={order.id}>
                                 <td>{order.id}</td>
-                                <td>Some restaurant</td>
-                                {/*<td>{order.restaurant}</td>*/}
                                 <td>${order.totalCost}</td>
-                                <td>{order.date}</td>
+                                <td>{order.dateCreated}</td>
                                 {this.orderStatus(order.status)}
                             </tr>
                         )
