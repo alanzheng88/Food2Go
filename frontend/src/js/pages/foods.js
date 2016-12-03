@@ -87,7 +87,6 @@ export default class Foods extends React.Component {
 	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
 	    		<div class="col-md-8">
 	    			<h4>{food.name}</h4>
-	    			<h4>{food.id}</h4>
 	    		</div>
 				<div class="col-md-3"><h5>${food.price}</h5> </div>
 				<div class="col-md-6">
