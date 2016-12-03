@@ -33,6 +33,12 @@ GET     /api/user/orders                        OrderController.getUserOrders
 GET     /api/user/orders/{orderId}              OrderController.getUserOrder
 POST    /api/user/orders                        OrderController.createOrder
 
+# Point
+GET     /api/point/                             PointController.getPoint
+GET     /api/points/                            PointController.getPoints
+POST    /api/point/                             PointController.createPoint
+PUT     /api/point/                             PointController.updatePoint
+
 OPTIONS /{controller}/{action}                  Application.options
 
 # Ignore favicon requests
