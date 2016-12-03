@@ -43,6 +43,7 @@ export default class Foods extends React.Component {
 	// Get food info via Axios
 		var th = this;
 		var pathName = th.props.location.pathname;
+		console.log(this.props);
 		console.log(pathName);		
 		axios.get(`http://localhost:9000/api${pathName}`)
 		.then(function(response) {
@@ -80,7 +81,7 @@ export default class Foods extends React.Component {
       {filteredFoods.map(food => {
        return (
 	   //<a href={"#/food/"+food.id} className="button">
-		<div class="panel-default col-md-3">
+		<div class="panel-default col-md-3" key={food.id}>
 			<div class="col-md-12">
 	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
 	    		<div class="col-md-8">
