@@ -28,7 +28,7 @@ public class RestaurantController extends AppController {
             response.status = 401;
             return;
         } else if (user.isRestaurantOwner()) {
-            restaurant.restaurantOwner = user;
+            restaurant.restaurantOwner = user; 
             save(restaurant, 201);
             return;
         } else {

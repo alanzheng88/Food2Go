@@ -32,6 +32,18 @@ public class OrderController extends AppController {
         renderJSON(ordersJson);
     }
 
+    public static void getUserOrder(long orderId) {
+        User user = getUserFromSessionId();
+        if (user == null) {
+            response.status = 401;
+            return;
+        }
+        Order order = Order.findById(orderId);
+        String orderJson = gson.toJson(order);
+        response.status = 200;
+        renderJSON(orderJson);
+    }
+
     public static void createOrder() {
         User user = getUserFromSessionId();
         if (user == null) {
