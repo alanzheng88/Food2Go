@@ -73,7 +73,8 @@ export default class Login extends React.Component {
         <input class="form-control" type="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
         <br/>
       </div>
-        <input type="submit" value="Submit" />
+      <p><a href="#/register">Don't have an account yet?</a></p>
+      <input type="submit" value="Submit" />
       </form>
       </div>
     );

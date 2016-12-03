@@ -61,7 +61,7 @@ export default class Food extends React.Component {
     }
 
     addToCart() {
-      ShoppingCartActions.addFoodToCart(this.state.foodId.foodId);      
+      ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));    
     }
 
     goBack() {

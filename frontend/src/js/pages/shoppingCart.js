@@ -43,7 +43,7 @@ export default class ShoppingCart extends React.Component {
     if (event.target.value >= 0) {
       var list = this.state.foodList;
       list[arrayNum].amount = Number(event.target.value);  
-      list[arrayNum].totalPrice = Number((event.target.value*list[arrayNum].originalPrice).toFixed(2));
+      list[arrayNum].totalPrice = Number((event.target.value*list[arrayNum].price).toFixed(2));
       this.setState({foodList: list})
     }
   }
@@ -67,7 +67,7 @@ export default class ShoppingCart extends React.Component {
     var subTotal = 0.00;
     for (var i = 0; i < foodList.length; i++) {
       var foodItem = foodList[i];
-      indents.push(<ShoppingItem arrayNum={i} food={foodItem} key={foodItem.foodId} 
+      indents.push(<ShoppingItem arrayNum={i} food={foodItem} key={foodItem.id} 
         onClick={this.handleRemove} onChange={this.handleAmountChange}/>);
       subTotal += foodItem.totalPrice;
     }

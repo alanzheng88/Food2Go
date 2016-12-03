@@ -30,9 +30,16 @@ import CustomerService from "./pages/customerservice";
 import TermsOfService from "./pages/termsofservice";
 import Foods from "./pages/foods";
 import Food from "./pages/food";
+import userStore from "./stores/userStore";
 
 
 const app = document.getElementById('app');
+
+const userIsLogin = (nextState, replace) => {
+      if (!userStore.getLoginStatus()) {
+        replace(`/login`);
+      }
+}
 
 ReactDOM.render((
   <Router history={hashHistory}>
@@ -43,7 +50,7 @@ ReactDOM.render((
     <Route path="account" component={Account}/>
     <Route path="login" component={Login}/>
     <Route path="register" component={Register}/>
-    <Route path="shoppingcart" component={ShoppingCart}/>
+    <Route path="shoppingcart" component={ShoppingCart} onEnter={userIsLogin}/>
     <Route path="orders" component={Orders}/>
     <Route path="orders/:orderId" component={Order}/>
     <Route path="points" component={Points}/>

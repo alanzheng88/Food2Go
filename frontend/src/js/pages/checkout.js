@@ -7,7 +7,6 @@ import userStore from "../stores/userStore";
 
 export default class Checkout extends React.Component {
   constructor(props) {
-    console.log("!!!",props);
     super()
     this.state = {
       foodList : ShoppingCartStore.getFoodInfo(),
@@ -165,6 +164,7 @@ export default class Checkout extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     const data = {
       userInfo: this.state.userInfo,
       priceInfo: this.state.priceInfo,
@@ -200,7 +200,7 @@ export default class Checkout extends React.Component {
                   return (
                     <div key={food.foodId} className="form-group">
                       <div className="col-sm-3 col-xs-3">
-                        <img className="img-responsive" src={food.img} />
+                        <img className="img-responsive" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" />
                       </div>
                       <div className="col-sm-6 col-xs-6">
                         <div className="col-xs-12">{food.name}</div>
