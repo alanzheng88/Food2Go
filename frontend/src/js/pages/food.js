@@ -15,8 +15,6 @@ export default class Food extends React.Component {
       this.state ={
         foodId: {foodId},
         foodName: "Food Name",
-        foodPrice: "Food Price",
-        foodSalePrice: "Food Sale Price",
         foodDescription: "t. Cras suscipit, nunc sit amet luctus scelerisque, dui risus aliquet massa, in commodo eros felis a sapien. Mauris faucibus, arcu finibus dapibus semper, est lectus finibus justo, ac ornare velit enim a enim. Praesent non mi turpis. Etiam dictum placerat nisi eu fermentum. Donec luctus fermentum ligula a viverra. Donec mollis turpis ac efficitur vehicula. Suspendisse id risus ex. Proin aliquet eros sed fermentum imperdiet. ",
         imageFiles: [],
         menuFile: [],
@@ -31,15 +29,14 @@ export default class Food extends React.Component {
     getFoodInfo(id){
     // Get food info via Axios
         var th = this;
-        var pathName = th.props.location.pathname;
+        //var pathName = th.props.location.pathname;
         console.log("id", id);
-        axios.get(`http://localhost:9000/api${pathName}`)
+        axios.get(`http://localhost:9000/api/foods/${id}`)
           .then(function(response) {
               console.log(response);
               th.setState({
                     foodName: response.data.name,
                     foodPrice: response.data.price,
-                    foodSalePrice: response.data.saleprice,
                     foodDescription: response.data.description,
                     imageFiles: [],
                     menuFile: []
@@ -61,7 +58,8 @@ export default class Food extends React.Component {
     }
 
     addToCart() {
-      ShoppingCartActions.addFoodToCart(this.state.foodId.foodId);      
+      ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));
+      this.props.router.push(`restaurants/${this.props.router.params.restaurantId}/foods`);      
     }
 
     goBack() {
@@ -86,7 +84,6 @@ export default class Food extends React.Component {
                         <h4>Food Information</h4>
                         <p>Food Name: {this.state.foodName}</p>
                         <p>Food Price: {this.state.foodPrice}</p>
-                        <p>Food Sale Price: {this.state.foodSalePrice}</p>
                         <p>Food Description: {this.state.foodDescription}</p>
                         <br></br>
                         <br></br>
@@ -94,7 +91,7 @@ export default class Food extends React.Component {
                 </div>
                 <div class="row" style={wellStyles}>
                     <br></br>
-                    <button class="btn btn-primary btn-lg btn-block" onClick={this.addToCart}>Select this item to shoppingCart</button>
+                    <button class="btn btn-primary btn-lg btn-block" onClick={this.addToCart}>Add to ShoppingCart and back to menu</button>
                     <button class="btn btn-primary btn-lg btn-block" onClick={this.goBack}>Back to our menu</button>
                 </div>
             </div>
