@@ -66,11 +66,9 @@ export default class Foods extends React.Component {
 			}
 		  });
 	}
-	addToCart() {
-      ShoppingCartActions.addFoodToCart(Number(this.state.foodId));      
-    }
-    toDetail(){
-    	this.pro
+	addToCart(event) {
+		console.log(this.state.food);
+      	ShoppingCartActions.addFoodToCart(Number(this.state.foodId));      
     }
 	render() {
 	console.log(this.props);
@@ -89,13 +87,14 @@ export default class Foods extends React.Component {
 	    		<img height="200" width="200" class="rounded img-thumbnail img-fluid" src="http://1.bp.blogspot.com/_v5GFE8gXk5g/TQ-Katq9Y3I/AAAAAAAAAOs/t-XZaZuyU3k/s1600/IMG_6388.JPG"/>
 	    		<div class="col-md-8">
 	    			<h4>{food.name}</h4>
+	    			<h4>{food.id}</h4>
 	    		</div>
 				<div class="col-md-3"><h5>${food.price}</h5> </div>
 				<div class="col-md-6">
-				<button type="button" value="food.id" class="btn btn-success btn-sm" onClick={this.addToCart}>View Detail</button>
+				<button type="button" class="btn btn-success btn-sm" onClick={()=>{this.props.router.push(`restaurants/${food.restaurant.id}/foods/${food.id}`);}}>View Detail</button>
 				</div>
 				<div class="col-md-6">
-				<button type="button" class="btn btn-success btn-sm" onClick={this.addToCart}>Select item and ${food.id}</button>
+				<button type="button" class="btn btn-success btn-sm" onClick={this.addToCart}>Select item</button>
 				</div>
 			</div>
 			<p>&nbsp;</p>
