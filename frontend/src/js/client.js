@@ -61,7 +61,7 @@ ReactDOM.render((
     <Route path="customerservice" component={CustomerService}/>
     <Route path="contactus" component={ContactUs}/>
     <Route path="termsofservice" component={TermsOfService}/>
-    <Route path="restaurants/:restaurantId/foods" component={Foods}/>
+    <Route path="/restaurants/:restaurantId/foods" component={Foods}/>
     <Route path="restaurants/:restaurantId/foods/:foodId" component={Food}/>
     <Route path="/*" component={NoMatch}/>
     </Route>
