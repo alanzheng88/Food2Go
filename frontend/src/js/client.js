@@ -31,7 +31,7 @@ import TermsOfService from "./pages/termsofservice";
 import Foods from "./pages/foods";
 import Food from "./pages/food";
 import userStore from "./stores/userStore";
-
+import BrowseFoods from "./pages/browsefoods";
 
 const app = document.getElementById('app');
 
@@ -63,6 +63,7 @@ ReactDOM.render((
     <Route path="faq" component={FAQ}/>
     <Route path="whatisnew" component={WhatIsNew}/>
     <Route path="privacy" component={Privacy}/>
+    <Route path="browsefoods" component={BrowseFoods}/>
     <Route path="customerservice" component={CustomerService}/>
     <Route path="contactus" component={ContactUs}/>
     <Route path="termsofservice" component={TermsOfService}/>

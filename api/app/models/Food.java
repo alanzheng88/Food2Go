@@ -50,6 +50,18 @@ public class Food extends AppModel {
         }
     }
 
+    public static List<Food> findByRestaurantId(long restaurantId) {
+        try {
+            Query q = createQuery("select f from Food f JOIN f.restaurant as r where r.id = ?1");
+            q.setParameter(1, restaurantId);
+            return q.getResultList();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     private static List<Long> convertToLongList(String[] arr) {
         List<Long> intList = new ArrayList<Long>();
         for (int i = 0; i < arr.length; i++) {

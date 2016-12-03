@@ -37,7 +37,7 @@ export default class Invite extends React.Component {
       	<p>You can gather Food Points by buying food
       	or inviting friends to use Food2Go.</p>
       	<p>You can apply your points during checkout to reduce the
-      	cost of your purchase! (1 point = 1&#36;)</p>
+      	cost of your purchase! (100 points = 1&#36;)</p>
       </div>
       <div class="panel row panel-info center-block" style={{maxWidth: 500}}>
         <div class="panel-heading">
@@ -45,7 +45,7 @@ export default class Invite extends React.Component {
         </div>
         <div class="panel-body">
           If you invite a friend to use Food2Go and they register and purchase food, 
-          you will obtain 50 Food Points to spend towards your next purchase!
+          you will obtain 200 Food Points to spend towards your next purchase!
 	        <div class="form text-center">
 	          <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
 	          <div>

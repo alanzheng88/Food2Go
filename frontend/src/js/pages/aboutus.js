@@ -6,8 +6,8 @@ export default class AboutUs extends React.Component {
     return (
      	<div class="row">
       		<h1>About Us</h1>
-      		<p>This website start from a small group of student, </p>
-      		<div class="panel panel-default row">
+      		<p>This website start from a small group of students</p>
+      		<div class="panel panel-default col-md-6">
 				<div class="panel-heading">
 					<h4>Alan Zheng</h4>
 				</div>
@@ -21,7 +21,7 @@ export default class AboutUs extends React.Component {
 					</div>
 				</div>
         	</div>
-        	<div class="panel panel-default row">
+        	<div class="panel panel-default col-md-6">
 				<div class="panel-heading">
 					<h4>Franky Lu</h4>
 				</div>
@@ -36,7 +36,7 @@ export default class AboutUs extends React.Component {
 					</div>
 				</div>
         	</div>
-        	<div class="panel panel-default row">
+        	<div class="panel panel-default col-md-6">
 				<div class="panel-heading">
 					<h4>Ferris Yu</h4>
 				</div>
@@ -50,7 +50,7 @@ export default class AboutUs extends React.Component {
 					</div>
 				</div>
         	</div>
-        	<div class="panel panel-default row">
+        	<div class="panel panel-default col-md-6">
 				<div class="panel-heading">
 					<h4>Ricky Mok</h4>
 				</div>
@@ -64,7 +64,7 @@ export default class AboutUs extends React.Component {
 					</div>
 				</div>
         	</div>
-        	<div class="panel panel-default row">
+        	<div class="panel panel-default col-md-6">
 				<div class="panel-heading">
 					<h4>Jean Wu</h4>
 				</div>
