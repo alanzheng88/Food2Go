@@ -6,6 +6,7 @@ User(bob):
     email:          bb@sfu.ca
     password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           customer
+    point:          27
 
 User(alex):
     firstName:      Bobby
@@ -13,6 +14,7 @@ User(alex):
     email:          blesley@ubc.ca
     password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           customer
+    point:          0
 
 User(alan):
     firstName:      Alan
@@ -20,6 +22,7 @@ User(alan):
     email:          azip@sfu.ca
     password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           restaurantOwner
+    point:          50
 
 User(bill):
     firstName:      Bill
@@ -27,6 +30,7 @@ User(bill):
     email:          billhe@sfu.ca
     password:       2225cffa53282cd1f2bc9819052ead4e2888346c778922f996521d6b332a49b2
     role:           restaurantOwner
+    point:          34
 
 
 Restaurant(Koto):
