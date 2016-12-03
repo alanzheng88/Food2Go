@@ -30,6 +30,7 @@ GET     /api/user/foods                         FoodController.getUserFoods
 # Order
 GET     /api/orders                             OrderController.getOrders
 GET     /api/user/orders                        OrderController.getUserOrders
+GET     /api/user/orders/{orderId}              OrderController.getUserOrder
 POST    /api/user/orders                        OrderController.createOrder
 
 OPTIONS /{controller}/{action}                  Application.options
