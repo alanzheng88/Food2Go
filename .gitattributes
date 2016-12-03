@@ -2,6 +2,7 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * 			text=auto
+*.js		text=crlf
 *.sh 		text eol=lf
 *.rb		text eol=lf
 
