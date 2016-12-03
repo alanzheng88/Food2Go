@@ -32,7 +32,7 @@ GET     /api/orders                             OrderController.getOrders
 GET     /api/user/orders                        OrderController.getUserOrders
 POST    /api/user/orders                        OrderController.createOrder
 
-#
+# Point
 GET     /api/point/                             PointController.getPoint
 GET     /api/points/                            PointController.getPoints
 POST    /api/point/                             PointController.createPoint
