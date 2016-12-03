@@ -20,17 +20,17 @@ class ShoppingCartStore extends EventEmitter {
 
   getFoodIds(){
     var foodIdList = this.foodIdList;
-    console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
+    // console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
     var res = [];
     if(foodIdList === undefined || foodIdList.length === 0) {
-      console.log("ShoppingCartStore::getFoodIdsInString: empty foodId");
+      // console.log("ShoppingCartStore::getFoodIdsInString: empty foodId");
     } else {
       var arrayLength = foodIdList.length;
       for (var i = 0; i < arrayLength; i++) {
         res.push(foodIdList[i].foodId);
       }
     }
-    console.log("ShoppingCartStore::getFoodIdsInString: res:", res);
+    // console.log("ShoppingCartStore::getFoodIdsInString: res:", res);
     return res;
   }
 
@@ -42,7 +42,7 @@ class ShoppingCartStore extends EventEmitter {
   setFoodInfo(foodList) {
     this.foodInfoList = foodList;
     cookie.save('cartInfo', this.foodInfoList,{ path: '/' } );;
-    console.log("ShoppingCartStore::setFoodInfo: ", this.foodInfoList)
+    // console.log("ShoppingCartStore::setFoodInfo: ", this.foodInfoList)
   }
 
   addFoodId(id) {

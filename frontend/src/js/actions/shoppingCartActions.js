@@ -30,9 +30,10 @@ export function getFoodList(text) {
 }
 
 export function checkout(text) {
+  console.log("checkout: ", text);
   axios({
     method: 'POST',
-    url: `http://${host}:${port}/api/checkout`,
+    url: `http://${host}:${port}/api/user/orders`,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
