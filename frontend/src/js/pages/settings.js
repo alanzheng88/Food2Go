@@ -12,7 +12,9 @@ export default class Settings extends React.Component {
 				userInfo: userStore.getUserInfo(),
 				firstName: "",
 				lastName: "",
-				email: "",
+                email: "",
+                password: "",
+                passwordConfirm: "",
 				role: ""
 		  };
 	  this.state.firstName = this.state.userInfo.firstName;
@@ -72,22 +74,23 @@ export default class Settings extends React.Component {
 		  e.preventDefault();
 		  console.log(this.state);
 		  var data = {
-		    firstName: this.state.firstName.trim(),
-		    lastName: this.state.lastName.trim(),
-		    email: this.state.email.trim(),
-		    password: this.state.password.trim(),
-		    //role: this.state.role
+		    firstName:  this.state.firstName.trim(),
+            lastName:   this.state.lastName.trim(),
+            email:      this.state.userInfo.email,
+            password:   this.state.password.trim(),
+            role:       this.state.userInfo.role
 		  }
-		  
+          console.log("data", data);
 		  // Submit form via jQuery/AJAX
 		  axios({
 		    method: 'PUT',
 		    url: 'http://localhost:9000/api/user',
-		    data: JSON.stringify(data)
+            data: JSON.stringify(data),
+            withCredentials: true
 		  })
-		  .then(function(data) {
-			  alert('Successfully edited account!');
-			  th.reset();
+		  .then(function(response) {
+              alert('Successfully edited account!');
+              th.props.router.push('/account');
 		  })
 		  .catch(function(error) {
 			  alert('Failed to edit user!');
@@ -112,40 +115,40 @@ export default class Settings extends React.Component {
 			page= <Validation.components.Form onSubmit={this.onSubmit.bind(this)}>
             <h1>Profile Settings</h1>
 				<div>
-					<div>
+                    <div class="form-group">
 						<label>
 							First Name*
-							<Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.firstName} onChange={this.onChangeFirstName} ref='firstName' name='firstName' validations={['required', 'alpha']}/>
+							<Validation.components.Input class="form-control" errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.firstName} onChange={this.onChangeFirstName} ref='firstName' name='firstName' validations={['required', 'alpha']}/>
 						</label>
 					</div>
 					<div>
 						<label>
 							Last Name*
-							<Validation.components.Input errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.lastName} onChange={this.onChangeLastName} ref='lastName' name='lastName' validations={['required', 'alpha']}/>
+							<Validation.components.Input class="form-control" errorClassName='is-invalid-input' type="text" containerClassName='' value={this.state.lastName} onChange={this.onChangeLastName} ref='lastName' name='lastName' validations={['required', 'alpha']}/>
 						</label>
 					</div>
 					<div>
 						<label>
 							Email*
-							<Validation.components.Input value={this.state.email} onChange={this.onChangeEmail} ref='email' name='email' validations={['required', 'email']}/>
+							<Validation.components.Input class="form-control disabled-text" value={this.state.email} onChange={this.onChangeEmail} ref='email' name='email' validations={['required', 'email']} disabled/>
 						</label>
 					</div>
 					<div>
 						<label>
 							Password*
-							<Validation.components.Input type='password' value='' ref='password' name='password' validations={['required']}/>
+							<Validation.components.Input class="form-control" type='password' value={this.state.password} onChange={this.onChangePassword} ref='password' name='password' validations={['required', 'passwordLength']} />
 						</label>
 					</div>
 					<div>
 						<label>
 							Confirm Password*
-							<Validation.components.Input type='password' errorClassName='is-invalid-input' containerClassName='' value='' name='passwordConfirm' validations={['required', 'password']}/>
+							<Validation.components.Input class="form-control" type='password' onChange={this.onChangePasswordC} errorClassName='is-invalid-input' containerClassName='' value={this.state.passwordConfirm} name='passwordConfirm' validations={['required', 'password']} />
 						</label>
 					</div>
 					<div>
 						<label>
 							Role*
-							<Validation.components.Select class="disabled-text" errorClassName='is-invalid-input' ref='role' name='role' value={this.state.role}  validations={['required']} disabled>
+							<Validation.components.Select class="form-control disabled-text" errorClassName='is-invalid-input' ref='role' name='role' value={this.state.role}  validations={['required']} disabled>
 								<option value=''>Choose Your Account Type</option>
 								<option value='customer'>Customer</option>
 								<option value='restaurantOwner'>Restaurant Owner</option>
@@ -154,7 +157,7 @@ export default class Settings extends React.Component {
 					</div>
 				</div>
             <div>
-                <Validation.components.Button className='button' errorClassName='asd'>Save Changes</Validation.components.Button>
+                <Validation.components.Button class="btn btn-default" className='button' errorClassName='asd'>Save Changes</Validation.components.Button>
             </div>
         </Validation.components.Form>;
 		} else {
