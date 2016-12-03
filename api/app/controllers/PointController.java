@@ -32,7 +32,7 @@ public class PointController extends AppController {
             response.status = 401;
             return;
          } else {
-		    user.point = point;
+            user.point = point;
             save(user, 201);
             return;
         } 
