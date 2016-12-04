@@ -76,15 +76,29 @@ Creating a Restaurant
 4. Select images for the restaurant
 5. Click on Create Restaurant
 
-Ordering Food
-1. Login as customer or restaurant owner
-2. Click on Restaurant link at the top or "Browse Restaurant" button at the homepage
-3. Select a restaurant from the list
-4. Click on Order Now
-5. Select the food item you want to order and click "Select item" to add to shopping cart
+Ordering Food From A Restaurant
+1. Click on Restaurant link at the top or "Browse Restaurant" button at the homepage
+2. Select a restaurant from the list
+3. Click on Order Now
+4. Select the food item you want to order by clicking "Select item" below the item picture to add to shopping cart
+5. Notice the item number increase in Shopping Cart at top right
 6. Once completed, Click on Shopping Cart link on the top right
-7. Review the order and click Checkout at the bottom
-8. Enter in your address and payment information and Click Place Order at the bottom
+7. Register or Login as customer or restaurant owner if not done so.
+8. Click on Shopping Cart link on the top right
+9. Review the order and click Checkout at the bottom
+10. Enter in your address and payment information and Click Place Order at the bottom
+
+Ordering Food By Food Selection
+1. Click on Browse Food
+2. Click on the food you want from the list
+3. Click on Add to Cart
+4. Notice the item number increase in Shopping Cart at top right
+5. Register or Login as customer or restaurant owner if not done so.
+6. Click on Shopping Cart link on the top right
+7. Change the quantity and notice the price change
+8. Click Checkout at the bottom
+9. Enter in your address and payment information and Click Place Order at the bottom
+10. Click on the Order to view order detail
 
 Social Network
 1. Links to Facebook, Twitter, email available at bottom right
