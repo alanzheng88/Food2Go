@@ -25,24 +25,22 @@ export default class ShoppingItem extends React.Component {
   }
   render() {
     const { food } = this.props;
+    const restaurantLink = `#/restaurants/${food.restaurant.id}`;
+    const foodLink = `#/restaurants/${food.restaurant.id}/foods/${food.id}`;
     return (
         <tr>
           <td className="col-sm-8 col-md-6">
             <div className="media">
               <a className="thumbnail pull-left" href="#"> 
-                <img className="media-object" src={food.img} style={{width: 72, height: 72}} /> 
+                <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style={{width: 72, height: 72}} /> 
               </a>
               <div className="media-body">
                 <h4 className="media-heading">
-                  <a href="#">{food.name}</a>
+                  <a href={foodLink}>{food.name}</a>
                 </h4>
                 <h5 className="media-heading"> 
-                  by <a href="#">{food.restaurantName}</a>
+                    <a href={restaurantLink}>{food.restaurant.name}</a>
                 </h5>
-                  <span>Status: </span>
-                    <span className="text-success"> 
-                      <strong>{food.status}</strong>
-                    </span>
               </div>
             </div>
           </td>
@@ -50,7 +48,7 @@ export default class ShoppingItem extends React.Component {
             <DynamicNumber className="form-control" id="num" negative={false} value={food.amount} onChange={this.handleAmountChange}/>
           </td>
           <td className="col-sm-1 col-md-1 text-center">
-            <strong>${food.originalPrice}</strong>
+            <strong>${food.price}</strong>
           </td>
           <td className="col-sm-1 col-md-1 text-center">
             <strong>${food.totalPrice}</strong>

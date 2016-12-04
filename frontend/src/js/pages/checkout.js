@@ -7,7 +7,6 @@ import userStore from "../stores/userStore";
 
 export default class Checkout extends React.Component {
   constructor(props) {
-    console.log("!!!",props);
     super()
     this.state = {
       foodList : ShoppingCartStore.getFoodInfo(),
@@ -43,9 +42,6 @@ export default class Checkout extends React.Component {
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
-    this.handleCityChange = this.handleCityChange.bind(this);
-    this.handleProvinceChange = this.handleProvinceChange.bind(this);
-    this.handleZipCodeChange = this.handleZipCodeChange.bind(this);
     this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.hadnleCardTypeChange = this.hadnleCardTypeChange.bind(this);
@@ -88,24 +84,6 @@ export default class Checkout extends React.Component {
     userInfo.address = event.target.value;
     this.setState({ userInfo: userInfo });
   }
-
-  handleCityChange(event) {
-    var userInfo = this.state.userInfo;
-    userInfo.city = event.target.value;
-    this.setState({ userInfo: userInfo });
-  }
-
-  handleProvinceChange(event) {
-    var userInfo = this.state.userInfo;
-    userInfo.province = event.target.value;
-    this.setState({ userInfo: userInfo });
-  }
-
-  handleZipCodeChange(event) {
-    var userInfo = this.state.userInfo;
-    userInfo.zipCode = event.target.value;
-    this.setState({ userInfo: userInfo });
-  }  
 
   handlePhoneNumberChange(event) {
     var userInfo = this.state.userInfo;
@@ -165,12 +143,29 @@ export default class Checkout extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const data = {
-      userInfo: this.state.userInfo,
-      priceInfo: this.state.priceInfo,
-      paymentInfo: this.state.paymentInfo,
+    var restaurants = [];
+    var foodList = this.state.foodList;
+    console.log("handleSubmit::foodList", foodList);
+    for (var i = 0; i < foodList.length; i++) {
+      var id = foodList[i].restaurant.id;
+      console.log("id, ",id);
+      if(id in restaurants === false) {
+        restaurants[id]=[];
+      }
+      restaurants[id].push(foodList[i].id);
     }
-    ShoppingCartActions.checkout(data);
+    console.log("handleSubmit: ", restaurants);
+    for (var key in restaurants) {
+      const data = {
+        "restaurantId": key,
+        "destinationAddress": this.state.userInfo.address,
+        "totalCost": this.state.priceInfo.total,
+        "status": "1",
+        "foodIds": restaurants[key].toString(),
+      }
+      console.log("!!!,",data)
+      ShoppingCartActions.checkout(data);
+    }
   }
   render() {
     console.log("Checkout");
@@ -198,9 +193,9 @@ export default class Checkout extends React.Component {
                 <div className="panel-body">
                 {foodList.map(food => {
                   return (
-                    <div key={food.foodId} className="form-group">
+                    <div key={food.id} className="form-group">
                       <div className="col-sm-3 col-xs-3">
-                        <img className="img-responsive" src={food.img} />
+                        <img className="img-responsive" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" />
                       </div>
                       <div className="col-sm-6 col-xs-6">
                         <div className="col-xs-12">{food.name}</div>
@@ -267,32 +262,12 @@ export default class Checkout extends React.Component {
                       <input type="text" name="address" value={userInfo.address} onChange={this.handleAddressChange} className="form-control" required/>
                     </div>
                   </div>
-                  <div className="form-group">
-                    <div className="col-md-12"><strong>City:</strong></div>
-                      <div className="col-md-12">
-                      <input type="text" name="City" value={userInfo.city} onChange={this.handleCityChange} className="form-control" required/>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <div className="col-md-12"><strong>Province:</strong></div>
-                    <div className="col-md-12">
-                      <select id="Province" name="Province" onChange={this.handleProvinceChange} className="form-control" required>
-                        <option value="">Province</option>
-                        <option value={'BC'}>British Columbia</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <div className="col-md-12"><strong>Zip / Postal Code:</strong></div>
-                    <div className="col-md-12">
-                      <input type="text" name="zip_code" value={userInfo.zipCode} onChange={this.handleZipCodeChange} className="form-control" required/>
-                    </div>
-                  </div>
-                  <div className="form-group">
+                  {false && <div className="form-group">
                     <div className="col-md-12"><strong>Phone Number:</strong></div>
                     <div className="col-md-12">
-                      <input type="text" name="phone_number" value={userInfo.phoneNumber} onChange={this.handlePhoneNumberChange} className="form-control" required/></div>
+                      <input type="text" name="phone_number" value={userInfo.phoneNumber} onChange={this.handlePhoneNumberChange} className="form-control" /></div>
                     </div>
+                  }
                   <div className="form-group">
                     <div className="col-md-12"><strong>Email Address:</strong></div>
                     <div className="col-md-12">
@@ -308,7 +283,7 @@ export default class Checkout extends React.Component {
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card Type:</strong></div>
                     <div className="col-md-12">
-                      <select id="CreditCardType" name="CreditCardType" onChange={this.hadnleCardTypeChange} className="form-control" required>
+                      <select id="CreditCardType" name="CreditCardType" onChange={this.hadnleCardTypeChange} className="form-control" >
                         <option >Card Type</option>
                         <option value={'visa'}>Visa</option>
                         <option value={'master'}>MasterCard</option>
@@ -317,22 +292,22 @@ export default class Checkout extends React.Component {
                   </div>
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card holder's Name:</strong></div>
-                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardHolder} onChange={this.handleCardHolderChange} required/></div>
+                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardHolder} onChange={this.handleCardHolderChange} /></div>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card Number:</strong></div>
-                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardNum} onChange={this.handleCardNumberChange} required/></div>
+                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardNum} onChange={this.handleCardNumberChange} /></div>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card CVV:</strong></div>
-                    <div className="col-md-12"><input type="password" className="form-control" name="car_code" value={paymentInfo.cvv} onChange={this.handleCVVChange} required/></div>
+                    <div className="col-md-12"><input type="password" className="form-control" name="car_code" value={paymentInfo.cvv} onChange={this.handleCVVChange} /></div>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12">
                       <strong>Expiration Date</strong>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                      <select className="form-control" name="expire_month" onChange={this.handleExpireMonthChange} required>
+                      <select className="form-control" name="expire_month" onChange={this.handleExpireMonthChange} >
                         <option value="">Month</option>
                         <option value={'01'}>01</option>
                         <option value={'02'}>02</option>
@@ -349,7 +324,7 @@ export default class Checkout extends React.Component {
                       </select>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                      <select className="form-control" name="expire_year" onChange={this.handleExpireYearChange} required>
+                      <select className="form-control" name="expire_year" onChange={this.handleExpireYearChange} >
                         <option value="">Year</option>
                         <option value={'2016'}>2016</option>
                         <option value={'2017'}>2017</option>

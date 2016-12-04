@@ -9,8 +9,8 @@ class ShoppingCartStore extends EventEmitter {
   constructor() {
     super()
     this.foodIdList = cookie.load('cartId');
-    if (this.foodIdList === undefined || this.foodIdList.length === 0) {
-      this.foodIdList = [ {foodId:'1', amount:2},{foodId:'2', amount:1}];
+    if (this.foodIdList === undefined) {
+      this.foodIdList = [];
     }
     this.foodInfoList = cookie.load('cartInfo');;
     if (this.foodInfoList === undefined) {
@@ -18,43 +18,19 @@ class ShoppingCartStore extends EventEmitter {
     }
   }
 
-  mockData() {
-    return [{
-        name: 'Pasta',
-        foodId: '1',
-        resturantId: 'abc',
-        restaurantName: 'Pasta factory',
-        originalPrice: 12.23,
-        totalPrice: 12.23,
-        status: 'In stock',
-        amount: 1,
-        img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png',
-      },{
-        name: 'Pasta2',
-        foodId: '2',
-        resturantId: 'bcd',
-        restaurantName: 'Pasta factory2',
-        originalPrice: 15.34,
-        totalPrice: 15.34,
-        status: 'In stock',
-        amount: 1,
-        img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png',
-    }];
-  }
-
   getFoodIds(){
     var foodIdList = this.foodIdList;
-    console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
+    // console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
     var res = [];
     if(foodIdList === undefined || foodIdList.length === 0) {
-      console.log("ShoppingCartStore::getFoodIdsInString: empty foodId");
+      // console.log("ShoppingCartStore::getFoodIdsInString: empty foodId");
     } else {
       var arrayLength = foodIdList.length;
       for (var i = 0; i < arrayLength; i++) {
         res.push(foodIdList[i].foodId);
       }
     }
-    console.log("ShoppingCartStore::getFoodIdsInString: res:", res);
+    // console.log("ShoppingCartStore::getFoodIdsInString: res:", res);
     return res;
   }
 
@@ -66,7 +42,7 @@ class ShoppingCartStore extends EventEmitter {
   setFoodInfo(foodList) {
     this.foodInfoList = foodList;
     cookie.save('cartInfo', this.foodInfoList,{ path: '/' } );;
-    console.log("ShoppingCartStore::setFoodInfo: ", this.foodInfoList)
+    // console.log("ShoppingCartStore::setFoodInfo: ", this.foodInfoList)
   }
 
   addFoodId(id) {
@@ -98,7 +74,7 @@ class ShoppingCartStore extends EventEmitter {
   removeFood(id) {
     console.log("removeFood: ", id);
     this.foodIdList = this.foodIdList.filter(function(item) { return item.foodId !== id });
-    this.foodInfoList = this.foodInfoList.filter(function(item) { return item.foodId !== id });
+    this.foodInfoList = this.foodInfoList.filter(function(item) { return item.id !== id });
     console.log("after removeFood: ", this.foodIdList);
     cookie.save('cartId', this.foodIdList, { path: '/' });
   }
@@ -106,9 +82,12 @@ class ShoppingCartStore extends EventEmitter {
   appendAmountToFoodInfo(foodInfoArray) {
       for (var i = 0; i < this.foodIdList.length; i++) {
         for (var j = 0; j < foodInfoArray.length; j++) {
-          if(foodInfoArray[j].foodId === this.foodIdList[i].foodId) {
+          console.log("!!!, ", foodInfoArray[j],this.foodIdList[i] );          
+          if(foodInfoArray[j].id === this.foodIdList[i].foodId) {
+
             foodInfoArray[j].amount = this.foodIdList[i].amount;
-            foodInfoArray[j].totalPrice = Number((foodInfoArray[j].amount*foodInfoArray[j].originalPrice).toFixed(2));
+            foodInfoArray[j].totalPrice = Number((foodInfoArray[j].amount*foodInfoArray[j].price).toFixed(2));
+            console.log("!!!, ", foodInfoArray[j]);
             break;
           }
         }
@@ -127,7 +106,7 @@ class ShoppingCartStore extends EventEmitter {
         break;
       }
       case "GET_SC_ERROR": {
-        this.foodInfoList = this.appendAmountToFoodInfo(action.response);
+        this.foodInfoList = []
         cookie.save('cartInfo', this.foodInfoList,{ path: '/' } );
         // console.log("Store: emitting updateFoodList_error:", this.foodInfoList);
         this.emit("updateFoodList_error", this.foodInfoList);
