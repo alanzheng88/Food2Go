@@ -54,18 +54,7 @@
   - Shopping Cart
   - Checkout
   - Add food to shopping cart  
-  
-### registration
-1. Go to http://localhost:9000 to manually warmup server url (for now)
-2. Go to http://localhost:9000/api/users (note the list of default users)
-3. Go to http://localhost:11000
-4. Click Register button
-5. Enter information (validation present -- frontend)
-6. Press submit button
-7. Pop up shows successful registration
-8. Go to http://localhost:9000/api/users (verify user has been created)
-
-### history
+- History
   - Create
   - Browse
   - Retrieve images
@@ -80,12 +69,12 @@ Registration
 1. Click on the Login Link on the top right of the website.
 2. Enter your email and password to login.
 3. Some default users:
-    Email: bb@sfu.ca
-    Password: password1
+    Email: bb@sfu.ca |
+    Password: password1 |
     Role: Customer
     
-    Email: billhe@sfu.ca
-    Password: password1
+    Email: billhe@sfu.ca |
+    Password: password1 |
     Role: Restaurant Owner
 
 ### Profile Setting
