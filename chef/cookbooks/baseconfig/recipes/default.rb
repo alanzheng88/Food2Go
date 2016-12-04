@@ -82,18 +82,18 @@ ruby_block "set_default_login_dir" do
   end
 end
 
-execute "run_serverside_tests" do
-  cwd "#{serversideTestDir}"
-  command "#{playScript} auto-test"
-  notifies :create, "ruby_block[check_serverside_tests_results]", :immediately
-end
+#execute "run_serverside_tests" do
+#  cwd "#{serversideTestDir}"
+#  command "#{playScript} auto-test"
+#  notifies :create, "ruby_block[check_serverside_tests_results]", :immediately
+#end
 
-ruby_block "check_serverside_tests_results" do
-  block do
-    raise "Server side tests failed. Check tests results."
-  end
-  not_if { ::File.file?("#{serversideTestResultsDir}/result.passed") }
-end
+#ruby_block "check_serverside_tests_results" do
+#  block do
+#    raise "Server side tests failed. Check tests results."
+#  end
+#  not_if { ::File.file?("#{serversideTestResultsDir}/result.passed") }
+#end
 
 execute "server_start" do
   user "ubuntu"
