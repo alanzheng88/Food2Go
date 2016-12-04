@@ -45,7 +45,6 @@ class UserStore extends EventEmitter {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("found valid cookie", response)
         if (response.status == 200 ) {
           this.emit("auth_success", true);
         } else {
@@ -82,40 +81,33 @@ class UserStore extends EventEmitter {
   handleActions(action) {
     switch(action.type) {
       case "AUTH_SUCCESS": {
-        console.log("Store received Autentication: ", action);
         if (action.response.status === 201 || action.response.status === 200) {
           //Save the session id to cookie
           //cookie.save('sessionId', this.session.sessionId, { path: '/' });
           this.session.loginStatus = true;  
           this.emit("auth_success", this.session.loginStatus);
           this.emit("login");
-          console.log("Store: emitting auth_success");
         } else {
-          console.log("Store: Status code in response is not 200 or 201. Status code :" + action.response.status);
           this.emit("auth_failure");
         }
         break;
       }
       case "AUTH_FAILURE": {
         this.emit("auth_failure");
-        console.log("Store: emitting auth_failure");
         break;
       }
       case "UPDATE_USERINFO": {
-        console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
         this.userInfo = action.response.data;
         cookie.save('USERINFO', this.userInfo, { path: '/' });
         this.emit("update_userinfo", this.userInfo);
         break;
       }
       case "UPDATE_USERRESTAURANTS": {
-        console.log("Store: received UPDATE_USERINFO, data: ", action.response.data)
         this.userInfo.restaurants = action.response.data;
         this.emit("update_userRestaurants", this.userInfo);
         break;
       }
       case "UPDATE_USERINFO_ERROR": {
-        console.log("Store: received UPDATE_USERINFO, data: ")
         this.session.loginStatus = false;
         this.userInfo = this.getGuestInfo();
         this.emit("logout", false);        
