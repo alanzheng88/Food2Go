@@ -58,7 +58,7 @@ public class OrderController extends AppController {
             String totalCost = requestBody.get("totalCost");
             int status = Integer.parseInt(requestBody.get("status"));
             List<Food> foodList = Food.findByIds(requestBody.get("foodIds"));
-            Order newOrder = new Order(restaurant, destinationAddress, totalCost, status, foodList);
+            Order newOrder = new Order(restaurant, destinationAddress, totalCost, status, foodList, user);
             if (hasValidationErrors(newOrder)) {
                 System.out.println("validation error in create order");
                 response.status = 400;

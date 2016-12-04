@@ -47,12 +47,13 @@ public class Order extends AppModel {
     
     
     public Order(Restaurant restaurant, String destinationAddress, 
-                 String totalCost, int status, List<Food> foods) {
+                 String totalCost, int status, List<Food> foods, User user) {
         this.restaurant = restaurant;
         this.destinationAddress = destinationAddress;
         this.totalCost = totalCost;
         this.status = status;
         this.foods = foods;
+        this.user = user;
     }
 
     @PrePersist

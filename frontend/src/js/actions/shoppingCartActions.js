@@ -34,12 +34,8 @@ export function checkout(text) {
   axios({
     method: 'POST',
     url: `http://${host}:${port}/api/user/orders`,
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
     withCredentials: true,
-    data: text,
+    data: JSON.stringify(text)
   })
   .then((response) => {
     console.log("ShoppingCartActions::checkout:response", response);
