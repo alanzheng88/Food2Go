@@ -7,11 +7,17 @@
 
 # Description: 
     In today's world, people can lead a hectic, always on-the-go lifestyle. 
-    Food2Go is a website that offers people a convenient and time-saving way of getting diversified food.
-    Often is the cases are when people are unable to enjoy a nice meal due to time constraint, inconvenience or even indecisiveness.
-    Food2Go not only allows people to browse, search and review restauants, the website is allow the option of having the food delivered to them.
-    Food2Go is partnered with the restaurants, helping the restaurateurs to spread awareness and generate revenues for their business.
-    By adding the game-changing factor of delivery, we can save people's time by not letting them travel, wait in line and deal with a busy restaurant setting.
+    Food2Go is a website that offers people a convenient and time-saving way 
+    of getting diversified food. Often is the cases are when people are unable 
+    to enjoy a nice meal due to time constraint, inconvenience or even 
+    indecisiveness.
+    Food2Go not only allows people to browse, search and review restaurants, 
+    the website is allowed the option of having the food delivered to them.
+    Food2Go is partnered with restaurants, helping the restaurateurs to 
+    spread awareness and generate revenues for their business.
+    By adding the game-changing factor of delivery, we can save people's time 
+    by cutting out travel time, wait in line and deal with a busy restaurant 
+    setting.
     
 
 # Technical Details
@@ -28,7 +34,7 @@
   - Authorization and authentication
 - User
   - Log in with basic authentication
-  - Cookie saved with session and has a timeout of 15 minutes
+  - Cookie saved with session and has a timeout of 1 day.
   - Can set roles as customer or restaurant owner
   - Can Reset password
 - Food
@@ -38,13 +44,13 @@
 - Restaurants
   - Create
   - Browse
-  - Upload images
+  - Retrieve images
 
 Demo Instructions
 Registration
 1. Click on the Register Link on the top right of the website.
-2. Enter in your information and selection your role either as customer or restaurant owner.
-(Customer and restaurant owner will have different functionality)
+2. Enter in your information and select your roles, either as a customer or a restaurant owner.
+    (Customer and restaurant owner will have different functionality)
 
 Login
 1. Click on the Login Link on the top right of the website.
