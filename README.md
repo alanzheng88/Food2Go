@@ -26,18 +26,22 @@
 - FrontEnd: ReactJs
 - Webserver: Nginx
 - CI: TeamCity (http://alanzheng.com:8080) -> log in as Guest
-- Project Management: Gitlab and Mingle (https://equinox.mingle.thoughtworks.com/projects/cmpt_470/cards/grid?color_by=Priority&favorite_id=2&filters%5B%5D=%5BType%5D%5Bis%5D%5BStory%5D&group_by%5Blane%5D=Status&lanes=New%2CComplete%2CTesting%2CDevelopment&tab=Card+Wall) -- username: haifuy@sfu.ca | password: password1
+- Project Management: Gitlab and Mingle (https://equinox.mingle.thoughtworks.com/projects/cmpt_470/cards/grid?color_by=Priority&favorite_id=2&filters%5B%5D=%5BType%5D%5Bis%5D%5BStory%5D&group_by%5Blane%5D=Status&lanes=New%2CComplete%2CTesting%2CDevelopment&tab=Card+Wall) -- username: haifuy@sfu.ca | password: password-1
+- Testing Framework: Postman, Frisby
+- Test Runner: Jasmine-node
+- Automated Tests: Unit tests and API Tests for serverside run on every build
 
 # Features
 - Restful Api
   - Design using API first approach
   - API follows REST standards
   - Authorization and authentication
+  - clear separation between frontend and backend
 - User
   - Log in with basic authentication
   - Cookie saved with session and has a timeout of 1 day.
   - Can set roles as customer or restaurant owner
-  - Can Reset password
+  - Can change user info (including password)
 - Food
   - Browse
   - Add to Cart
@@ -46,15 +50,11 @@
   - browse
   - upload images (food, menu, etc)
 - Point System
-- checkout system
+- Checkout system
   - Shopping Cart
   - Checkout
   - Add food to shopping cart  
   
-
-### restful api
-- clear separation between frontend and backend
-
 ### registration
 1. Go to http://localhost:9000 to manually warmup server url (for now)
 2. Go to http://localhost:9000/api/users (note the list of default users)
