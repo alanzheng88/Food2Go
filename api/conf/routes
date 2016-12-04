@@ -40,6 +40,9 @@ GET     /api/points                             PointController.getPoints
 POST    /api/user/point                         PointController.createPoint
 PUT     /api/user/point                         PointController.updatePoint
 
+# Image
+GET /api/user/image/{id}                        ImageController.getImage
+
 OPTIONS /{controller}/{action}                  Application.options
 
 # Ignore favicon requests
