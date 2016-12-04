@@ -28,6 +28,7 @@
   - Authorization and authentication
 - User
   - Log in with basic authentication
+  - Cookie saved with session and has a timeout of 15 minutes
   - Can set roles as customer or restaurant owner
   - Can Reset password
 - Food
@@ -61,7 +62,7 @@ Creating a Restaurant
 4. Select images for the restaurant
 
 Ordering Food
-1. Login as either customer or restaurant owner.
+1. Login not required
 2. Click on Restaurant link at the top or "Browse Restaurant" button at the homepage
 3. Select a restaurant from the list
 4. Click on Order Now
