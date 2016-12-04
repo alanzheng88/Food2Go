@@ -50,7 +50,7 @@ Demo Instructions
 Registration
 1. Click on the Register Link on the top right of the website.
 2. Enter in your information and select your roles, either as a customer or a restaurant owner.
-    (Customer and restaurant owner will have different functionality)
+    (Customer and restaurant owner will have different functionalities)
 
 Login
 1. Click on the Login Link on the top right of the website.
@@ -74,13 +74,14 @@ Creating a Restaurant
 2. Click on create restaurant near the top
 3. Enter restaurant information
 4. Select images for the restaurant
+5. Click on Create Restaurant
 
 Ordering Food
-1. Login not required
+1. Login as customer or restaurant owner
 2. Click on Restaurant link at the top or "Browse Restaurant" button at the homepage
 3. Select a restaurant from the list
 4. Click on Order Now
-5. Select the food item you want to order and click "Select this item for shopping cart"
+5. Select the food item you want to order and click "Select item" to add to shopping cart
 6. Once completed, Click on Shopping Cart link on the top right
 7. Review the order and click Checkout at the bottom
 8. Enter in your address and payment information and Click Place Order at the bottom
