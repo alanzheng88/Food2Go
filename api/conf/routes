@@ -41,7 +41,7 @@ POST    /api/user/point                         PointController.createPoint
 PUT     /api/user/point                         PointController.updatePoint
 
 # Image
-GET /images/blobstored/{id}                     ImageController.getImage
+GET /api/user/image/{id}                        ImageController.getImage
 
 OPTIONS /{controller}/{action}                  Application.options
 
