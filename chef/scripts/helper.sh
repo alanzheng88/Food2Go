@@ -1,5 +1,6 @@
 function restartBackendServer {
     echo "Restarting server"
+    chmod 777 devscripts/clearTables.sh
     sudo devscripts/clearTables.sh
     sudo kill -9 $(sudo lsof -t -i:9000)
     pushd api/

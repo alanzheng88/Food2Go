@@ -20,7 +20,6 @@ class ShoppingCartStore extends EventEmitter {
 
   getFoodIds(){
     var foodIdList = this.foodIdList;
-    // console.log("ShoppingCartStore::getFoodIdsInString: ", foodIdList);
     var res = [];
     if(foodIdList === undefined || foodIdList.length === 0) {
       // console.log("ShoppingCartStore::getFoodIdsInString: empty foodId");
@@ -79,6 +78,15 @@ class ShoppingCartStore extends EventEmitter {
     cookie.save('cartId', this.foodIdList, { path: '/' });
   }
 
+  getTotalAmount() {
+    var arrayLength = this.foodIdList.length;
+    var totalAmount = 0;
+      for (var i = 0; i < arrayLength; i++) {
+        totalAmount+=Number(this.foodIdList[i].amount);
+    }
+    return totalAmount;
+  }
+
   appendAmountToFoodInfo(foodInfoArray) {
       for (var i = 0; i < this.foodIdList.length; i++) {
         for (var j = 0; j < foodInfoArray.length; j++) {
@@ -115,12 +123,22 @@ class ShoppingCartStore extends EventEmitter {
       }
       case "ADD_FOOD": {
         this.addFoodId(action.foodId);
-        this.emit("updateFoodIdList", this.foodIdList.length);
+        var arrayLength = this.foodIdList.length;
+        var totalAmount = 0;
+        for (var i = 0; i < arrayLength; i++) {
+          totalAmount+=Number(this.foodIdList[i].amount);
+        }
+        this.emit("updateFoodIdList", totalAmount);
         break;
       }
       case "REMOVE_FOOD": {
         this.removeFood(action.foodId);
-        this.emit("updateFoodIdList", this.foodIdList.length);        
+        var arrayLength = this.foodIdList.length;
+        var totalAmount = 0;
+        for (var i = 0; i < arrayLength; i++) {
+          totalAmount+=Number(this.foodIdList[i].amount);
+        }
+        this.emit("updateFoodIdList", totalAmount);
         break;
       }
       case "CLEAR_CART": {
@@ -128,7 +146,7 @@ class ShoppingCartStore extends EventEmitter {
         cookie.remove('cartInfo', { path: '/' });
         this.foodIdList=[];
         this.foodInfoList = [];
-        this.emit("updateFoodIdList", this.foodIdList.length);                
+        this.emit("updateFoodIdList", 0);                
         break;
       }
       case "CHECKOUT_SUCCESS": {

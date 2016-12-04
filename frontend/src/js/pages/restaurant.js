@@ -22,6 +22,7 @@ export default class Restaurant extends React.Component {
         isOpened: false
 	  };
 	  this.getRestaurantInfo(this.props.params.restaurantId);
+	  this.toOrderNow=this.toOrderNow.bind(this);
 	  console.log(this.state);
 	}
 
@@ -55,6 +56,9 @@ export default class Restaurant extends React.Component {
 			  console.log('Error', error.message);
 			}
 		  });	  
+	}
+	toOrderNow(){
+		this.props.router.push(`/restaurants/${this.props.params.restaurantId}/foods`)
 	}
 	render() {
 	    console.log("Restaurant");
@@ -94,7 +98,7 @@ export default class Restaurant extends React.Component {
 				    	<br></br>
 				    	<br></br>
 				    	<button type="button" class="btn btn-primary btn-lg btn-block">Browse Menu</button>
-				    	<Link to={orderNow} class="btn btn-danger btn-lg btn-block">Order Now!</Link>
+				    	<button type="button" class="btn btn-danger btn-lg btn-block" onClick={this.toOrderNow}> Order Now! </button>
 				    	<h4>Contact Information</h4>
 				    	<p><NumberFormat value={this.state.restaurantPhoneNumber} displayType={'text'} format="(###) ###-####" /></p>
 				    	<p>{this.state.restaurantEmail}</p>

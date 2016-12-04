@@ -14,8 +14,8 @@ export default class Food extends React.Component {
       // Default values
       this.state ={
         foodId: {foodId},
-        foodName: "Food Name",
-        foodDescription: "t. Cras suscipit, nunc sit amet luctus scelerisque, dui risus aliquet massa, in commodo eros felis a sapien. Mauris faucibus, arcu finibus dapibus semper, est lectus finibus justo, ac ornare velit enim a enim. Praesent non mi turpis. Etiam dictum placerat nisi eu fermentum. Donec luctus fermentum ligula a viverra. Donec mollis turpis ac efficitur vehicula. Suspendisse id risus ex. Proin aliquet eros sed fermentum imperdiet. ",
+        foodName: "",
+        foodDescription: "",
         imageFiles: [],
         menuFile: [],
         isOpened: false
@@ -58,12 +58,11 @@ export default class Food extends React.Component {
     }
 
     addToCart() {
-      ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));
-      this.props.router.push(`restaurants/${this.props.router.params.restaurantId}/foods`);      
+      ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));     
     }
 
     goBack() {
-      this.props.router.push(`restaurants/${this.props.router.params.restaurantId}/foods`);
+      this.props.router.push(`/restaurants/${this.props.router.params.restaurantId}/foods`);
     }
 
     render() {
@@ -91,7 +90,7 @@ export default class Food extends React.Component {
                 </div>
                 <div class="row" style={wellStyles}>
                     <br></br>
-                    <button class="btn btn-primary btn-lg btn-block" onClick={this.addToCart}>Add to ShoppingCart and back to menu</button>
+                    <button class="btn btn-primary btn-lg btn-block" onClick={this.addToCart}>Add to Cart</button>
                     <button class="btn btn-primary btn-lg btn-block" onClick={this.goBack}>Back to our menu</button>
                 </div>
             </div>

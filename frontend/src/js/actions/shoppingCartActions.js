@@ -3,7 +3,6 @@ import axios from "axios";
 import {host, port} from "../constants/backend.js"
 
 export function getFoodList(text) {
-  console.log("shoppingCartAction::getFoodList:Sending data!", text);
   axios({
     method: 'GET',
     url: `http://${host}:${port}/api/user/foods?id=${text}`,
@@ -18,10 +17,8 @@ export function getFoodList(text) {
     	type: "GET_SC_RESPONSE",
     	response
     });
-    console.log("Action: shoppingCart response!", response);
   })
   .catch((error) => {
-    console.log("Action: shoppingCart error", error);
   	dispatcher.dispatch({
       	type: "GET_SC_ERROR",
       	error
@@ -29,28 +26,21 @@ export function getFoodList(text) {
   })
 }
 
-export function checkout(text) {
-  console.log("checkout: ", text);
+export function checkout(data) {
+  console.log("checkout: ", data);
   axios({
-    method: 'POST',
+    method: 'post',
     url: `http://${host}:${port}/api/user/orders`,
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
     withCredentials: true,
-    data: text,
+    data: JSON.stringify(data),
   })
   .then((response) => {
-    console.log("ShoppingCartActions::checkout:response", response);
     dispatcher.dispatch({
       type: "CHECKOUT_SUCCESS",
       response
     });
-    console.log("got the response!", response);
   })
   .catch((error) => {
-    console.log("ShoppingCartActions::checkout:error", error);
     dispatcher.dispatch({
         type: "CHECKOUT_FAILURE",
         error,
