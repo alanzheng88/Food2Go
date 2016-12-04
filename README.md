@@ -25,7 +25,8 @@
 - Backend: Play 1 Framework
 - FrontEnd: ReactJs
 - Webserver: Nginx
-- CI: TeamCity (http://alanzheng.com:8080)
+- CI: TeamCity (http://alanzheng.com:8080) -> log in as Guest
+- Project Management: Gitlab and Mingle (https://equinox.mingle.thoughtworks.com/projects/cmpt_470/cards/grid?color_by=Priority&favorite_id=2&filters%5B%5D=%5BType%5D%5Bis%5D%5BStory%5D&group_by%5Blane%5D=Status&lanes=New%2CComplete%2CTesting%2CDevelopment&tab=Card+Wall) -- username: haifuy@sfu.ca | password: password1
 
 # Features
 - Restful Api
