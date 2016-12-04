@@ -14,8 +14,8 @@ export default class Food extends React.Component {
       // Default values
       this.state ={
         foodId: {foodId},
-        foodName: "Food Name",
-        foodDescription: "t. Cras suscipit, nunc sit amet luctus scelerisque, dui risus aliquet massa, in commodo eros felis a sapien. Mauris faucibus, arcu finibus dapibus semper, est lectus finibus justo, ac ornare velit enim a enim. Praesent non mi turpis. Etiam dictum placerat nisi eu fermentum. Donec luctus fermentum ligula a viverra. Donec mollis turpis ac efficitur vehicula. Suspendisse id risus ex. Proin aliquet eros sed fermentum imperdiet. ",
+        foodName: "",
+        foodDescription: "",
         imageFiles: [],
         menuFile: [],
         isOpened: false
@@ -56,7 +56,7 @@ export default class Food extends React.Component {
             }
           });     
     }
-    
+
     addToCart() {
       ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));     
     }

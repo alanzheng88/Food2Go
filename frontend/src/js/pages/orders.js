@@ -11,17 +11,7 @@ export default class Orders extends React.Component {
 		  this.state ={
 			  searchTerm: "",
 			  selectedYear: "",
-				orders: [{
-					id: 0,
-					//restaurant: "Koto",
-					totalCost: "9.99",
-					dateCreated: "2016-12-06",
-					status: 6},{
-						id: 1,
-						//restaurant: "Koto",
-						totalCost: "30.45",
-						dateCreated: "2016-11-11",
-						status: 4}]
+				orders: [],
 		  };
 		  this.getOrders();
 		  this.searchUpdated = this.searchUpdated.bind(this);

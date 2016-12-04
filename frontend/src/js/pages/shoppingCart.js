@@ -40,12 +40,17 @@ export default class ShoppingCart extends React.Component {
   }
 
   handleAmountChange(event,arrayNum) {
-    if (event.target.value >= 0) {
-      var list = this.state.foodList;
-      list[arrayNum].amount = Number(event.target.value);  
-      list[arrayNum].totalPrice = Number((event.target.value*list[arrayNum].price).toFixed(2));
-      this.setState({foodList: list})
+    var value = Number(event.target.value);
+    if (Number(event.target.value)>= 100) {
+      value = 100;
     }
+    if (Number(event.target.value)< 0) {
+      value = 0;
+    }
+    var list = this.state.foodList;
+    list[arrayNum].amount = value;  
+    list[arrayNum].totalPrice = Number((value*list[arrayNum].price).toFixed(2));
+    this.setState({foodList: list})
   }
 
   handleRemove(event, foodId) {
@@ -72,7 +77,7 @@ export default class ShoppingCart extends React.Component {
       subTotal += foodItem.totalPrice;
     }
     subTotal = subTotal.toFixed(2);
-    var tax = (Number(subTotal)*0.1).toFixed(2); 
+    var tax = (Number(subTotal)*0.12).toFixed(2); 
     var total = (Number(subTotal)+Number(tax)).toFixed(2);
     return (
       <div className="container">
@@ -124,20 +129,20 @@ export default class ShoppingCart extends React.Component {
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
                   <td> &nbsp; </td>
-                  {foodList.length === 0 && 
+                  {(foodList.length !== 0 || (foodList.length === 1 && foodList[0].amount=== 0)) && 
+                    <td> &nbsp; </td>
+                  }
+                  {(foodList.length === 0) && 
                     <td>
                       <Link to="/" className="btn btn-default"> Continue Shopping <span className="glyphicon glyphicon-shopping-cart" /></Link>
                     </td>
                   }
-                  {foodList.length === 0 && 
+                  {(foodList.length === 0 || (foodList.length === 1 && foodList[0].amount=== 0)) && 
                     <td>
                       <Link className="btn btn-success" disabled> Checkout <span className="glyphicon glyphicon-play" /></Link>
                     </td>
                   }
-                  {foodList.length !== 0 && 
-                    <td> &nbsp; </td>
-                  }
-                  {foodList.length !== 0 && 
+                  {!(foodList.length === 0 || (foodList.length === 1 && foodList[0].amount=== 0)) && 
                     <td>
                       <Link to="Checkout" className="btn btn-success" onClick={this.handleCheckout}> Checkout <span className="glyphicon glyphicon-play" /></Link>
                     </td>
