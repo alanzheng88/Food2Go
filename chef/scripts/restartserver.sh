@@ -5,4 +5,3 @@ set -o verbose
 . "chef/scripts/helper.sh"
 
 restartBackendServer
-restartFrontendServer

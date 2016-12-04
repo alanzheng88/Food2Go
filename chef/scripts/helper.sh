@@ -17,6 +17,6 @@ function restartFrontendServer {
     sudo kill -9 $(sudo lsof -t -i:12345)
     pushd frontend/
     npm install
-    # screen -d -m /usr/bin/npm run dev
+    screen -d -m /usr/bin/npm run dev
     popd
 }
