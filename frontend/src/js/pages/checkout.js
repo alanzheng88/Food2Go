@@ -164,7 +164,7 @@ export default class Checkout extends React.Component {
         "foodIds": restaurants[key].toString(),
       }
       console.log("!!!,",data)
-      ShoppingCartActions.checkout(JSON.stringify(data));
+      ShoppingCartActions.checkout(data);
     }
   }
   render() {
