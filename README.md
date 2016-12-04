@@ -26,16 +26,18 @@
   - Design using API first approach
   - API follows REST standards
   - Authorization and authentication
-- User Profiles
+- User
   - Log in with basic authentication
+  - Can set roles as customer or restaurant owner
+  - Can Reset password
 - Food
   - Browse
-  - Order
+  - Add to Cart
+  - Review and Confirm Order
 - Restaurants
   - Create
   - Browse
   - Upload images
-
 
 Demo Instructions
 Registration
