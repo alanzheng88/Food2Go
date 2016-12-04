@@ -49,6 +49,14 @@ Registration
 Login
 1. Click on the Login Link on the top right of the website.
 2. Enter your email and password to login.
+3. Some default users:
+    Email: bb@sfu.ca
+    Password: password1
+    Role: Customer
+    
+    Email: billhe@sfu.ca
+    Password: password1
+    Role: Restaurant Owner
 
 Profile Setting
 1. When logged in, click on User -> My Account
