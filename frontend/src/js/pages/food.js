@@ -58,12 +58,11 @@ export default class Food extends React.Component {
     }
 
     addToCart() {
-      ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));
-      this.props.router.push(`restaurants/${this.props.router.params.restaurantId}/foods`);      
+      ShoppingCartActions.addFoodToCart(Number(this.state.foodId.foodId));     
     }
 
     goBack() {
-      this.props.router.push(`restaurants/${this.props.router.params.restaurantId}/foods`);
+      this.props.router.push(`/restaurants/${this.props.router.params.restaurantId}/foods`);
     }
 
     render() {
@@ -91,7 +90,7 @@ export default class Food extends React.Component {
                 </div>
                 <div class="row" style={wellStyles}>
                     <br></br>
-                    <button class="btn btn-primary btn-lg btn-block" onClick={this.addToCart}>Add to ShoppingCart and back to menu</button>
+                    <button class="btn btn-primary btn-lg btn-block" onClick={this.addToCart}>Add to Cart</button>
                     <button class="btn btn-primary btn-lg btn-block" onClick={this.goBack}>Back to our menu</button>
                 </div>
             </div>
