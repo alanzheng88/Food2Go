@@ -57,7 +57,7 @@ export default class Foods extends React.Component {
 
     return (
 		<div>
-      <h1>Restaurant's Menu</h1>
+      <h1>Menu</h1>
       <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
       {filteredFoods.map(food => {
        return (
@@ -73,10 +73,9 @@ export default class Foods extends React.Component {
 				<button type="button" class="btn btn-success btn-sm" onClick={()=>{this.props.router.push(`restaurants/${food.restaurant.id}/foods/${food.id}`);}}>View Detail</button>
 				</div>
 				<div class="col-md-6">
-				<button type="button" class="btn btn-success btn-sm" value={`${food.id}`} onClick={this.addToCart}>Add To Cart</button>
+				<button type="button" class="btn btn-success btn-sm" value={`${food.id}`} onClick={this.addToCart}>Add item</button>
 				</div>
 			</div>
-			<p>&nbsp;</p>
         </div>
 
         //</a>

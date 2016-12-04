@@ -13,7 +13,7 @@ export default class Nav extends React.Component {
       collapsed: true,
       loginStatus: userStore.getLoginStatus(),
       userInfo: userStore.getUserInfo(),
-      shoppingCartItems: ShoppingCartStore.getFoodIds().length,
+      shoppingCartItems: ShoppingCartStore.getTotalAmount(),
     };
     this.updateLoginStatus = this.updateLoginStatus.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
@@ -57,7 +57,7 @@ export default class Nav extends React.Component {
   }
 
   updateFoodIdList(itemNum) {
-    this.setState({shoppingCartItems: itemNum})
+    this.setState({shoppingCartItems: itemNum.toString()})
   }
 
   updateUserRestaurants(userInfo) {

@@ -54,11 +54,12 @@ export default class ShoppingCart extends React.Component {
   }
 
   handleRemove(event, foodId) {
+    console.log(foodId);
     ShoppingCartActions.removeFoodInCart(foodId);
     var infoList = this.state.foodList;
     var idList = this.state.foodIdList;
-    infoList = infoList.filter(function(item) { return item.foodId !== foodId });
-    idList = idList.filter(function(item) { return item.foodId !== foodId });
+    infoList = infoList.filter(function(item) { return item.id !== foodId });
+    idList = idList.filter(function(item) { return item.id !== foodId });
     this.setState({
         foodList: infoList,
         foodIdList: idList,

@@ -18,12 +18,12 @@ export default class ShoppingItem extends React.Component {
     if (this.props.onChange) {
       this.props.onChange(event,this.props.arrayNum);
     }
-    this.setState({ amount: this.props.food.amount });
+    this.setState({ amount: this.props.food.amount});
   }
 
   handleRemove(event) {
     if (this.props.onClick) {
-      this.props.onClick(event, this.props.food.foodId);
+      this.props.onClick(event, this.props.food.id);
     }
   }
   render() {

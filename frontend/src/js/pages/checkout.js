@@ -138,30 +138,38 @@ export default class Checkout extends React.Component {
   }
 
   redirect() {
-    this.props.router.push('/Orders');
+    this.props.router.replace('/Orders');
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    var restaurants = [];
+    var restaurantIds = [];
+    var restaurantPrices = [];
     var foodList = this.state.foodList;
     for (var i = 0; i < foodList.length; i++) {
       var id = foodList[i].restaurant.id;
-      if(id in restaurants === false) {
-        restaurants[id]=[];
+      if(id in restaurantIds === false) {
+        restaurantIds[id]=[];
+        restaurantPrices[id]=[];
       }
-      restaurants[id].push(foodList[i].id);
+      restaurantIds[id].push(foodList[i].id);
+      restaurantPrices[id].push(foodList[i].price);
     }
-    for (var key in restaurants) {
+    for (var key in restaurantIds) {
+      var price = 0;
+      for (var i = 0; i < restaurantPrices[key].length; i++) {
+        price+=Number(restaurantPrices[key][i]);
+      }
       var data = {
         restaurantId: key,
         destinationAddress: this.state.userInfo.address,
-        totalCost: this.state.priceInfo.total,
+        totalCost: price.toFixed(2),
         status: "0",
-        foodIds: restaurants[key].toString(),
+        foodIds: restaurantIds[key].toString(),
       }
       ShoppingCartActions.checkout(data);
     }
+    ShoppingCartActions.clearCart();
   }
   render() {
     const {priceInfo, foodList, userInfo, paymentInfo } = this.state;

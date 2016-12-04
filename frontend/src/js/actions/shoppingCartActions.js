@@ -32,8 +32,7 @@ export function checkout(data) {
     method: 'post',
     url: `http://${host}:${port}/api/user/orders`,
     withCredentials: true,
-    data: JSON.stringify(text)
-    withCredentials: true,
+    data: JSON.stringify(data),
   })
   .then((response) => {
     dispatcher.dispatch({

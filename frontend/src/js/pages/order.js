@@ -9,26 +9,11 @@ export default class Orders extends React.Component {
 		  let orderId = this.props.params.orderId;
           this.state = {
               id: orderId,
-              dateCreated: "2016-12-03 02:05:42",
-              totalCost: "24.99",
+              dateCreated: "",
+              totalCost: "",
               status: 0,
-              foods: [{
-                  id: 0,
-                  name: "California Roll",
-                  price: "5.99",
-                  description: "Yummiest thing on earth",
-                  restaurant: {
-                      "name": "Koto"
-                  }
-              }, {
-                  id: 1,
-                  name: "California Roll",
-                  price: "5.99",
-                  description: "Yummiest thing on earth",
-                  restaurant: {
-                      "name": "Koto"
-                  }
-              }]
+              address: "",
+              foods: []
           };
 		  this.getOrder(orderId);
 	}
@@ -46,6 +31,7 @@ export default class Orders extends React.Component {
                     dateCreated:    response.data.dateCreated,
                     totalCost:      response.data.totalCost,
                     status:         response.data.status,
+                    address:        response.data.destinationAddress,
                     foods:          response.data.foods        
 					});
 			})
@@ -141,6 +127,12 @@ export default class Orders extends React.Component {
                         <div class="panel-body">
                             <h4>Order Total</h4>
                             <div>${this.state.totalCost}</div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default row">                        
+                        <div class="panel-body">
+                            <h4>Delivery address</h4>
+                            <div>{this.state.address}</div>
                         </div>
                     </div>
                     <div class="panel panel-default row">
