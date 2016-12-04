@@ -35,7 +35,7 @@ export default class ShoppingItem extends React.Component {
         <tr>
           <td className="col-sm-8 col-md-6">
             <div className="media">
-              <a className="thumbnail pull-left" href="#"> 
+              <a className="thumbnail pull-left" href={foodLink}> 
                 <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style={{width: 72, height: 72}} /> 
               </a>
               <div className="media-body">
