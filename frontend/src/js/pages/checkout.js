@@ -31,7 +31,7 @@ export default class Checkout extends React.Component {
       subTotal += foodItem.totalPrice;
     }
     subTotal = subTotal.toFixed(2);
-    var tax = (Number(subTotal)*0.1).toFixed(2); 
+    var tax = (Number(subTotal)*0.12).toFixed(2); 
     var total = (Number(subTotal)+Number(tax)).toFixed(2);
     this.state.priceInfo = {
       subtotal: subTotal,
@@ -138,37 +138,40 @@ export default class Checkout extends React.Component {
   }
 
   redirect() {
-    this.props.router.push('/Orders');
+    this.props.router.replace('/Orders');
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    var restaurants = [];
+    var restaurantIds = [];
+    var restaurantPrices = [];
     var foodList = this.state.foodList;
-    console.log("handleSubmit::foodList", foodList);
     for (var i = 0; i < foodList.length; i++) {
       var id = foodList[i].restaurant.id;
-      console.log("id, ",id);
-      if(id in restaurants === false) {
-        restaurants[id]=[];
+      if(id in restaurantIds === false) {
+        restaurantIds[id]=[];
+        restaurantPrices[id]=[];
       }
-      restaurants[id].push(foodList[i].id);
+      restaurantIds[id].push(foodList[i].id);
+      restaurantPrices[id].push(foodList[i].price);
     }
-    console.log("handleSubmit: ", restaurants);
-    for (var key in restaurants) {
-      const data = {
-        "restaurantId": key,
-        "destinationAddress": this.state.userInfo.address,
-        "totalCost": this.state.priceInfo.total,
-        "status": "1",
-        "foodIds": restaurants[key].toString(),
+    for (var key in restaurantIds) {
+      var price = 0;
+      for (var i = 0; i < restaurantPrices[key].length; i++) {
+        price+=Number(restaurantPrices[key][i]);
       }
-      console.log("!!!,",data)
+      var data = {
+        restaurantId: key,
+        destinationAddress: this.state.userInfo.address,
+        totalCost: price.toFixed(2),
+        status: "0",
+        foodIds: restaurantIds[key].toString(),
+      }
       ShoppingCartActions.checkout(data);
     }
+    ShoppingCartActions.clearCart();
   }
   render() {
-    console.log("Checkout");
     const {priceInfo, foodList, userInfo, paymentInfo } = this.state;
     return (
       <div className="container wrapper">
@@ -262,12 +265,11 @@ export default class Checkout extends React.Component {
                       <input type="text" name="address" value={userInfo.address} onChange={this.handleAddressChange} className="form-control" required/>
                     </div>
                   </div>
-                  {false && <div className="form-group">
+                  <div className="form-group">
                     <div className="col-md-12"><strong>Phone Number:</strong></div>
                     <div className="col-md-12">
-                      <input type="text" name="phone_number" value={userInfo.phoneNumber} onChange={this.handlePhoneNumberChange} className="form-control" /></div>
+                      <input type="text" name="phone_number" value={userInfo.phoneNumber} onChange={this.handlePhoneNumberChange} className="form-control" required/></div>
                     </div>
-                  }
                   <div className="form-group">
                     <div className="col-md-12"><strong>Email Address:</strong></div>
                     <div className="col-md-12">
@@ -275,8 +277,6 @@ export default class Checkout extends React.Component {
                   </div>
                 </div>
               </div>
-              {/*SHIPPING METHOD END*/}
-              {/*CREDIT CART PAYMENT*/}
               <div className="panel panel-primary">
                 <div className="panel-heading"><span><i className="glyphicon glyphicon-lock" /></span> Secure Payment</div>
                 <div className="panel-body">
@@ -292,22 +292,22 @@ export default class Checkout extends React.Component {
                   </div>
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card holder's Name:</strong></div>
-                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardHolder} onChange={this.handleCardHolderChange} /></div>
+                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardHolder} onChange={this.handleCardHolderChange} required/></div>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card Number:</strong></div>
-                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardNum} onChange={this.handleCardNumberChange} /></div>
+                    <div className="col-md-12"><input type="text" className="form-control" name="car_number" value={paymentInfo.cardNum} onChange={this.handleCardNumberChange} required/></div>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12"><strong>Card CVV:</strong></div>
-                    <div className="col-md-12"><input type="password" className="form-control" name="car_code" value={paymentInfo.cvv} onChange={this.handleCVVChange} /></div>
+                    <div className="col-md-12"><input type="password" className="form-control" name="car_code" value={paymentInfo.cvv} onChange={this.handleCVVChange} required/></div>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12">
                       <strong>Expiration Date</strong>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                      <select className="form-control" name="expire_month" onChange={this.handleExpireMonthChange} >
+                      <select className="form-control" name="expire_month" onChange={this.handleExpireMonthChange} required>
                         <option value="">Month</option>
                         <option value={'01'}>01</option>
                         <option value={'02'}>02</option>
@@ -324,7 +324,7 @@ export default class Checkout extends React.Component {
                       </select>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                      <select className="form-control" name="expire_year" onChange={this.handleExpireYearChange} >
+                      <select className="form-control" name="expire_year" onChange={this.handleExpireYearChange} required>
                         <option value="">Year</option>
                         <option value={'2016'}>2016</option>
                         <option value={'2017'}>2017</option>
@@ -346,7 +346,6 @@ export default class Checkout extends React.Component {
                   </div>
                 </div>
               </div>
-              {/*CREDIT CART PAYMENT END*/}
             </div>
           </form>
         </div>

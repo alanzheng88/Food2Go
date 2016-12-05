@@ -11,17 +11,7 @@ export default class Orders extends React.Component {
 		  this.state ={
 			  searchTerm: "",
 			  selectedYear: "",
-				orders: [{
-					id: 0,
-					//restaurant: "Koto",
-					totalCost: "9.99",
-					dateCreated: "2016-12-06",
-					status: 6},{
-						id: 1,
-						//restaurant: "Koto",
-						totalCost: "30.45",
-						dateCreated: "2016-11-11",
-						status: 4}]
+				orders: [],
 		  };
 		  this.getOrders();
 		  this.searchUpdated = this.searchUpdated.bind(this);
@@ -93,7 +83,6 @@ export default class Orders extends React.Component {
 		<SearchInput className="hidden search-input" onChange={this.searchUpdated.bind(this)} value={this.state.selectedYear} />
             <select onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
                 <option value="2016">2016</option>
-                <option value="2015">2015</option>
             </select>
             <table class="table table-hover">
                 <thead>

@@ -45,18 +45,18 @@ ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={Layout}>
     <IndexRoute component={Food2Go}></IndexRoute>
-    <Route path="checkout" component={Checkout}/>
+    <Route path="checkout" component={Checkout} onEnter={userIsLogin}/>
     <Route path="restaurants" component={Restaurants}/>
-    <Route path="account" component={Account}/>
+    <Route path="account" component={Account} onEnter={userIsLogin}/>
     <Route path="login" component={Login}/>
     <Route path="register" component={Register}/>
     <Route path="shoppingcart" component={ShoppingCart} onEnter={userIsLogin}/>
-    <Route path="orders" component={Orders}/>
-    <Route path="orders/:orderId" component={Order}/>
-    <Route path="points" component={Points}/>
-    <Route path="coupons" component={Coupons}/>
-    <Route path="invite" component={Points}/>
-    <Route path="settings" component={Settings}/>
+    <Route path="orders" component={Orders} onEnter={userIsLogin}/>
+    <Route path="orders/:orderId" component={Order} onEnter={userIsLogin}/>
+    <Route path="points" component={Points} onEnter={userIsLogin}/>
+    <Route path="coupons" component={Coupons} onEnter={userIsLogin}/>
+    <Route path="invite" component={Points} onEnter={userIsLogin}/>
+    <Route path="settings" component={Settings} onEnter={userIsLogin}/>
     <Route path="/restaurants/create" component={CreateRestaurant}/>
     <Route path="restaurants/:restaurantId" component={Restaurant}/>
     <Route path="aboutus" component={AboutUs}/>

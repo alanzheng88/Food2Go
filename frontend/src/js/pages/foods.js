@@ -9,28 +9,7 @@ export default class Foods extends React.Component {
 		  super(props);
 		  this.state ={
 		    searchTerm: "",
-				foods: [{
-					id: 1,
-					name: "food 1",
-					price: "10",
-					description: "Food Description"},{
-						id: 2,
-						name: "food 2",
-						price: "8",
-						description: "Food Description"},{
-						id: 3,
-						name: "food 3",
-						price: "4",
-						description: "Food Description"},{
-						id: 4,
-						name: "food 4",
-						price: "15",
-						description: "Food Description"},{
-						id: 5,
-						name: "food 5",
-						price: "7",
-						description: "Food Description"
-						}]
+				foods: [],
 		  };
 		  this.getFoods();
 		  this.searchUpdated = this.searchUpdated.bind(this);
@@ -67,17 +46,18 @@ export default class Foods extends React.Component {
 		  });
 	}
 	addToCart(event) {
-		console.log(this.state.food);
-      	ShoppingCartActions.addFoodToCart(Number(this.state.foodId));      
+      	ShoppingCartActions.addFoodToCart(Number(event.target.value));      
     }
 	render() {
 	console.log(this.props);
 	var pathName = this.props.location.pathname;
+	// var restaurantName = this.state.foods.restaurant.name;
 	const filteredFoods = this.state.foods.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     console.log("Foods");
+
     return (
 		<div>
-      <h1>Search Foods</h1>
+      <h1>Menu</h1>
       <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
       {filteredFoods.map(food => {
        return (
@@ -93,10 +73,9 @@ export default class Foods extends React.Component {
 				<button type="button" class="btn btn-success btn-sm" onClick={()=>{this.props.router.push(`restaurants/${food.restaurant.id}/foods/${food.id}`);}}>View Detail</button>
 				</div>
 				<div class="col-md-6">
-				<button type="button" class="btn btn-success btn-sm" onClick={this.addToCart}>Select item</button>
+				<button type="button" class="btn btn-success btn-sm" value={`${food.id}`} onClick={this.addToCart}>Add item</button>
 				</div>
 			</div>
-			<p>&nbsp;</p>
         </div>
 
         //</a>

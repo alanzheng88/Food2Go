@@ -54,18 +54,7 @@
   - Shopping Cart
   - Checkout
   - Add food to shopping cart  
-  
-### registration
-1. Go to http://localhost:9000 to manually warmup server url (for now)
-2. Go to http://localhost:9000/api/users (note the list of default users)
-3. Go to http://localhost:11000
-4. Click Register button
-5. Enter information (validation present -- frontend)
-6. Press submit button
-7. Pop up shows successful registration
-8. Go to http://localhost:9000/api/users (verify user has been created)
-
-### history
+- History
   - Create
   - Browse
   - Retrieve images
@@ -80,12 +69,12 @@ Registration
 1. Click on the Login Link on the top right of the website.
 2. Enter your email and password to login.
 3. Some default users:
-    Email: bb@sfu.ca
-    Password: password1
+    Email: bb@sfu.ca |
+    Password: password1 |
     Role: Customer
     
-    Email: billhe@sfu.ca
-    Password: password1
+    Email: billhe@sfu.ca |
+    Password: password1 |
     Role: Restaurant Owner
 
 ### Profile Setting
@@ -110,7 +99,7 @@ Registration
 7. Register or Login as customer or restaurant owner if not done so.
 8. Click on Shopping Cart link on the top right
 9. Review the order and click Checkout at the bottom
-10. Enter in your address and payment information and Click Place Order at the bottom
+10. Enter in your address, phone number and payment information and Click Place Order at the bottom
 
 ### Ordering Food By Food Selection
 1. Click on Browse Food
@@ -121,8 +110,17 @@ Registration
 6. Click on Shopping Cart link on the top right
 7. Change the quantity and notice the price change
 8. Click Checkout at the bottom
-9. Enter in your address and payment information and Click Place Order at the bottom
+9. Enter in your address, phone number and payment information and Click Place Order at the bottom
 10. Click on the Order to view order detail
+
+### Ordering Foods from multiple restaurants
+1. Click on Browse Food
+2. Add Sashimi and Unagi to shopping cart
+3. Click on Shopping Cart
+4. Click on checkout
+5. Enter in your address, phone number and payment information and Click Place Order at the bottom
+6. Click on the user orders page to view order detail
+7. Two orders are created for each restaurant.
 
 ### Social Network
 1. Links to Facebook, Twitter, email available at bottom right
