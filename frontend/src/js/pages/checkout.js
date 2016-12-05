@@ -265,12 +265,11 @@ export default class Checkout extends React.Component {
                       <input type="text" name="address" value={userInfo.address} onChange={this.handleAddressChange} className="form-control" required/>
                     </div>
                   </div>
-                  {false && <div className="form-group">
+                  <div className="form-group">
                     <div className="col-md-12"><strong>Phone Number:</strong></div>
                     <div className="col-md-12">
-                      <input type="text" name="phone_number" value={userInfo.phoneNumber} onChange={this.handlePhoneNumberChange} className="form-control" /></div>
+                      <input type="text" name="phone_number" value={userInfo.phoneNumber} onChange={this.handlePhoneNumberChange} className="form-control" required/></div>
                     </div>
-                  }
                   <div className="form-group">
                     <div className="col-md-12"><strong>Email Address:</strong></div>
                     <div className="col-md-12">

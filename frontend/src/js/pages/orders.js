@@ -83,7 +83,6 @@ export default class Orders extends React.Component {
 		<SearchInput className="hidden search-input" onChange={this.searchUpdated.bind(this)} value={this.state.selectedYear} />
             <select onChange={this.changeYear.bind(this)} value={this.state.selectedYear}>
                 <option value="2016">2016</option>
-                <option value="2015">2015</option>
             </select>
             <table class="table table-hover">
                 <thead>
