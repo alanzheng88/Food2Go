@@ -99,7 +99,7 @@ Registration
 7. Register or Login as customer or restaurant owner if not done so.
 8. Click on Shopping Cart link on the top right
 9. Review the order and click Checkout at the bottom
-10. Enter in your address and payment information and Click Place Order at the bottom
+10. Enter in your address, phone number and payment information and Click Place Order at the bottom
 
 ### Ordering Food By Food Selection
 1. Click on Browse Food
@@ -110,8 +110,17 @@ Registration
 6. Click on Shopping Cart link on the top right
 7. Change the quantity and notice the price change
 8. Click Checkout at the bottom
-9. Enter in your address and payment information and Click Place Order at the bottom
+9. Enter in your address, phone number and payment information and Click Place Order at the bottom
 10. Click on the Order to view order detail
+
+### Ordering Foods from multiple restaurants
+1. Click on Browse Food
+2. Add Sashimi and Unagi to shopping cart
+3. Click on Shopping Cart
+4. Click on checkout
+5. Enter in your address, phone number and payment information and Click Place Order at the bottom
+6. Click on the user orders page to view order detail
+7. Two orders are created for each restaurant.
 
 ### Social Network
 1. Links to Facebook, Twitter, email available at bottom right
@@ -120,12 +129,4 @@ Registration
 1. click on a few links
 2. press the back button (notice that the url does not change)
 
-# What Doesn't Work
-1. Browse Menu
-2. Image Upload and Review
-3. Comments and tags
-4. Processing Credit Card Informatoin
-5. Cookies are not encrypted - SSL not implemented
-6. Inviting Friends
-7. The whole process for hiring people
-8. Adding foods
+
