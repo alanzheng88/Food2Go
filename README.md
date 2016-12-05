@@ -120,4 +120,12 @@ Registration
 1. click on a few links
 2. press the back button (notice that the url does not change)
 
-
+# What Doesn't Work
+1. Browse Menu
+2. Image Upload and Review
+3. Comments and tags
+4. Processing Credit Card Informatoin
+5. Cookies are not encrypted - SSL not implemented
+6. Inviting Friends
+7. The whole process for hiring people
+8. Adding foods
