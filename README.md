@@ -1,5 +1,8 @@
 # SFU Food2Go
 
+![food2go homepage demo](https://github.com/alanzheng88/Food2Go/blob/master/images/food2go_homepage.png)
+
+
 # Usage Instructions:
 1. If you are on Windows, run the following line before cloning the repo: git config —global core.autocrlf true
 2. Call "vagrant up"

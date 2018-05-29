@@ -109,7 +109,7 @@ end
 execute "run_api_tests" do
   user "ubuntu"
   cwd "#{clientsideTestDir}"
-  command "/usr/local/bin/jasmine-node . --junitreport"
+  command "/usr/bin/jasmine-node . --junitreport"
 end
 
 execute "server_restart" do

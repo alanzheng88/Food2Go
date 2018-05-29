@@ -6,8 +6,8 @@
   "dependencies": {
     "attr-accept": "^1.1.0",
     "axios": "~0.15.2",
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.0",
+    "babel-core": "^6.0.0",
+    "babel-loader": "^7.0.0",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-react-html-attrs": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.3.13",
@@ -41,13 +41,14 @@
     "react-sticky": "^5.0.5",
     "react-validation": "^2.10.9",
     "validator": "^6.1.0",
-    "webpack": "^1.12.9",
+    "webpack": "^2.2.0-rc",
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
     "frisby": "^0.8.5"
   },
   "scripts": {
+    "preinstall": "sudo npm i -g npm webpack-cli webpack@latest;",
     "dev": "webpack-dev-server --content-base src --inline --hot --host 0.0.0.0 --port 12345",
     "localdev": "webpack-dev-server --content-base src --inline --hot",
     "test:live": "jasmine-node . --autotest"

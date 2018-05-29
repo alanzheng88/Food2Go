@@ -19,8 +19,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   
-  # config.vm.synced_folder "./", "/home/ubuntu/project"
-  config.vm.synced_folder ".", "/home/ubuntu/project", type: "rsync", rsync__auto: true, rsync__exclude: ".git/"
+   config.vm.synced_folder "./", "/home/ubuntu/project"
+#  config.vm.synced_folder ".", "/home/ubuntu/project", type: "rsync", rsync__auto: true, rsync__exclude: ".git/"
 
   # config.vm.synced_folder "../data", "/vagrant_data"
   

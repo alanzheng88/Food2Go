@@ -17,6 +17,7 @@ frontend/.project
 frontend/node_modules/*
 frontend/*.log
 frontend/test/reports/*
+frontend/src/client.min.js
 
 api/tmp/*
 api/logs/*
