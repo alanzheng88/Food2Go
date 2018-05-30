@@ -2,8 +2,9 @@
 
 pushd frontend
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
-/usr/bin/npm run preinstall
+apt-get install -y nodejs
+/usr/bin/npm install -g npm webpack-cli webpack@latest;
 /usr/bin/npm install
+rm -f src/client.min.js
 webpack
 popd

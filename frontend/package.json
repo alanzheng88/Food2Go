@@ -48,7 +48,6 @@
     "frisby": "^0.8.5"
   },
   "scripts": {
-    "preinstall": "sudo npm i -g npm webpack-cli webpack@latest;",
     "dev": "webpack-dev-server --content-base src --inline --hot --host 0.0.0.0 --port 12345",
     "localdev": "webpack-dev-server --content-base src --inline --hot",
     "test:live": "jasmine-node . --autotest"
